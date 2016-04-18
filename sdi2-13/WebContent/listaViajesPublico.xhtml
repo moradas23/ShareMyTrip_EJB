@@ -1,0 +1,20 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/template-general.xhtml">
+
+	<ui:define name="titulo">#{msgs.ListaViajes}</ui:define>
+
+	<ui:define name="navegacion">
+		<ui:include src="/snippets/navegacion-sin-sesion.xhtml" />
+	</ui:define>
+
+	<ui:define name="cuerpo">
+<ui:include src="/snippets/listadoViajes.xhtml"></ui:include>
+		
+	</ui:define>
+
+
+</ui:composition>

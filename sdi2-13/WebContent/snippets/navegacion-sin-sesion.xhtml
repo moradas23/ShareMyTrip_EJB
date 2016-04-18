@@ -1,0 +1,30 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	<h:form id="form-barraNavegacion">
+		<p:menubar activeIndex="#{param.i}" id="barraNavegacion">
+			<p:menuitem value="#{msgs.iniciarSesion}" action="/login.xhtml" id="linklogin">
+				<f:param name="i" value="0" />
+			</p:menuitem>
+			<p:menuitem value="#{msgs.registrarse}" action="/registrarse.xhtml" id="linkRegistrarse">
+				<f:param name="i" value="1" />
+			</p:menuitem>
+			<p:menuitem value="#{msgs.listado}"
+			action="#{trips.obtenerViajesDisponibles}"
+			id="listadoViajes">
+				<f:param name="i" value="2" />
+			</p:menuitem>
+				<p:submenu id="menu-idiomas" style="float:right" label="#{msgs.textoIdioma}"
+					icon="ui-icon-flag">
+					<p:menuitem id="linkespa" value="#{msgs.enlaceIdiomaES}"
+						actionListener="#{settings.setSpanish}" update="@all" />
+					<p:menuitem id="linkingles" value="#{msgs.enlaceIdiomaEN}"
+						actionListener="#{settings.setEnglish}" update="@all" />
+				</p:submenu>
+
+		</p:menubar>
+	</h:form>
+
+</ui:composition>

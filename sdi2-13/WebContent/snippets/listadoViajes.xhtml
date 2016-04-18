@@ -1,0 +1,76 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:form id="form-listado">
+			
+			<p:dataTable var="viaje" value="#{trips.viajes}" border="1"
+				sortMode="multiple" id="tablaViajes" widgetVar="listaviajes"
+                 emptyMessage="#{msgs.NoSeEncontraronViajes}">
+
+				<p:column headerText="#{msgs.ciudadOrigen}"
+					sortBy="#{viaje.departure.city}"
+					id="ciudadSalida"
+					filterBy="#{viaje.departure.city}" filterMatchMode="contains"
+					onkeyup="PF('listaviajes').filter()">
+	
+				#{viaje.departure.city}
+	
+				</p:column>
+
+				<p:column headerText="#{msgs.ciudadDestino}"
+					sortBy="#{viaje.destination.city}"
+					filterBy="#{viaje.destination.city}" filterMatchMode="contains"
+					onkeyup="PF('listaviajes').filter()">
+					
+				#{viaje.destination.city}
+		
+				</p:column>
+
+				<p:column headerText="#{msgs.FechaSalida}"
+					sortBy="#{viaje.departureDate}">
+				
+		#{viaje.departureDate}
+	
+	</p:column>
+
+				<p:column headerText="#{msgs.FechaLlegada}"
+					sortBy="#{viaje.arrivalDate}">
+				
+					
+		#{viaje.arrivalDate}
+	
+	</p:column>
+
+				<p:column headerText="#{msgs.PlazasDisponibles}"
+					sortBy="#{viaje.availablePax}">
+				
+					
+		#{viaje.availablePax}
+		
+	</p:column>
+
+				<p:column headerText="#{msgs.Precio}"
+					sortBy="#{viaje.estimatedCost}">
+				
+				
+		#{viaje.estimatedCost}
+	
+	</p:column>
+
+				<p:column>
+					<h:commandButton action="#{trips.mostrarDatosViaje(viaje)}" value="#{msgs.masDatosViaje}" 
+						id="masDatos">
+					</h:commandButton>
+
+				</p:column>
+
+
+
+			</p:dataTable>
+		</h:form>
+		
+</ui:composition>
+

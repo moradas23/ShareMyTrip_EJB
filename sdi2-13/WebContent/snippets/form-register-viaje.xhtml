@@ -1,0 +1,197 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:form style="float:center" id="form-viaje">
+	 <f:facet name="caption">
+        #{msgs.trip_label}
+    </f:facet>
+	<p:panelGrid id="Grid" columns="2" style="float:left;margin:10px 0px 10px 15%;clear:left;width:430px">
+	
+		<f:facet name="header">
+        <p:row>
+            <p:column colspan="2">#{msgs.trip_Departure}</p:column>
+        </p:row>
+    	</f:facet>
+    	
+		#{msgs.trip_form_adressFrom_label}: 
+		<h:panelGroup>
+			<p:inputText id="adressFrom" value="#{registerTrip.adressFrom}" required="true"
+				requiredMessage="#{msgs.trip_form_adressFrom_required}" />
+			<p:message for="adressFrom" />
+		</h:panelGroup>
+  
+		#{msgs.trip_form_cityFrom_label}: 
+		<h:panelGroup>
+			<p:inputText id="cityFrom" value="#{registerTrip.cityFrom}" required="true"
+				requiredMessage="#{msgs.trip_form_cityFrom_required}" />
+			<p:message for="cityFrom" />
+		</h:panelGroup>
+		
+		#{msgs.trip_form_provinceFrom_label}: 
+		<h:panelGroup>
+			<p:inputText id="provinceFrom" value="#{registerTrip.provinceFrom}" required="true"
+				requiredMessage="#{msgs.trip_form_provinceFrom_required}" />
+			<p:message for="provinceFrom" />
+		</h:panelGroup>
+		 
+		#{msgs.trip_form_countryFrom_label}: 
+		<h:panelGroup>
+			<p:inputText id="countryFrom" value="#{registerTrip.countryFrom}" required="true"
+				requiredMessage="#{msgs.trip_form_countryFrom_required}" />
+			<p:message for="countryFrom" />
+		</h:panelGroup>
+		
+		#{msgs.trip_form_postalCodeFrom_label}: 
+		<h:panelGroup>
+			<p:inputText id="postalCodeFrom" value="#{registerTrip.postalCodeFrom}" required="true"
+				requiredMessage="#{msgs.trip_form_postalCodeFrom_required}" />
+			<p:message for="postalCodeFrom" />
+		</h:panelGroup>
+		
+		#{msgs.trip_form_LatzipCodeFrom_label}: 
+		<h:panelGroup>
+			<p:inputText id="latZipCodeFrom" value="#{registerTrip.latZipCodeFrom}"/>
+			<p:message for="latZipCodeFrom" />
+		</h:panelGroup>
+		 
+		#{msgs.trip_form_LongzipCodeFrom_label}: 
+		<h:panelGroup>
+			<p:inputText id="longZipCodeFrom" value="#{registerTrip.longZipCodeFrom}" />
+			<p:message for="longZipCodeFrom" />
+		</h:panelGroup>
+
+	</p:panelGrid>
+	
+	<p:panelGrid id="Grid2" columns="2" style="float:right;margin:10px 15% 10px 0px;width:440px;clear:right">
+		
+		<f:facet name="header">
+        <p:row>
+            <p:column colspan="2">#{msgs.trip_Destination}</p:column>
+        </p:row>
+    	</f:facet>
+ 
+		#{msgs.trip_form_adressTo_label}: 
+		<h:panelGroup>
+			<p:inputText id="adressTo" value="#{registerTrip.adressTo}" required="true"
+				requiredMessage="#{msgs.trip_form_adressTo_required}" />
+			<p:message for="adressTo" />
+		</h:panelGroup>
+  
+		#{msgs.trip_form_cityTo_label}: 
+		<h:panelGroup>
+			<p:inputText id="cityTo" value="#{registerTrip.cityTo}" required="true"
+				requiredMessage="#{msgs.trip_form_cityTo_required}" />
+			<p:message for="cityTo" />
+		</h:panelGroup>
+		
+		#{msgs.trip_form_provinceTo_label}: 
+		<h:panelGroup>
+			<p:inputText id="provinceTo" value="#{registerTrip.provinceTo}" required="true"
+				requiredMessage="#{msgs.trip_form_provinceTo_required}" />
+			<p:message for="provinceTo" />
+		</h:panelGroup>
+		  
+		#{msgs.trip_form_countryTo_label}: 
+		<h:panelGroup>
+			<p:inputText id="countryTo" value="#{registerTrip.countryTo}" required="true"
+				requiredMessage="#{msgs.trip_form_countryTo_required}" />
+			<p:message for="countryTo" />
+		</h:panelGroup>
+		
+		#{msgs.trip_form_postalCodeTo_label}: 
+		<h:panelGroup>
+			<p:inputText id="postalCodeTo" value="#{registerTrip.postalCodeTo}" required="true"
+				requiredMessage="#{msgs.trip_form_postalCodeTo_required}" />
+			<p:message for="postalCodeTo" />
+		</h:panelGroup>
+
+		#{msgs.trip_form_LatzipCodeTo_label}: 
+		<h:panelGroup>
+			<p:inputText id="latZipCodeTo" value="#{registerTrip.latZipCodeTo}"/>
+			<p:message for="latZipCodeTo" />
+		</h:panelGroup>
+		 
+		#{msgs.trip_form_LongzipCodeTo_label}: 
+		<h:panelGroup>
+			<p:inputText id="longZipCodeTo" value="#{registerTrip.longZipCodeTo}"/>
+			<p:message for="longZipCodeTo" />
+		</h:panelGroup>
+		
+	</p:panelGrid>
+	
+	<p:panelGrid id="Grid3" columns="2" style="float:left;margin-left:15%;width:430px">
+		
+		<f:facet name="header">
+        <p:row>
+            <p:column colspan="2">#{msgs.trip_Other}</p:column>
+        </p:row>
+    	</f:facet>
+	
+		#{msgs.trip_form_dateFrom_label}: 
+		<h:panelGroup>
+			<p:calendar id="dateFrom" value="#{registerTrip.dateFrom}" pattern="dd/MM/yyyy HH:mm:ss" required="true"
+				requiredMessage="#{msgs.trip_form_dateFrom_required}"/>
+			<p:message for="dateFrom" />
+		</h:panelGroup>
+  
+		#{msgs.trip_form_dateTo_label}: 
+		<h:panelGroup>
+			<p:calendar id="dateTo" value="#{registerTrip.dateTo}" pattern="dd/MM/yyyy HH:mm:ss" required="true"
+				requiredMessage="#{msgs.trip_form_dateTo_required}"/>
+			<p:message for="dateTo" />
+		</h:panelGroup>
+		
+		#{msgs.trip_form_dateLimit_label}: 
+		<h:panelGroup>
+			<p:calendar id="dateLimit" value="#{registerTrip.dateLimit}" pattern="dd/MM/yyyy HH:mm:ss" required="true"
+				requiredMessage="#{msgs.trip_form_dateLimit_required}"/>
+			<p:message for="dateLimit" />
+		</h:panelGroup>
+		  
+		#{msgs.trip_form_priceTrip_label}: 
+		<h:panelGroup>
+			<p:inputText id="priceTrip" value="#{registerTrip.priceTrip}" required="true"
+				requiredMessage="#{msgs.trip_form_priceTrip_required}" />
+			<p:message for="priceTrip" />
+		</h:panelGroup>
+		
+		#{msgs.trip_form_commentTrip_label}: 
+		<h:panelGroup>
+			<p:inputText id="commentTrip" value="#{registerTrip.commentTrip}" required="true"
+				requiredMessage="#{msgs.trip_form_commentTrip_required}" />
+			<p:message for="commentTrip" />
+		</h:panelGroup>
+		 
+		#{msgs.trip_form_maxSeats_label}: 
+		<h:panelGroup>
+			<p:inputText id="maxSeats" value="#{registerTrip.maxSeats}" required="true"
+				requiredMessage="#{msgs.trip_form_maxSeats_required}" />
+			<p:message for="maxSeats" />
+		</h:panelGroup>
+		
+		#{msgs.trip_form_availableSeats_label}: 
+		<h:panelGroup>
+			<p:inputText id="availableSeats" value="#{registerTrip.availableSeats}" required="true"
+				requiredMessage="#{msgs.trip_form_availableSeats_required}" />
+			<p:message for="availableSeats" />
+		</h:panelGroup>
+
+		<h:outputText id="msgRegister" value="#{msgs[registerTrip.result]}" />
+		<p:commandButton value="#{msgs.login_form_button_trip}"
+			action="#{registerTrip.register}" update="Grid,Grid2,Grid3" process="@form"
+			id="registrarViaje">
+		</p:commandButton>
+	</p:panelGrid>
+	
+	<h:panelGrid columns="2" style="margin-left:60%" cellpadding="5">
+        <h:outputText value="#{msgs.trip_form_preCharge}" /> 
+        <p:selectBooleanCheckbox id="checkDatos">
+            <p:ajax update="@form"  listener="#{registerTrip.datosPorDefecto}" />
+        </p:selectBooleanCheckbox>
+    </h:panelGrid>
+    
+	</h:form>
+</ui:composition>

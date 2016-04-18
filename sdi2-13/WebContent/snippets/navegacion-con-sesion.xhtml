@@ -1,0 +1,49 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	<h:form>
+		<p:menubar activeIndex="#{param.i}">
+			
+			<p:menuitem value="#{msgs.Principal}" 
+			action="/restricted/principal.xhtml" id="principal">
+				<f:param name="i" value="0" />
+			</p:menuitem>
+			
+			<p:menuitem value="#{msgs.listado}"
+			action="#{trips.obtenerViajesDisponibles}"
+			id="listado">
+				<f:param name="i" value="0" />
+			</p:menuitem>
+			
+			<p:menuitem value="#{msgs.misViajes}" 
+			actionListener="#{trips.obtenerViajesImplicado}"
+			action="/restricted/misViajes.xhtml" id="misViajes">
+				<f:param name="i" value="0" />
+			</p:menuitem>
+			
+			<p:menuitem value="#{msgs.registroViaje}"
+			action="/restricted/registrarViaje.xhtml"
+			id="registrarViaje">
+				<f:param name="i" value="0" />
+			</p:menuitem>
+			
+
+				<p:submenu style="float:right" label="#{msgs.textoIdioma}"
+					icon="ui-icon-document">
+					<p:menuitem id="linkespa" value="#{msgs.enlaceIdiomaES}"
+						actionListener="#{settings.setSpanish}" update="@all" />
+					<p:menuitem id="linkingles" value="#{msgs.enlaceIdiomaEN}"
+						actionListener="#{settings.setEnglish}" update="@all" />
+				</p:submenu>
+				
+				<p:menuitem value="#{msgs.cerrarSesion}" style="float:right"
+				 action="#{login.closeSession}" id="cerrarSesion">
+				<f:param name="i" value="2" />
+				</p:menuitem>
+
+		</p:menubar>
+	</h:form>
+
+</ui:composition>

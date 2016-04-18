@@ -1,0 +1,87 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:panelGrid id="Grid" columns="2" cellpadding="5">
+
+#{msgs.identificador}
+  <h:panelGroup>
+			<p:inputText placeholder="#{msgs.identificador}" value="#{user.login}" required="true"
+				requiredMessage="#{msgs.formAlta_login_requiredMessage}"
+				validatorMessage="#{msgs.formAlta_login_validatorMessage}"
+				id="iduser">
+				<f:validateLength minimum="5" maximum="12" />
+			</p:inputText>
+			<p:message for="iduser" />
+		</h:panelGroup>
+
+
+  #{msgs.nombre} 
+  <h:panelGroup>
+			<p:inputText placeholder="#{msgs.nombre}" value="#{user.name}" required="true"
+				requiredMessage="#{msgs.formAlta_nombre_requiredMessage}"
+				validatorMessage="#{msgs.formAlta_nombre_validatorMessage}"
+				id="nombre">
+				<f:validateLength maximum="20" />
+			</p:inputText>
+			<p:message for="nombre" />
+		</h:panelGroup>
+  
+  #{msgs.apellidos} 
+  <h:panelGroup>
+			<p:inputText placeholder="#{msgs.apellidos}" value="#{user.surname}" required="true"
+				requiredMessage="#{msgs.formAlta_apellidos_requiredMessage}"
+				validatorMessage="#{msgs.formAlta_apellidos_validatorMessage}"
+				id="apellidos">
+				<f:validateLength maximum="40" />
+			</p:inputText>
+			<p:message for="apellidos" />
+		</h:panelGroup>
+  
+  #{msgs.email}
+  <h:panelGroup>
+			<p:inputText placeholder="#{msgs.email}" value="#{user.email}" required="true"
+				requiredMessage="#{msgs.formAlta_correo_requiredMessage}"
+				validatorMessage="#{msgs.formAlta_correo_validatorMessage}"
+				id="correo">
+				<f:validateRegex pattern=".+@.+\.[a-z]+" />
+			</p:inputText>
+			<p:message for="correo" />
+		</h:panelGroup>
+			
+	
+	 #{msgs.contraseña} 
+  <h:panelGroup>
+			<p:password placeholder="#{msgs.contraseña}" value="#{user.password}" required="true"
+				requiredMessage="#{msgs.formAlta_contraseña_requiredMessage}"
+				validatorMessage="#{msgs.formAlta_contraseña_validatorMessage}"
+				binding="#{pass}"
+				id="pass">
+				<f:validateLength maximum="40" minimum="5"/>
+			</p:password>
+			<p:message for="pass" />
+		</h:panelGroup>
+		
+		 #{msgs.confirmarContraseña} 
+  <h:panelGroup>
+			<p:password placeholder="#{msgs.confirmarContraseña}" required="true"
+				requiredMessage="#{msgs.formAlta_confContraseña_requiredMessage}"
+				validator="passwordValidator" 
+				id="confPass">
+				<f:attribute name="password" value="#{pass.value}"/>
+			</p:password>
+			<p:message for="confPass" styleClass="error"/>
+		</h:panelGroup>
+
+	
+	</p:panelGrid>
+	  
+  
+	<p:commandButton id="botonRegistro" value="#{msgs.botonRegistro}"
+	action="#{registro.registrar}" update="Grid" process="@form">
+	</p:commandButton> 
+	
+</ui:composition>
+
