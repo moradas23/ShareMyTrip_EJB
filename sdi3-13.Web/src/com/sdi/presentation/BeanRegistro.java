@@ -13,7 +13,6 @@ import com.sdi.business.UsersService;
 import com.sdi.infrastructure.Factories;
 import com.sdi.model.User;
 import com.sdi.model.UserLogin;
-import com.sdi.utilidades.Utilidades;
 
 @ManagedBean(name = "registro")
 @SessionScoped
@@ -49,7 +48,7 @@ public class BeanRegistro implements Serializable {
 
 			service = Factories.services.createUserService();
 			
-			user.setPassword(Utilidades.getStringMessageDigest(user.getPassword(), Utilidades.MD5));
+			user.setPassword(user.getPassword());
 			
 			service.saveUser(user);
 			

@@ -1,8 +1,14 @@
 package com.sdi.model;
 
+import java.io.Serializable;
 
-public class TripImplicacion extends Trip {
+
+public class TripImplicacion extends Trip implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private ImplicacionStatus implicacion;
 
 	public TripImplicacion(Trip viaje) {

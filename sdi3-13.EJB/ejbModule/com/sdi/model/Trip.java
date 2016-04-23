@@ -1,5 +1,6 @@
 package com.sdi.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -10,8 +11,13 @@ import java.util.Date;
  * @author alb
  *
  */
-public class Trip {
+public class Trip implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private Long id;
 	
 	private AddressPoint departure;

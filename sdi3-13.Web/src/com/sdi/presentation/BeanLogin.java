@@ -10,7 +10,6 @@ import javax.faces.context.FacesContext;
 import com.sdi.business.LoginService;
 import com.sdi.infrastructure.Factories;
 import com.sdi.model.UserLogin;
-import com.sdi.utilidades.Utilidades;
 import com.sdi.utilidades.Timers.*;
 
 @ManagedBean(name = "login")
@@ -28,7 +27,7 @@ public class BeanLogin implements Serializable {
 	}
 
 	public String verify() {
-		setPassword(Utilidades.getStringMessageDigest(password, Utilidades.MD5));
+		setPassword(password);
 		LoginService login = Factories.services.createLoginService();
 		UserLogin user = login.verify(name, password);
 		if (user != null) {

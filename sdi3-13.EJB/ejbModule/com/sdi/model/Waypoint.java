@@ -1,11 +1,17 @@
 package com.sdi.model;
 
+import java.io.Serializable;
+
 /**
  * This class represents a value type
  * @author alb
  */
-public class Waypoint {
+public class Waypoint implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Double lat;
 	private Double lon;
 	

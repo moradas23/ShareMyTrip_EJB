@@ -247,7 +247,7 @@ public class BeanRegisterTrip implements Serializable {
 
 		TripsService trip = Factories.services.createTripService();
 
-		if (trip.registrar(this)) {
+		if (trip.registrar(this)){
 			reiniciarBean();
 			
 			FacesContext context = FacesContext.getCurrentInstance();
