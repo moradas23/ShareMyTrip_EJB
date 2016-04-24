@@ -9,9 +9,9 @@ import com.sdi.business.impl.classes.TripsBuscar;
 import com.sdi.business.impl.classes.TripsCancel;
 import com.sdi.business.impl.classes.TripsListado;
 import com.sdi.business.impl.classes.TripsModificar;
+import com.sdi.dto.ModificarViajeDto;
+import com.sdi.dto.RegistrarViajeDto;
 import com.sdi.model.Trip;
-import com.sdi.presentation.BeanModifyTrip;
-import com.sdi.presentation.BeanRegisterTrip;
 
 
 public class SimpleTripService implements TripsService {
@@ -32,7 +32,7 @@ public class SimpleTripService implements TripsService {
 	}
 
 	@Override
-	public boolean registrar(BeanRegisterTrip trip) {
+	public boolean registrar(RegistrarViajeDto trip) {
 		return new TripRegistrar().registerTrip(trip);
 	}
 
@@ -46,7 +46,7 @@ public class SimpleTripService implements TripsService {
 	}
 
 	@Override
-	public boolean modificar(BeanModifyTrip trip) {
+	public boolean modificar(ModificarViajeDto trip) {
 		return new TripsModificar().modificarTrip(trip);
 	}
 

@@ -14,6 +14,7 @@ import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
 import com.sdi.business.TripsService;
+import com.sdi.dto.RegistrarViajeDto;
 import com.sdi.infrastructure.Factories;
 
 @ManagedBean(name = "registerTrip")
@@ -246,8 +247,34 @@ public class BeanRegisterTrip implements Serializable {
 	public String register() {
 
 		TripsService trip = Factories.services.createTripService();
+		
+		RegistrarViajeDto tVDto = new RegistrarViajeDto();
+		tVDto.setAdressFrom(this.getAdressFrom());
+		tVDto.setCityFrom(this.getCityFrom());
+		tVDto.setProvinceFrom(this.getProvinceFrom());
+		tVDto.setCountryFrom(this.getCountryFrom());
+		tVDto.setPostalCodeFrom(this.getPostalCodeFrom());
+		tVDto.setLatZipCodeFrom(this.getLatZipCodeFrom());
+		tVDto.setLongZipCodeFrom(this.getLongZipCodeFrom());
+		
+		tVDto.setAdressTo(this.getAdressTo());
+		tVDto.setCityTo(this.getCityTo());
+		tVDto.setProvinceTo(this.getCityTo());
+		tVDto.setCountryTo(this.getCountryTo());
+		tVDto.setPostalCodeTo(this.getPostalCodeTo());
+		tVDto.setLatZipCodeTo(this.getLatZipCodeTo());
+		tVDto.setLongZipCodeTo(this.getLongZipCodeTo());
+		
+		tVDto.setDateFrom(this.getDateFrom());
+		tVDto.setDateTo(this.getDateTo());
+		tVDto.setDateLimit(this.getDateLimit());
+		
+		tVDto.setPriceTrip(this.getPriceTrip());
+		tVDto.setCommentTrip(this.getCommentTrip());
+		tVDto.setMaxSeats(this.getMaxSeats());
+		tVDto.setAvailableSeats(this.getAvailableSeats());
 
-		if (trip.registrar(this)){
+		if (trip.registrar(tVDto)){
 			reiniciarBean();
 			
 			FacesContext context = FacesContext.getCurrentInstance();

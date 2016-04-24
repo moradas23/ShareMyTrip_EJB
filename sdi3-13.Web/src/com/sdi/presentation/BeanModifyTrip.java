@@ -14,6 +14,7 @@ import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
 import com.sdi.business.TripsService;
+import com.sdi.dto.ModificarViajeDto;
 import com.sdi.infrastructure.Factories;
 import com.sdi.model.ImplicacionStatus;
 import com.sdi.model.TripImplicacion;
@@ -285,7 +286,36 @@ public class BeanModifyTrip implements Serializable {
 	public String modificarViaje(){
 		TripsService trip = Factories.services.createTripService();
 
-		if (trip.modificar(this)) {
+		ModificarViajeDto mVDto = new ModificarViajeDto();
+		mVDto.setAdressFrom(this.getAdressFrom());
+		mVDto.setCityFrom(this.getCityFrom());
+		mVDto.setProvinceFrom(this.getProvinceFrom());
+		mVDto.setCountryFrom(this.getCountryFrom());
+		mVDto.setPostalCodeFrom(this.getPostalCodeFrom());
+		mVDto.setLatZipCodeFrom(this.getLatZipCodeFrom());
+		mVDto.setLongZipCodeFrom(this.getLongZipCodeFrom());
+		
+		mVDto.setAdressTo(this.getAdressTo());
+		mVDto.setCityTo(this.getCityTo());
+		mVDto.setProvinceTo(this.getCityTo());
+		mVDto.setCountryTo(this.getCountryTo());
+		mVDto.setPostalCodeTo(this.getPostalCodeTo());
+		mVDto.setLatZipCodeTo(this.getLatZipCodeTo());
+		mVDto.setLongZipCodeTo(this.getLongZipCodeTo());
+		
+		mVDto.setDateFrom(this.getDateFrom());
+		mVDto.setDateTo(this.getDateTo());
+		mVDto.setDateLimit(this.getDateLimit());
+		
+		mVDto.setPriceTrip(this.getPriceTrip());
+		mVDto.setCommentTrip(this.getCommentTrip());
+		mVDto.setMaxSeats(this.getMaxSeats());
+		mVDto.setAvailableSeats(this.getAvailableSeats());
+		
+		mVDto.setPromoter(this.getPromoter());
+		mVDto.setIdViaje(this.getIdViaje());
+		
+		if (trip.modificar(mVDto)) {
 			FacesContext context = FacesContext.getCurrentInstance();
 			
 	        ResourceBundle bundle = context.getApplication().getResourceBundle(context, "msgs");

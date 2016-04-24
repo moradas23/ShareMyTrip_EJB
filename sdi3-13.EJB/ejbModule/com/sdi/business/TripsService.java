@@ -3,9 +3,10 @@ package com.sdi.business;
 import java.util.List;
 import java.util.Map;
 
+import com.sdi.dto.ModificarViajeDto;
+import com.sdi.dto.RegistrarViajeDto;
 import com.sdi.model.Trip;
-import com.sdi.presentation.BeanModifyTrip;
-import com.sdi.presentation.BeanRegisterTrip;
+
 
 
 public interface TripsService {
@@ -22,10 +23,11 @@ public interface TripsService {
 	 * @return
 	 */
 	List<Trip> findAllDisponibleUser(String login);
-	boolean registrar(BeanRegisterTrip trip);
+	boolean registrar(RegistrarViajeDto trip);
 	Trip findById(Long tripId);
 	List<Trip> findByPromoter(Long id);
-	boolean modificar(BeanModifyTrip beanModificarViaje);
+	boolean modificar(ModificarViajeDto beanModificarViaje);
+	
 	void cancelarViajes(Map<Long, Trip> viajesCancelar);
 
 	/**

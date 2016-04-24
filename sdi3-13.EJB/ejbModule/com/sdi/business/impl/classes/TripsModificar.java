@@ -2,6 +2,7 @@ package com.sdi.business.impl.classes;
 
 import java.util.Date;
 
+import com.sdi.dto.ModificarViajeDto;
 import com.sdi.infrastructure.Factories;
 import com.sdi.model.AddressPoint;
 import com.sdi.model.Trip;
@@ -9,12 +10,11 @@ import com.sdi.model.TripStatus;
 import com.sdi.model.Waypoint;
 import com.sdi.persistence.SeatDao;
 import com.sdi.persistence.TripDao;
-import com.sdi.presentation.BeanModifyTrip;
 
 
 public class TripsModificar {
 
-	public boolean modificarTrip(BeanModifyTrip viaje) {
+	public boolean modificarTrip(ModificarViajeDto viaje) {
 			
 			try {
 			

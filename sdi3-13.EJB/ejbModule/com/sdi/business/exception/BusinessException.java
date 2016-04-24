@@ -5,7 +5,7 @@ package com.sdi.business.exception;
  * work done.
  *  The caller to any method that throws this exception it is supposed 
  *  to do anything as it represent far problems.
- *  
+ *   
  */
 public class BusinessException extends RuntimeException {
 

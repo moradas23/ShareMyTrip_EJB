@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLTimeoutException;
 import java.util.Properties;
-
+ 
 import com.sdi.persistence.exception.PersistenceException;
 
 public class Jdbc {

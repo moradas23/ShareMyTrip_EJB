@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.faces.context.FacesContext;
 
+import com.sdi.dto.RegistrarViajeDto;
 import com.sdi.infrastructure.Factories;
 import com.sdi.model.AddressPoint;
 import com.sdi.model.Seat;
@@ -15,10 +16,9 @@ import com.sdi.model.Waypoint;
 import com.sdi.persistence.SeatDao;
 import com.sdi.persistence.TripDao;
 import com.sdi.persistence.exception.AlreadyPersistedException;
-import com.sdi.presentation.BeanRegisterTrip;
 
 public class TripRegistrar {
-	public boolean registerTrip(BeanRegisterTrip trip) {
+	public boolean registerTrip(RegistrarViajeDto trip) {
 		TripDao dao = Factories.persistence.createTripDao();
 		
 		Trip viaje = new Trip();
