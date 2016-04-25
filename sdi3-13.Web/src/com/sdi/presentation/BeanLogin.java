@@ -23,7 +23,7 @@ public class BeanLogin implements Serializable {
 	public BeanLogin() {
 		System.out.println("BeanLogin - No existia");
 		
-		TimerBBDD.mantenimientoBBDD();
+		//TimerBBDD.mantenimientoBBDD();
 	}
 
 	public String verify() {
