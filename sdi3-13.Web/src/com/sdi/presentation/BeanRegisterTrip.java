@@ -246,7 +246,7 @@ public class BeanRegisterTrip implements Serializable {
 
 	public String register() {
 
-		TripsService trip = Factories.services.createTripService();
+		TripsService trip = Factories.services.getTripService();
 		
 		RegistrarViajeDto tVDto = new RegistrarViajeDto();
 		tVDto.setAdressFrom(this.getAdressFrom());

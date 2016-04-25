@@ -1,10 +1,13 @@
 package com.sdi.business.impl;
 
-import com.sdi.business.LoginService;
+import javax.ejb.Stateless;
+
 import com.sdi.business.impl.classes.LoginVerify;
 import com.sdi.model.UserLogin;
 
-public class SimpleLoginService implements LoginService {
+@Stateless
+public class EjbLoginService implements LocalLoginService,RemoteLoginService{
+
 	@Override
 	public UserLogin verify(String login, String password) {
 		if (!validLogin(login, password))
@@ -19,4 +22,5 @@ public class SimpleLoginService implements LoginService {
 	private boolean validLogin(String login, String password) {
 		return new LoginVerify().verifyPassword(login, password);
 	}
+
 }

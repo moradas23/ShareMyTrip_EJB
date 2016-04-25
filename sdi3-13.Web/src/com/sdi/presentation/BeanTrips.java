@@ -78,7 +78,7 @@ public class BeanTrips implements Serializable {
 	private void cargarPromotor(Long promoterId) {
 		UsersService service;
 
-		service = Factories.services.createUserService();
+		service = Factories.services.getUserService();
 		promotorViaje = service.findById(promoterId);
 
 	}
@@ -87,8 +87,8 @@ public class BeanTrips implements Serializable {
 		SeatService serviceS;
 		UsersService serviceU;
 
-		serviceS = Factories.services.createSeatService();
-		serviceU = Factories.services.createUserService();
+		serviceS = Factories.services.getSeatService();
+		serviceU = Factories.services.getUserService();
 		List<Seat> plazasAceptadas = serviceS
 				.findPlazasAceptadas(viaje.getId());
 
@@ -117,7 +117,7 @@ public class BeanTrips implements Serializable {
 	 * @return
 	 */
 	public String obtenerViajesDisponibles() {
-		TripsService service = Factories.services.createTripService();
+		TripsService service = Factories.services.getTripService();
 
 		if (userIsNotLoggedIn()) {
 			viajes = service.findAllDisponible();
@@ -131,7 +131,7 @@ public class BeanTrips implements Serializable {
 
 	public void apuntarse() {
 		ApplicationService app;
-		app = Factories.services.createApplicationService();
+		app = Factories.services.getApplicationService();
 		UserLogin usuario = (UserLogin) getObjectFromSession("LOGGEDIN_USER");
 		app.save(usuario.getLogin(), viaje.getId());
 
@@ -184,8 +184,8 @@ public class BeanTrips implements Serializable {
 
 	private void obtenerViajesPendiente(UserLogin usuario) {
 		ApplicationService serviceA = Factories.services
-				.createApplicationService();
-		TripsService serviceT = Factories.services.createTripService();
+				.getApplicationService();
+		TripsService serviceT = Factories.services.getTripService();
 
 		List<Application> solicitudes = serviceA.getSolicitudes(usuario
 				.getLogin());
@@ -200,8 +200,8 @@ public class BeanTrips implements Serializable {
 
 	private void obtenerViajesAceptadoExcluidoSinPlaza(UserLogin usuario) {
 
-		SeatService serviceS = Factories.services.createSeatService();
-		TripsService serviceT = Factories.services.createTripService();
+		SeatService serviceS = Factories.services.getSeatService();
+		TripsService serviceT = Factories.services.getTripService();
 		List<Seat> seats = serviceS.findByUser(usuario.getId());
 
 		List<Long> idsViajesEsPromotor = new LinkedList<Long>();
@@ -240,7 +240,7 @@ public class BeanTrips implements Serializable {
 	}
 
 	private void obtenerViajesPromotor(UserLogin usuario) {
-		TripsService service = Factories.services.createTripService();
+		TripsService service = Factories.services.getTripService();
 		List<Trip> viajes = service.findByPromoter(usuario.getId());
 
 		for (Trip viaje : viajes) {
@@ -257,14 +257,14 @@ public class BeanTrips implements Serializable {
 		UserLogin usuario = (UserLogin) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("LOGGEDIN_USER");
 		
 		if(viaje.getImplicacion().equals(ImplicacionStatus.ACEPTADO)){
-			SeatService serviceS = Factories.services.createSeatService();
-			TripsService serviceT = Factories.services.createTripService();
+			SeatService serviceS = Factories.services.getSeatService();
+			TripsService serviceT = Factories.services.getTripService();
 			serviceS.delete(usuario.getId(),viaje.getId());	
 			serviceT.liberarPlaza(viaje.getId());
 		}
 		
 		else{
-			ApplicationService serviceA = Factories.services.createApplicationService();
+			ApplicationService serviceA = Factories.services.getApplicationService();
 			serviceA.delete(usuario.getId(), viaje.getId());
 			
 			

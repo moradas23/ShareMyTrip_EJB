@@ -284,7 +284,7 @@ public class BeanModifyTrip implements Serializable {
 	}
 	
 	public String modificarViaje(){
-		TripsService trip = Factories.services.createTripService();
+		TripsService trip = Factories.services.getTripService();
 
 		ModificarViajeDto mVDto = new ModificarViajeDto();
 		mVDto.setAdressFrom(this.getAdressFrom());

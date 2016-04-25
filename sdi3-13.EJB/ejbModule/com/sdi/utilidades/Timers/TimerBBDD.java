@@ -23,10 +23,10 @@ public class TimerBBDD {
 			@Override
 			public void run() {
 
-				TripsService serviceT = Factories.services.createTripService();
+				TripsService serviceT = Factories.services.getTripService();
 				ApplicationService serviceA = Factories.services
-						.createApplicationService();
-				SeatService serviceS = Factories.services.createSeatService();
+						.getApplicationService();
+				SeatService serviceS = Factories.services.getSeatService();
 
 				List<Trip> viajes = serviceT.viajesFechaCierrePasada();
 

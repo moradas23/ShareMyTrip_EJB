@@ -56,8 +56,8 @@ public class BeanTrip implements Serializable {
 			SeatService serviceS;
 			UsersService serviceU;
 
-			serviceS = Factories.services.createSeatService();
-			serviceU = Factories.services.createUserService();
+			serviceS = Factories.services.getSeatService();
+			serviceU = Factories.services.getUserService();
 			List<Seat> plazasAceptadas = serviceS
 					.findPlazasAceptadas(viaje.getId());
 
@@ -74,8 +74,8 @@ public class BeanTrip implements Serializable {
 	}
 	
 	private void obtenerSolicitantes() {
-			ApplicationService serviceA = Factories.services.createApplicationService();
-			UsersService serviceU = Factories.services.createUserService();
+			ApplicationService serviceA = Factories.services.getApplicationService();
+			UsersService serviceU = Factories.services.getUserService();
 			
 			List<Application> solicitudes = serviceA.getSolicitudesViaje(viaje.getId());
 	
@@ -90,13 +90,13 @@ public class BeanTrip implements Serializable {
 	}
 	
 	public void aceptarSolicitud(User persona){
-		SeatService serviceS = Factories.services.createSeatService();
-		TripsService serviceT = Factories.services.createTripService();
+		SeatService serviceS = Factories.services.getSeatService();
+		TripsService serviceT = Factories.services.getTripService();
 	
 		serviceS.insert(persona.getId(),viaje.getId());	
 		serviceT.ocuparPlaza(viaje.getId());
 		
-		ApplicationService service = Factories.services.createApplicationService();
+		ApplicationService service = Factories.services.getApplicationService();
 	
 		service.delete(persona.getId(),viaje.getId());
 		solicitantes.remove(persona);
@@ -106,8 +106,8 @@ public class BeanTrip implements Serializable {
 	
 	
 	public void eliminarSolicitud(User persona){
-		ApplicationService service = Factories.services.createApplicationService();
-		SeatService serviceS = Factories.services.createSeatService();
+		ApplicationService service = Factories.services.getApplicationService();
+		SeatService serviceS = Factories.services.getSeatService();
 		
 		service.delete(persona.getId(),viaje.getId());
 		serviceS.insertExcluido(persona.getId(),viaje.getId());	
@@ -117,9 +117,9 @@ public class BeanTrip implements Serializable {
 	}
 	
 	public void eliminarSolicitudAceptada(User persona){
-		ApplicationService service = Factories.services.createApplicationService();
-		SeatService serviceS = Factories.services.createSeatService();
-		TripsService serviceT = Factories.services.createTripService();
+		ApplicationService service = Factories.services.getApplicationService();
+		SeatService serviceS = Factories.services.getSeatService();
+		TripsService serviceT = Factories.services.getTripService();
 		
 		service.delete(persona.getId(),viaje.getId());
 		serviceS.actualizarExcluido(persona.getId(),viaje.getId());	

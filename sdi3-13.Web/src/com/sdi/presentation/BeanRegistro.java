@@ -46,7 +46,7 @@ public class BeanRegistro implements Serializable {
 		UsersService service;
 		try {
 
-			service = Factories.services.createUserService();
+			service = Factories.services.getUserService();
 			
 			user.setPassword(user.getPassword());
 			

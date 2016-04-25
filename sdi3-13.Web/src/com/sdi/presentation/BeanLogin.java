@@ -28,7 +28,7 @@ public class BeanLogin implements Serializable {
 
 	public String verify() {
 		setPassword(password);
-		LoginService login = Factories.services.createLoginService();
+		LoginService login = Factories.services.getLoginService();
 		UserLogin user = login.verify(name, password);
 		if (user != null) {
 			putUserInSession(user);

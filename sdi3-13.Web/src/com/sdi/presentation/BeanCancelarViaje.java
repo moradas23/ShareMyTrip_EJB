@@ -31,7 +31,7 @@ public class BeanCancelarViaje implements Serializable {
 	
 	public String cancelarViajes(){
 		if(!viajesCancelar.isEmpty()){
-			TripsService trip = Factories.services.createTripService();
+			TripsService trip = Factories.services.getTripService();
 			trip.cancelarViajes(viajesCancelar);
 			
 			FacesContext context = FacesContext.getCurrentInstance();
