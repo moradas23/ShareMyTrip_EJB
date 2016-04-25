@@ -18,7 +18,7 @@ public class LocalEjbServicesLocator implements ServicesFactory {
 
 	@Override
 	public LoginService getLoginService() {
-		System.out.println("Using remote services locator");
+		System.out.println("Using Local services locator");
 		try {
 			Context ctx = new InitialContext();
 			return (LoginService) ctx.lookup(LOGIN_SERVICE_JNDI_KEY);
