@@ -1,9 +1,10 @@
-package com.sdi.business.impl;
+package com.sdi.business.impl.trip;
 
 import java.util.List;
 import java.util.Map;
 
-import com.sdi.business.TripsService;
+import javax.ejb.Stateless;
+
 import com.sdi.business.impl.classes.TripRegistrar;
 import com.sdi.business.impl.classes.TripsBuscar;
 import com.sdi.business.impl.classes.TripsCancel;
@@ -13,8 +14,8 @@ import com.sdi.dto.ModificarViajeDto;
 import com.sdi.dto.RegistrarViajeDto;
 import com.sdi.model.Trip;
 
-
-public class SimpleTripService implements TripsService {
+@Stateless
+public class EjbTripService implements LocalTripService,RemoteTripService {
 
 	@Override
 	public List<Trip> findAll() {

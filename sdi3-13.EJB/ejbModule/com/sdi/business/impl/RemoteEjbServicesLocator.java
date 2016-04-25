@@ -18,7 +18,35 @@ public class RemoteEjbServicesLocator implements ServicesFactory {
 			"sdi3-13/"
 			+ "sdi3-13.EJB/" 
 			+ "EjbLoginService!"
-			+ "com.sdi.business.impl.RemoteLoginService";
+			+ "com.sdi.business.impl.login.RemoteLoginService";
+	
+	private static final String APPLICATION_SERVICE_JNDI_KEY =
+			//"java:global/" + 
+			"sdi3-13/"
+			+ "sdi3-13.EJB/" 
+			+ "EjbApplicationService!"
+			+ "com.sdi.business.impl.application.RemoteLoginService";
+	
+	private static final String TRIP_SERVICE_JNDI_KEY =
+			//"java:global/" + 
+			"sdi3-13/"
+			+ "sdi3-13.EJB/" 
+			+ "EjbTripService!"
+			+ "com.sdi.business.impl.trip.RemoteTripService";
+	
+	private static final String SEAT_SERVICE_JNDI_KEY =
+			//"java:global/" + 
+			"sdi3-13/"
+			+ "sdi3-13.EJB/" 
+			+ "EjbSeatService!"
+			+ "com.sdi.business.impl.seat.RemoteSeatService";
+	
+	private static final String USER_SERVICE_JNDI_KEY =
+			//"java:global/" + 
+			"sdi3-13/"
+			+ "sdi3-13.EJB/" 
+			+ "EjbUserService!"
+			+ "com.sdi.business.impl.user.RemoteUserService";
 
 	@Override
 	public LoginService getLoginService() {
@@ -33,26 +61,46 @@ public class RemoteEjbServicesLocator implements ServicesFactory {
 
 	@Override
 	public UsersService getUserService() {
-		// TODO Auto-generated method stub
-		return null;
+		System.out.println("Using remote services locator");
+		try {
+			Context ctx = new InitialContext();
+			return (UsersService) ctx.lookup(USER_SERVICE_JNDI_KEY);
+		} catch (NamingException e) {
+			throw new RuntimeException("JNDI problem", e);
+		}
 	}
 
 	@Override
 	public TripsService getTripService() {
-		// TODO Auto-generated method stub
-		return null;
+		System.out.println("Using remote services locator");
+		try {
+			Context ctx = new InitialContext();
+			return (TripsService) ctx.lookup(TRIP_SERVICE_JNDI_KEY);
+		} catch (NamingException e) {
+			throw new RuntimeException("JNDI problem", e);
+		}
 	}
 
 	@Override
 	public SeatService getSeatService() {
-		// TODO Auto-generated method stub
-		return null;
+		System.out.println("Using remote services locator");
+		try {
+			Context ctx = new InitialContext();
+			return (SeatService) ctx.lookup(SEAT_SERVICE_JNDI_KEY);
+		} catch (NamingException e) {
+			throw new RuntimeException("JNDI problem", e);
+		}
 	}
 
 	@Override
 	public ApplicationService getApplicationService() {
-		// TODO Auto-generated method stub
-		return null;
+		System.out.println("Using remote services locator");
+		try {
+			Context ctx = new InitialContext();
+			return (ApplicationService) ctx.lookup(APPLICATION_SERVICE_JNDI_KEY);
+		} catch (NamingException e) {
+			throw new RuntimeException("JNDI problem", e);
+		}
 	}
 
 

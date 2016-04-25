@@ -1,14 +1,16 @@
-package com.sdi.business.impl;
+package com.sdi.business.impl.seat;
 
 import java.util.List;
 
-import com.sdi.business.SeatService;
+import javax.ejb.Stateless;
+
 import com.sdi.business.impl.classes.SeatBuscar;
 import com.sdi.business.impl.classes.SeatDelete;
 import com.sdi.business.impl.classes.SeatInsertar;
 import com.sdi.model.Seat;
 
-public class SimpleSeatService implements SeatService {
+@Stateless
+public class EjbSeatService implements LocalSeatService,RemoteSeatService {
 
 	@Override
 	public List<Seat> findPlazasAceptadas(Long long1) {

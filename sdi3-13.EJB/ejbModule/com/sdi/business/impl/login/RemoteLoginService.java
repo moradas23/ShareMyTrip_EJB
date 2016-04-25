@@ -1,4 +1,4 @@
-package com.sdi.business.impl;
+package com.sdi.business.impl.login;
 
 import javax.ejb.Remote;
 

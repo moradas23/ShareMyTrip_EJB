@@ -1,8 +1,9 @@
-package com.sdi.business.impl;
+package com.sdi.business.impl.user;
 
 import java.util.List;
 
-import com.sdi.business.UsersService;
+import javax.ejb.Stateless;
+
 import com.sdi.business.exception.EntityAlreadyExistsException;
 import com.sdi.business.impl.classes.UsersAlta;
 import com.sdi.business.impl.classes.UsersBuscar;
@@ -16,7 +17,8 @@ import com.sdi.model.User;
  * @author Enrique
  * 
  */
-public class SimpleUserService implements UsersService {
+@Stateless
+public class EjbUserService implements LocalUserService,RemoteUserService {
 
 	@Override
 	public List<User> getUsers() throws Exception{

@@ -1,6 +1,7 @@
 package com.sdi.business.impl.classes;
 
 import java.util.Date;
+import java.util.Map;
 
 import javax.faces.context.FacesContext;
 
@@ -90,11 +91,14 @@ public class TripRegistrar {
 		}
 		
 		//Obtenemos el id del promotor 
+		/*
 		UserLogin usuario = (UserLogin) getObjectFromSession("LOGGEDIN_USER");
 		viaje.setPromoterId(usuario.getId());
+		*/
+		viaje.setPromoterId(trip.getIdUsuario());
 		
 		Trip tripMismaFecha = dao
-				.findByPromoterIdAndArrivalDate(usuario.getId(), 
+				.findByPromoterIdAndArrivalDate(trip.getIdUsuario(), 
 						viaje.getArrivalDate());
 		if(tripMismaFecha!=null){
 			trip.setResult("registerTrip_form_result_errorSameDate");
@@ -111,9 +115,9 @@ public class TripRegistrar {
 		SeatDao daoSeat = Factories.persistence.createSeatDao();
 		Seat asiento = new Seat();
 		asiento.setStatus(SeatStatus.ACCEPTED);
-		asiento.setUserId(usuario.getId());
+		asiento.setUserId(trip.getIdUsuario());
 
-		Trip viaje2 = dao.findByPromoterIdAndArrivalDate(usuario.getId(), viaje.getArrivalDate());
+		Trip viaje2 = dao.findByPromoterIdAndArrivalDate(trip.getIdUsuario(), viaje.getArrivalDate());
 		asiento.setTripId(viaje2.getId());
 		
 		try {

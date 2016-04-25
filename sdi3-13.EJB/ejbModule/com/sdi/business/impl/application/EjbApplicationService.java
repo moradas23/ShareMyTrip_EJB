@@ -1,15 +1,16 @@
-package com.sdi.business.impl;
+package com.sdi.business.impl.application;
 
 import java.util.List;
 
-import com.sdi.business.ApplicationService;
+import javax.ejb.Stateless;
+
 import com.sdi.business.impl.classes.ApplicactionBuscar;
 import com.sdi.business.impl.classes.ApplicationDelete;
 import com.sdi.business.impl.classes.ApplicationSave;
 import com.sdi.model.Application;
 
-
-public class SimpleApplicationService implements ApplicationService {
+@Stateless
+public class EjbApplicationService implements  LocalApplicationService,RemoteApplicationService {
 
 	@Override
 	public void save(String loginUsuario, Long idViaje) {

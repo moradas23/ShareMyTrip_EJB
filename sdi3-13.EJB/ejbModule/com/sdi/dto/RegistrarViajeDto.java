@@ -34,6 +34,8 @@ public class RegistrarViajeDto {
 	private String longZipCodeTo = "";
 	
 	private String result;
+	
+	private Long idUsuario;
 
 	public String getAdressFrom() {
 		return adressFrom;
@@ -225,6 +227,14 @@ public class RegistrarViajeDto {
 
 	public void setResult(String result) {
 		this.result = result;
+	}
+
+	public Long getIdUsuario() {
+		return idUsuario;
+	}
+
+	public void setIdUsuario(Long idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 	
 	

@@ -3,6 +3,7 @@ package com.sdi.presentation;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import javax.faces.application.FacesMessage;
@@ -16,6 +17,8 @@ import org.primefaces.event.SelectEvent;
 import com.sdi.business.TripsService;
 import com.sdi.dto.RegistrarViajeDto;
 import com.sdi.infrastructure.Factories;
+import com.sdi.model.User;
+import com.sdi.model.UserLogin;
 
 @ManagedBean(name = "registerTrip")
 @SessionScoped
@@ -274,6 +277,12 @@ public class BeanRegisterTrip implements Serializable {
 		tVDto.setMaxSeats(this.getMaxSeats());
 		tVDto.setAvailableSeats(this.getAvailableSeats());
 
+		Map<String, Object> session = FacesContext.getCurrentInstance()
+				.getExternalContext().getSessionMap();
+		UserLogin usuario = (UserLogin) session.get("LOGGEDIN_USER");
+		
+		tVDto.setIdUsuario(usuario.getId());
+		
 		if (trip.registrar(tVDto)){
 			reiniciarBean();
 			
