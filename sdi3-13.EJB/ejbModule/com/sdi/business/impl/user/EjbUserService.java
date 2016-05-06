@@ -5,9 +5,9 @@ import java.util.List;
 import javax.ejb.Stateless;
 
 import com.sdi.business.exception.EntityAlreadyExistsException;
-import com.sdi.business.impl.classes.UsersAlta;
 import com.sdi.business.impl.classes.UsersBuscar;
 import com.sdi.business.impl.classes.UsersListado;
+import com.sdi.business.impl.classes.UsersManagement;
 import com.sdi.model.User;
 
 /**
@@ -27,7 +27,7 @@ public class EjbUserService implements LocalUserService,RemoteUserService {
 
 	@Override
 	public void saveUser(User user) throws EntityAlreadyExistsException {
-		new UsersAlta().save(user);
+		new UsersManagement().save(user);
 	}
 
 	@Override
@@ -39,4 +39,5 @@ public class EjbUserService implements LocalUserService,RemoteUserService {
 	public User finByLogin(String login) {
 		return new UsersBuscar().findByLogin(login);
 	}
+
 }

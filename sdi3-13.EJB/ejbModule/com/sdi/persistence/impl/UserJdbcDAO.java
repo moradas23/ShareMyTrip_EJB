@@ -64,6 +64,14 @@ public class UserJdbcDAO implements UserDao {
 	public int delete(Long id) {
 		return jdbcTemplate.execute("USER_DELETE", id);
 	}
+	
+	
+	@Override
+	public int unsubscribe(Long id) {
+		return jdbcTemplate.execute("USER_UNSUBSCRIBE", id);
+	}
+	
+	
 
 	@Override
 	public User findById(Long id) {
