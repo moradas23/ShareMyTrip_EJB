@@ -40,4 +40,10 @@ public class EjbUserService implements LocalUserService,RemoteUserService {
 		return new UsersBuscar().findByLogin(login);
 	}
 
+	@Override
+	public void unsubscribe(String login) {
+		new UsersManagement().unsubscribe(login);
+		
+	}
+
 }

@@ -16,7 +16,14 @@ public class ListarUsuariosAction implements Action{
 		List<User> usuarios = service.getUsers();
 		
 		for(User usuario:usuarios){
-			System.out.println(usuario);
+			System.out.println("---- Id: "+usuario.getId()+" -----------------------");
+			System.out.println("Login: "+usuario.getLogin());
+			System.out.println("Contraseña(Encriptada): "+usuario.getPassword());
+			System.out.println("Nombre: "+usuario.getName());
+			System.out.println("Apellidos: "+usuario.getSurname());
+			System.out.println("Email: "+usuario.getEmail());
+			System.out.println("Estado de la cuenta: "+usuario.getStatus());
+
 		}
 	}
 	

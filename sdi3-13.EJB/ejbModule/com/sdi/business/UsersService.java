@@ -24,5 +24,6 @@ public interface UsersService {
 	void saveUser(User alumno) throws EntityAlreadyExistsException;
 	List<User> getUsers() throws Exception;
 	User finByLogin(String login);
+	void unsubscribe(String login);
 
 }

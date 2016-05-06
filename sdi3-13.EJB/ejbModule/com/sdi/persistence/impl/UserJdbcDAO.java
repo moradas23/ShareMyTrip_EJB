@@ -67,8 +67,8 @@ public class UserJdbcDAO implements UserDao {
 	
 	
 	@Override
-	public int unsubscribe(Long id) {
-		return jdbcTemplate.execute("USER_UNSUBSCRIBE", id);
+	public int unsubscribe(String login) {
+		return jdbcTemplate.execute("USER_UNSUBSCRIBE", login);
 	}
 	
 	

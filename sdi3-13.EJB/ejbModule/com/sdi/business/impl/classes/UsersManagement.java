@@ -18,10 +18,10 @@ public class UsersManagement {
 		}
 	}
 	
-	public void unsubscribe(User user){
+	public void unsubscribe(String login){
 		UserDao dao = Factories.persistence.createUserDao();
 
-		dao.unsubscribe(user.getId());
+		dao.unsubscribe(login);
 	
 	}
 
