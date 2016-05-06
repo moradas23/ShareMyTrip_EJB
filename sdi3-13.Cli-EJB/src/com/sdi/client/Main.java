@@ -1,11 +1,7 @@
 package com.sdi.client;
 
-import java.util.List;
-
-import com.sdi.business.UsersService;
-import com.sdi.business.impl.RemoteEjbServicesLocator;
 import com.sdi.config.LogConfig;
-import com.sdi.model.User;
+import com.sdi.ui.MainMenu;
 
 
 public class Main {
@@ -16,16 +12,7 @@ public class Main {
 	}
 
 	private static void run() throws Exception {
-	
-		
-		UsersService service = new RemoteEjbServicesLocator().getUserService();
-		List<User> usuarios = service.getUsers();
-		
-		for(User usuario:usuarios){
-			System.out.println(usuario);
-		}
-		
-
+		new MainMenu().execute();
 	}
 
 }
