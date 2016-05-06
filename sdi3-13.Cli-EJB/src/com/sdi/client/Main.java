@@ -4,12 +4,14 @@ import java.util.List;
 
 import com.sdi.business.UsersService;
 import com.sdi.business.impl.RemoteEjbServicesLocator;
+import com.sdi.config.LogConfig;
 import com.sdi.model.User;
 
 
 public class Main {
 	
 	public static void main(String[] args) throws Exception {
+		LogConfig.config();
 		Main.run();
 	}
 
