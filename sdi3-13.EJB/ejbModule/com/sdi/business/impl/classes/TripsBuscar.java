@@ -25,4 +25,10 @@ public class TripsBuscar {
 		TripDao dao = Factories.persistence.createTripDao();
 		return dao.findFechaCierrePasada();
 	}
+
+
+	public List<Trip> findLastMonth() {
+		TripDao dao = Factories.persistence.createTripDao();
+		return dao.findLastMonth();
+	}
 }

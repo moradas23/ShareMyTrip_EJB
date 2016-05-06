@@ -206,5 +206,13 @@ public class TripJdbcDAO implements TripDao {
 				new TripMapper());
 	}
 
+	@Override
+	public List<Trip> findLastMonth() {
+		return jdbcTemplate.queryForList(
+				"TRIP_FIND_BY_LAST_MONTH", 
+				new TripMapper()
+			);
+	}
+
 
 }

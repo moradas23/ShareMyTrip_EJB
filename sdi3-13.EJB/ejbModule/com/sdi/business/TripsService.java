@@ -52,11 +52,19 @@ public interface TripsService {
 	List<Trip> viajesFechaCierrePasada();
 	
 	/**
-	 * Método para cancelar un viaje
+	 * Cancelar un viaje pasado como parámetro
 	 * 
 	 * @param viaje
 	 */
 	void cerrarViaje(Trip viaje);
+	
+	/**
+	 * 
+	 * Devuelve los viajes realizados el último mes
+	 * 
+	 * @return
+	 */
+	List<Trip> findLastMonth();
 
 
 

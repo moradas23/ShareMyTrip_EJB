@@ -22,5 +22,7 @@ public interface TripDao extends GenericDao<Trip, Long> {
 
 	List<Trip> findFechaCierrePasada();
 
+	List<Trip> findLastMonth();
+
 
 }

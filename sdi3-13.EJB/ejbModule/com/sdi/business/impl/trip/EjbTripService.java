@@ -77,6 +77,11 @@ public class EjbTripService implements LocalTripService,RemoteTripService {
 		new TripsModificar().cerrarViaje(viaje);
 	}
 
+	@Override
+	public List<Trip> findLastMonth() {
+		return new TripsBuscar().findLastMonth();
+	}
+
 
 
 }
