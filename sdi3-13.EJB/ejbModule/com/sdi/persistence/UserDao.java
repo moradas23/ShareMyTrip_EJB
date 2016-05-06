@@ -9,6 +9,7 @@ public interface UserDao extends GenericDao<User, Long>{
 
 	User findByLogin(String login);
 	Long save(User dto) throws AlreadyPersistedException;
+	int unsubscribe(Long id);
 	
 
 }
