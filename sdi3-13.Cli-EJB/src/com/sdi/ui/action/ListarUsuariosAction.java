@@ -35,7 +35,7 @@ public class ListarUsuariosAction implements Action{
 			List<Trip> viajesPromotor = tService.findByPromoterAndDone(usuario.getId());
 			System.out.println("Viajes como promotor: "+viajesPromotor.size());
 			
-			List<Seat> plazasAceptado = sService.findPlazasAceptadasUser(usuario.getId());
+			//List<Seat> plazasAceptado = sService.findPlazasAceptadasUser(usuario.getId());
 
 		}
 	}
