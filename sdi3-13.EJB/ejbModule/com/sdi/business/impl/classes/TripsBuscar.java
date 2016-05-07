@@ -39,5 +39,11 @@ public class TripsBuscar {
 	}
 
 
+	public List<Trip> findHaParticipado(Long idUser) {
+		TripDao dao = Factories.persistence.createTripDao();
+		return dao.findHaParticipado(idUser);
+	}
+
+
 
 }

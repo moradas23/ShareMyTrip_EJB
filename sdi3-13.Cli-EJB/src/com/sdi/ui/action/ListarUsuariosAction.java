@@ -20,7 +20,6 @@ public class ListarUsuariosAction implements Action{
 		List<User> usuarios = uService.getUsers();
 		
 		TripsService tService = new RemoteEjbServicesLocator().getTripService();
-		SeatService sService = new RemoteEjbServicesLocator().getSeatService();
 		
 		
 		for(User usuario:usuarios){
@@ -35,8 +34,8 @@ public class ListarUsuariosAction implements Action{
 			List<Trip> viajesPromotor = tService.findByPromoterAndDone(usuario.getId());
 			System.out.println("Viajes como promotor: "+viajesPromotor.size());
 			
-			//List<Seat> plazasAceptado = sService.findPlazasAceptadasUser(usuario.getId());
-
+			List<Trip> viajesParticipo = tService.findViajesHaParticipado(usuario.getId());
+			System.out.println("Viajes ha participado: "+viajesParticipo.size());
 		}
 	}
 	

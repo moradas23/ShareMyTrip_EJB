@@ -32,5 +32,13 @@ public interface TripDao extends GenericDao<Trip, Long> {
 	 */
 	List<Trip> findByPromoterIdAndDone(Long idUser);
 
+	/**
+	 * Devuelve los viajes en los que el usuario ha participado
+	 * 
+	 * @param idUser
+	 * @return
+	 */
+	List<Trip> findHaParticipado(Long idUser);
+
 
 }

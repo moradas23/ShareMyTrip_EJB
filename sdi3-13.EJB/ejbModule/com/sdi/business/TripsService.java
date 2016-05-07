@@ -75,6 +75,14 @@ public interface TripsService {
 	 */
 	List<Trip> findByPromoterAndDone(Long idUser);
 	
+	/**
+	 * Busca los viajes en los que el usuario ha participado
+	 * 
+	 * @param id
+	 * @return
+	 */
+	List<Trip> findViajesHaParticipado(Long id);
+	
 
 
 
