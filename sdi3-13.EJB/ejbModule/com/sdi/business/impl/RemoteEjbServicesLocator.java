@@ -58,7 +58,7 @@ public class RemoteEjbServicesLocator implements ServicesFactory {
 
 	@Override
 	public LoginService getLoginService() {
-		System.out.println("Using remote services locator");
+	//	System.out.println("Using remote services locator");
 		try {
 			Context ctx = new InitialContext();
 			return (LoginService) ctx.lookup(LOGIN_SERVICE_JNDI_KEY);
@@ -69,7 +69,7 @@ public class RemoteEjbServicesLocator implements ServicesFactory {
 
 	@Override
 	public UsersService getUserService() {
-		System.out.println("Using remote services locator");
+	//	System.out.println("Using remote services locator");
 		try {
 			Context ctx = new InitialContext();
 			return (UsersService) ctx.lookup(USER_SERVICE_JNDI_KEY);
@@ -80,7 +80,7 @@ public class RemoteEjbServicesLocator implements ServicesFactory {
 
 	@Override
 	public TripsService getTripService() {
-		System.out.println("Using remote services locator");
+	//	System.out.println("Using remote services locator");
 		try {
 			Context ctx = new InitialContext();
 			return (TripsService) ctx.lookup(TRIP_SERVICE_JNDI_KEY);
@@ -91,7 +91,7 @@ public class RemoteEjbServicesLocator implements ServicesFactory {
 
 	@Override
 	public SeatService getSeatService() {
-		System.out.println("Using remote services locator");
+	//	System.out.println("Using remote services locator");
 		try {
 			Context ctx = new InitialContext();
 			return (SeatService) ctx.lookup(SEAT_SERVICE_JNDI_KEY);
@@ -102,7 +102,7 @@ public class RemoteEjbServicesLocator implements ServicesFactory {
 
 	@Override
 	public ApplicationService getApplicationService() {
-		System.out.println("Using remote services locator");
+	//	System.out.println("Using remote services locator");
 		try {
 			Context ctx = new InitialContext();
 			return (ApplicationService) ctx.lookup(APPLICATION_SERVICE_JNDI_KEY);
@@ -112,7 +112,7 @@ public class RemoteEjbServicesLocator implements ServicesFactory {
 	}
 
 	public RatingService getRatingService() {
-		System.out.println("Using remote services locator");
+		//System.out.println("Using remote services locator");
 		try {
 			Context ctx = new InitialContext();
 			return (RatingService) ctx.lookup(RATING_SERVICE_JNDI_KEY);

@@ -27,8 +27,8 @@ public class ListarComentariosPuntuacionesAction implements Action{
 				User usuario1 = uService.findById(comentario.getSeatFromUserId());
 				User usuario2 = uService.findById(comentario.getSeatAboutUserId());
 				
-				System.out.println("--------------------------------------");
-				System.out.println("Destino: "+viaje.getDestination().getCity());
+				System.out.println("---Destino: "+viaje.getDestination().getCity()+"------------------------");
+				System.out.println();
 				System.out.println("Usuario hizo comentario: ");
 				System.out.println("\t ID: "+usuario1.getId());
 				System.out.println("\t Login: "+usuario1.getLogin());
