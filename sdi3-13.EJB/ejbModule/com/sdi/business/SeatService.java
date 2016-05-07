@@ -53,4 +53,11 @@ public interface SeatService {
 	 * @param login
 	 */
 	public void excluirUsuario(String login);
+
+	/**
+	 * Busca las plazas donde el usuario fue aceptado
+	 * @param id
+	 * @return 
+	 */
+	public List<Seat> findPlazasAceptadasUser(Long id);
 }

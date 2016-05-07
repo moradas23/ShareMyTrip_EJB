@@ -27,4 +27,10 @@ public class SeatBuscar {
 		return seats;
 	}
 
+	public List<Seat> findPlazasAceptadasUser(Long id) {
+		SeatDao dao = Factories.persistence.createSeatDao();
+		List<Seat> seats = dao.findAcceptedByUser(id);
+		return seats;
+	}
+
 }

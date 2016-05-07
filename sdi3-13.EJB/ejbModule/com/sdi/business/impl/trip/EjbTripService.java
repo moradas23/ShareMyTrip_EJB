@@ -82,6 +82,11 @@ public class EjbTripService implements LocalTripService,RemoteTripService {
 		return new TripsBuscar().findLastMonth();
 	}
 
+	@Override
+	public List<Trip> findByPromoterAndDone(Long idUser) {
+		return new TripsBuscar().getByPromoterAndDone(idUser);
+	}
+
 
 
 }

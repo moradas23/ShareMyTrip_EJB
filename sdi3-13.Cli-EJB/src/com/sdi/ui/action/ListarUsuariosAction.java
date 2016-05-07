@@ -2,8 +2,12 @@ package com.sdi.ui.action;
 
 import java.util.List;
 
+import com.sdi.business.SeatService;
+import com.sdi.business.TripsService;
 import com.sdi.business.UsersService;
 import com.sdi.business.impl.RemoteEjbServicesLocator;
+import com.sdi.model.Seat;
+import com.sdi.model.Trip;
 import com.sdi.model.User;
 
 import alb.util.menu.Action;
@@ -12,8 +16,12 @@ public class ListarUsuariosAction implements Action{
 
 	@Override
 	public void execute() throws Exception {
-		UsersService service = new RemoteEjbServicesLocator().getUserService();
-		List<User> usuarios = service.getUsers();
+		UsersService uService = new RemoteEjbServicesLocator().getUserService();
+		List<User> usuarios = uService.getUsers();
+		
+		TripsService tService = new RemoteEjbServicesLocator().getTripService();
+		SeatService sService = new RemoteEjbServicesLocator().getSeatService();
+		
 		
 		for(User usuario:usuarios){
 			System.out.println("---- Id: "+usuario.getId()+" -----------------------");
@@ -23,6 +31,11 @@ public class ListarUsuariosAction implements Action{
 			System.out.println("Apellidos: "+usuario.getSurname());
 			System.out.println("Email: "+usuario.getEmail());
 			System.out.println("Estado de la cuenta: "+usuario.getStatus());
+			
+			List<Trip> viajesPromotor = tService.findByPromoterAndDone(usuario.getId());
+			System.out.println("Viajes como promotor: "+viajesPromotor.size());
+			
+			List<Seat> plazasAceptado = sService.findPlazasAceptadasUser(usuario.getId());
 
 		}
 	}

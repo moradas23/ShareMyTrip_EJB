@@ -24,5 +24,13 @@ public interface TripDao extends GenericDao<Trip, Long> {
 
 	List<Trip> findLastMonth();
 
+	/**
+	 * Devuelve la listad de viajes en los que el usuario fue promotor
+	 * 
+	 * @param idUser
+	 * @return
+	 */
+	List<Trip> findByPromoterIdAndDone(Long idUser);
+
 
 }

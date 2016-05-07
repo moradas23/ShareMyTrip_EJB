@@ -7,6 +7,7 @@ import javax.ejb.Stateless;
 import com.sdi.business.impl.classes.SeatBuscar;
 import com.sdi.business.impl.classes.SeatDelete;
 import com.sdi.business.impl.classes.SeatInsertar;
+import com.sdi.business.impl.classes.SeatUpdate;
 import com.sdi.model.Seat;
 
 @Stateless
@@ -54,7 +55,13 @@ public class EjbSeatService implements LocalSeatService,RemoteSeatService {
 
 	@Override
 	public void excluirUsuario(String login) {
-		new SeatUpdate().excluirUsuario(login);
+		new SeatUpdate().excluirUsuarioAll(login);
+		
+	}
+
+	@Override
+	public List<Seat> findPlazasAceptadasUser(Long id) {
+		return new SeatBuscar().findPlazasAceptadasUser(id);
 		
 	}
 

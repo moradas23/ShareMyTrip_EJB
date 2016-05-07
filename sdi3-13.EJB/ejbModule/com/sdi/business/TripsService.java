@@ -65,6 +65,16 @@ public interface TripsService {
 	 * @return
 	 */
 	List<Trip> findLastMonth();
+	
+	/**
+	 * 
+	 * Busca los viajes en los que el usuario fue promotor
+	 * 
+	 * @param idUser
+	 * @return
+	 */
+	List<Trip> findByPromoterAndDone(Long idUser);
+	
 
 
 

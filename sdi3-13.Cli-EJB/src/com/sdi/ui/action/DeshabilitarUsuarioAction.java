@@ -20,7 +20,6 @@ public class DeshabilitarUsuarioAction implements Action{
 		SeatService seatService = new RemoteEjbServicesLocator().getSeatService();
 		seatService.excluirUsuario(login);
 		
-		
 	}
 
 }

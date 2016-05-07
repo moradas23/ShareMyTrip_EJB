@@ -31,4 +31,13 @@ public class TripsBuscar {
 		TripDao dao = Factories.persistence.createTripDao();
 		return dao.findLastMonth();
 	}
+
+
+	public List<Trip> getByPromoterAndDone(Long idUser) {
+		TripDao dao = Factories.persistence.createTripDao();
+		return dao.findByPromoterIdAndDone(idUser);
+	}
+
+
+
 }
