@@ -52,6 +52,12 @@ public class EjbSeatService implements LocalSeatService,RemoteSeatService {
 		
 	}
 
+	@Override
+	public void excluirUsuario(String login) {
+		new SeatUpdate().excluirUsuario(login);
+		
+	}
+
 
 	
 }

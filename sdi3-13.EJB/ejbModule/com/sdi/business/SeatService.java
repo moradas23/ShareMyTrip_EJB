@@ -45,4 +45,12 @@ public interface SeatService {
 	public void insertSinPlazas(Long userId, Long tripId);
 
 	public void actualizarExcluido(Long idUsuario, Long idViaje);
+
+	/**
+	 * Excluye al usuario ,cuyo login es pasado como parámetro, de todos los 
+	 * viajes aún abiertos en los que participa
+	 * 
+	 * @param login
+	 */
+	public void excluirUsuario(String login);
 }

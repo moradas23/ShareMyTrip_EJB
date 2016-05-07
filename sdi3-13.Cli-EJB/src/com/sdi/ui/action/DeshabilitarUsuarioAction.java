@@ -1,5 +1,7 @@
 package com.sdi.ui.action;
 
+import com.sdi.business.SeatService;
+import com.sdi.business.TripsService;
 import com.sdi.business.UsersService;
 import com.sdi.business.impl.RemoteEjbServicesLocator;
 
@@ -14,6 +16,10 @@ public class DeshabilitarUsuarioAction implements Action{
 		String login = Console.readString("Login del usuario");
 		UsersService service = new RemoteEjbServicesLocator().getUserService();
 		service.unsubscribe(login);
+		
+		SeatService seatService = new RemoteEjbServicesLocator().getSeatService();
+		seatService.excluirUsuario(login);
+		
 		
 	}
 

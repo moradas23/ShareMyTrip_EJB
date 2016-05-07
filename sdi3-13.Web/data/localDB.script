@@ -125,4 +125,4 @@ INSERT INTO TUSERS VALUES(309,'usuario1@uniovi.es','usuario1','usuario1','122b73
 INSERT INTO TUSERS VALUES(312,'usuario2@gmail.com','usuario2','usuario2','2fb6c8d2f3842a5ceaa9bf320e649ff0',0,'usuario2')
 INSERT INTO TUSERS VALUES(313,'usuario3@uniovi.es','usuario3','usuario3','5a54c609c08a0ab3f7f8eef1365bfda6',0,'usuario3')
 INSERT INTO TUSERS VALUES(314,'usuario4@uniovi.es','usuario4','usuario4','0ddd0fbf933b170eb6d90987a67d0a5d',0,'usuario4')
-INSERT INTO TUSERS VALUES(479,'user1@gmail.com','user1','user1','user1',0,'user1')
+INSERT INTO TUSERS VALUES(479,'user1@gmail.com','user1','user1','user1',1,'user1')
