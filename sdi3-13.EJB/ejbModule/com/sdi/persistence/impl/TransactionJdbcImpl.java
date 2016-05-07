@@ -5,7 +5,6 @@ import java.sql.SQLException;
 
 import com.sdi.persistence.Transaction;
 import com.sdi.persistence.exception.PersistenceException;
-import com.sdi.persistence.util.Jdbc;
 
 public class TransactionJdbcImpl implements Transaction {
 	
@@ -37,7 +36,7 @@ public class TransactionJdbcImpl implements Transaction {
 			throw new PersistenceException( e );
 		}
 		finally {
-			Jdbc.close( con );
+			jdbc.close( null,null,con );
 		}
 	}
 
@@ -52,7 +51,7 @@ public class TransactionJdbcImpl implements Transaction {
 			throw new PersistenceException( e );
 		}
 		finally {
-			Jdbc.close( con );
+			jdbc.close( null,null,con );
 		}
 	}
 

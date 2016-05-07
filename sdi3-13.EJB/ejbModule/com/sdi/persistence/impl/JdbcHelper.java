@@ -1,6 +1,7 @@
 package com.sdi.persistence.impl;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,8 +13,12 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.sdi.persistence.exception.PersistenceException;
+
 public class JdbcHelper {
 	private Properties properties;
+	private static Properties sqlQueries;
+	private static final String QUERIES_PROPERTIES_FILE = "sql_queries.properties";
 
 	public JdbcHelper(String configFile) {
 		properties = new Properties();
@@ -24,6 +29,17 @@ public class JdbcHelper {
 					+ configFile);
 		}
 	}
+	
+	static {
+	
+		sqlQueries = loadProperties( QUERIES_PROPERTIES_FILE );
+
+	}
+	
+	public static String getSqlQuery(String queryKey) {
+		return sqlQueries.getProperty(queryKey).trim();
+	}
+
 
 	public Connection createConnection() {
 
@@ -67,6 +83,17 @@ public class JdbcHelper {
 	public void close(PreparedStatement ps, Connection con) {
 		if (ps != null) {try{ ps.close(); } catch (Exception ex){}};
 		if (con != null) {try{ con.close(); } catch (Exception ex){}};
+	}
+	
+	private static Properties loadProperties(String fileName) {
+		Properties prop = new Properties();
+		InputStream stream = JdbcHelper.class.getClassLoader().getResourceAsStream(fileName);
+		try {
+			prop.load( stream );
+		} catch (IOException e) {
+			throw new PersistenceException("Wrong configutation file " + fileName );
+		}
+		return prop;
 	}
 
 }
