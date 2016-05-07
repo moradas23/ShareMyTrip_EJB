@@ -9,7 +9,9 @@ import java.sql.SQLException;
 import java.sql.SQLTimeoutException;
 import java.util.Properties;
  
+
 import com.sdi.persistence.exception.PersistenceException;
+import com.sdi.persistence.impl.JdbcHelper;
 
 public class Jdbc {
 	private static final String DATABASE_PROPERTIES_FILE = "database.properties";
@@ -18,6 +20,9 @@ public class Jdbc {
 	private static final String DATABASE_URL;
 	private static final String DATABASE_USER;
 	private static final String DATABASE_PASSWORD;
+	
+	private static String CONFIG_FILE = "/persistence.properties";
+	private static JdbcHelper jdbc = new JdbcHelper(CONFIG_FILE);
 	
 	private static Properties sqlQueries;
 	
@@ -39,22 +44,14 @@ public class Jdbc {
 	private static ThreadLocal<Connection> threadLocal = new ThreadLocal<>();
 
 	public static Connection createConnection() {
-		try {
-			Connection con = DriverManager.getConnection(
-					DATABASE_URL, 
-					DATABASE_USER, 
-					DATABASE_PASSWORD
-				);
+
 			
-			threadLocal.set(con);
 			
-			return con;
+			//threadLocal.set(con);
 			
-		} catch (SQLTimeoutException e) {
-			throw new PersistenceException("Timeout opennig JDBC conection", e);
-		} catch (SQLException e) {
-			throw new PersistenceException("An unexpected JDBC error has ocurred", e);
-		}
+			return jdbc.createConnection();
+			
+		 
 	}
 
 	public static Connection getCurrentConnection() {
