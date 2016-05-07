@@ -13,4 +13,9 @@ public class RatingBuscar {
 		return dao.findLastMonth();
 	}
 
+	public List<Rating> findByAboutUser(Long id) {
+		RatingDao dao = Factories.persistence.createRatingDao();
+		return dao.findByAbout(id);
+	}
+
 }

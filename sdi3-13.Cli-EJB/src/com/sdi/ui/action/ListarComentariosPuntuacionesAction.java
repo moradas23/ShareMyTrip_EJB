@@ -42,7 +42,7 @@ public class ListarComentariosPuntuacionesAction implements Action{
 				System.out.println("Valoración: "+comentario.getValue());
 				System.out.println("Comentario: "+comentario.getComment());
 				
-		
+				System.out.println();
 		}
 	}
 
