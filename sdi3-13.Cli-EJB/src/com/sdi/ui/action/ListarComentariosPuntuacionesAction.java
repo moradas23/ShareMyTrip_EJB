@@ -12,7 +12,7 @@ public class ListarComentariosPuntuacionesAction implements Action{
 
 	@Override
 	public void execute() throws Exception {
-		TripsService tService = new RemoteEjbServicesLocator().getTripService();
+		RatingService tService = new RemoteEjbServicesLocator().getTripService();
 		List<Trip> viajes = tService.findLastMonth();
 		
 		
