@@ -1,11 +1,13 @@
 package com.sdi.business.impl.login;
 
 import javax.ejb.Stateless;
+import javax.jws.WebService;
 
 import com.sdi.business.impl.classes.LoginVerify;
 import com.sdi.model.UserLogin;
 
 @Stateless
+@WebService(name="LoginService")
 public class EjbLoginService implements LocalLoginService,RemoteLoginService{
 
 	@Override

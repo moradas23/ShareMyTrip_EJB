@@ -3,6 +3,7 @@ package com.sdi.business.impl.seat;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.jws.WebService;
 
 import com.sdi.business.impl.classes.SeatBuscar;
 import com.sdi.business.impl.classes.SeatDelete;
@@ -11,6 +12,7 @@ import com.sdi.business.impl.classes.SeatUpdate;
 import com.sdi.model.Seat;
 
 @Stateless
+@WebService(name="SeatService")
 public class EjbSeatService implements LocalSeatService,RemoteSeatService {
 
 	@Override

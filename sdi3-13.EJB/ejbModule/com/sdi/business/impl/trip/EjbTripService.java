@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.ejb.Stateless;
+import javax.jws.WebService;
 
 import com.sdi.business.impl.classes.TripRegistrar;
 import com.sdi.business.impl.classes.TripsBuscar;
@@ -15,6 +16,7 @@ import com.sdi.dto.RegistrarViajeDto;
 import com.sdi.model.Trip;
 
 @Stateless
+@WebService(name="TripsService")
 public class EjbTripService implements LocalTripService,RemoteTripService {
 
 	@Override
