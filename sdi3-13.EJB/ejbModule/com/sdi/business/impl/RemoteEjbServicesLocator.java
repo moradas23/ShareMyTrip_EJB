@@ -52,7 +52,7 @@ public class RemoteEjbServicesLocator implements ServicesFactory {
 	private static final String RATING_SERVICE_JNDI_KEY = 
 			"sdi3-13/"
 			+ "sdi3-13.EJB/" 
-			+ "EjbUserService!"
+			+ "EjbRatingService!"
 			+ "com.sdi.business.impl.rating.RemoteRatingService";
 			
 
