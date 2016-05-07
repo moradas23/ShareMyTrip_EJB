@@ -14,12 +14,12 @@ public class ListarComentariosPuntuacionesAction implements Action{
 	@Override
 	public void execute() throws Exception {
 		RatingService tService = new RemoteEjbServicesLocator().getRatingService();
-		List<Trip> viajes = tService.findLastMonth();
+		//List<Trip> viajes = tService.findLastMonth();
 		
 		
-		for(Trip viaje:viajes){
-			System.out.println("Destino: "+viaje.getDestination().getCity());
-		}
+	//	for(Trip viaje:viajes){
+	//		System.out.println("Destino: "+viaje.getDestination().getCity());
+	//	}
 	}
 
 }
