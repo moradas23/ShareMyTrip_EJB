@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datasources xmlns="http://www.jboss.org/ironjacamar/schema">
+	<datasource jndi-name="java:jboss/datasources/sdi3-3-ds"
+		enabled="true" use-java-context="true" pool-name="sdi3-3-ds">
+		<connection-url>jdbc:hsqldb:hsql://localhost/localDB</connection-url>
+		<driver>hsqldb.jar</driver>
+		<pool></pool>
+		<security>
+			<user-name>sdi</user-name>
+			<password>password</password>
+		</security>
+	</datasource>
+</datasources>

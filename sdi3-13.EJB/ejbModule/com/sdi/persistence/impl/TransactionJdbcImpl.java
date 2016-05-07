@@ -9,16 +9,20 @@ import com.sdi.persistence.util.Jdbc;
 
 public class TransactionJdbcImpl implements Transaction {
 	
+	private static String CONFIG_FILE = "/persistence.properties";
+	private JdbcHelper jdbc = new JdbcHelper(CONFIG_FILE);
+	
 	private Connection con;
 
 	@Override
 	public void begin() {
 		assertNullConnection();
-		con = Jdbc.createConnection();
+		//con = Jdbc.createConnection();
+		con =jdbc.createConnection();
 		try {
 			con.setAutoCommit( false );
 		} catch (SQLException e) {
-			throw new PersistenceException( e );
+			throw new PersistenceException("Invalid SQL or database schema", e);
 		}
 	}
 
