@@ -10,7 +10,7 @@ import com.sdi.persistence.SeatDao;
 import com.sdi.persistence.util.JdbcTemplate;
 import com.sdi.persistence.util.RowMapper;
 
-public class SeatJdbcDao implements SeatDao {
+public class SeatJdbcDAO implements SeatDao {
 
 	public class SeatMapper implements RowMapper<Seat> {
 
