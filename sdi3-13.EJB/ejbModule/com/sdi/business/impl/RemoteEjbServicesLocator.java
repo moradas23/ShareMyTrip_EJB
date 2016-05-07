@@ -6,6 +6,7 @@ import javax.naming.NamingException;
 
 import com.sdi.business.ApplicationService;
 import com.sdi.business.LoginService;
+import com.sdi.business.RatingService;
 import com.sdi.business.SeatService;
 import com.sdi.business.ServicesFactory;
 import com.sdi.business.TripsService;
@@ -47,6 +48,13 @@ public class RemoteEjbServicesLocator implements ServicesFactory {
 			+ "sdi3-13.EJB/" 
 			+ "EjbUserService!"
 			+ "com.sdi.business.impl.user.RemoteUserService";
+	
+	private static final String RATING_SERVICE_JNDI_KEY = 
+			"sdi3-13/"
+			+ "sdi3-13.EJB/" 
+			+ "EjbUserService!"
+			+ "com.sdi.business.impl.rating.RemoteRatingService";
+			
 
 	@Override
 	public LoginService getLoginService() {
@@ -98,6 +106,16 @@ public class RemoteEjbServicesLocator implements ServicesFactory {
 		try {
 			Context ctx = new InitialContext();
 			return (ApplicationService) ctx.lookup(APPLICATION_SERVICE_JNDI_KEY);
+		} catch (NamingException e) {
+			throw new RuntimeException("JNDI problem", e);
+		}
+	}
+
+	public RatingService getRatingService() {
+		System.out.println("Using remote services locator");
+		try {
+			Context ctx = new InitialContext();
+			return (RatingService) ctx.lookup(RATING_SERVICE_JNDI_KEY);
 		} catch (NamingException e) {
 			throw new RuntimeException("JNDI problem", e);
 		}

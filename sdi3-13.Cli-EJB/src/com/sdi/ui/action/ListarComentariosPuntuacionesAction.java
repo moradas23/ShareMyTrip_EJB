@@ -2,6 +2,7 @@ package com.sdi.ui.action;
 
 import java.util.List;
 
+import com.sdi.business.RatingService;
 import com.sdi.business.TripsService;
 import com.sdi.business.impl.RemoteEjbServicesLocator;
 import com.sdi.model.Trip;
@@ -12,7 +13,7 @@ public class ListarComentariosPuntuacionesAction implements Action{
 
 	@Override
 	public void execute() throws Exception {
-		RatingService tService = new RemoteEjbServicesLocator().getTripService();
+		RatingService tService = new RemoteEjbServicesLocator().getRatingService();
 		List<Trip> viajes = tService.findLastMonth();
 		
 		
