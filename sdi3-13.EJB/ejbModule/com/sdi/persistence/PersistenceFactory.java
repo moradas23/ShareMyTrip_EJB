@@ -6,6 +6,7 @@ public interface PersistenceFactory {
 	TripDao createTripDao();
 	SeatDao createSeatDao();
 	ApplicationDao createApplicationDao();
+	RatingDao createRatingDao();
 	
 	
 }

@@ -9,7 +9,7 @@ import com.sdi.persistence.RatingDao;
 import com.sdi.persistence.util.JdbcTemplate;
 import com.sdi.persistence.util.RowMapper;
 
-public class RatingDaoJdbcImpl implements RatingDao {
+public class RatingJdbcDAO implements RatingDao {
 
 	public class RatingMapper implements RowMapper<Rating> {
 
@@ -107,6 +107,13 @@ public class RatingDaoJdbcImpl implements RatingDao {
 				"RATING_FIND_FROM", 
 				new RatingMapper(), 
 				fromUserId,fromTripId);
+	}
+	
+	@Override
+	public List<Rating> findLastMonth() {
+		return jdbcTemplate.queryForList(
+				"RATING_FIND_LAST_MONTH", 
+				new RatingMapper());
 	}
 
 }

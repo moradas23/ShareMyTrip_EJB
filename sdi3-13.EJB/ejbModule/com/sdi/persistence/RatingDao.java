@@ -18,6 +18,13 @@ public interface RatingDao extends GenericDao<Rating, Long> {
 			Long aboutUserId
 		);
 
-	List<Rating> findByFrom(Long fromUserId, Long fromTripId); 
+	List<Rating> findByFrom(Long fromUserId, Long fromTripId);
+
+	/**
+	 * Busca los comentarios y puntuaciones del pasado mes
+	 * 
+	 * @return
+	 */
+	List<Rating> findLastMonth(); 
 	
 }
