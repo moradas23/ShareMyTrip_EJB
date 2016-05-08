@@ -10,7 +10,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
-import com.sdi.business.TripsService;
+import com.sdi.business.TripService;
 import com.sdi.infrastructure.Factories;
 import com.sdi.model.Trip;
 
@@ -31,7 +31,7 @@ public class BeanCancelarViaje implements Serializable {
 	
 	public String cancelarViajes(){
 		if(!viajesCancelar.isEmpty()){
-			TripsService trip = Factories.services.getTripService();
+			TripService trip = Factories.services.getTripService();
 			trip.cancelarViajes(viajesCancelar);
 			
 			FacesContext context = FacesContext.getCurrentInstance();

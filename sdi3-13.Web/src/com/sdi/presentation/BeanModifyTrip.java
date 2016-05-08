@@ -13,7 +13,7 @@ import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
-import com.sdi.business.TripsService;
+import com.sdi.business.TripService;
 import com.sdi.dto.ModificarViajeDto;
 import com.sdi.infrastructure.Factories;
 import com.sdi.model.ImplicacionStatus;
@@ -284,7 +284,7 @@ public class BeanModifyTrip implements Serializable {
 	}
 	
 	public String modificarViaje(){
-		TripsService trip = Factories.services.getTripService();
+		TripService trip = Factories.services.getTripService();
 
 		ModificarViajeDto mVDto = new ModificarViajeDto();
 		mVDto.setAdressFrom(this.getAdressFrom());

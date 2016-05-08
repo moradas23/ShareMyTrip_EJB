@@ -32,6 +32,9 @@ public class Trip implements Serializable {
 	private TripStatus status;
 	
 	private Long promoterId;
+	
+	//Soap
+	private String cityDestination;
 
 	public AddressPoint getDeparture() {
 		return departure;
@@ -63,6 +66,7 @@ public class Trip implements Serializable {
 
 	public void setDestination(AddressPoint destination) {
 		this.destination = destination;
+		this.setCityDestination(destination.getCity());
 	}
 
 	public Date getArrivalDate() {
@@ -128,6 +132,7 @@ public class Trip implements Serializable {
 	public void setPromoterId(Long promoterId) {
 		this.promoterId = promoterId;
 	}
+	
 
 	@Override
 	public String toString() {
@@ -177,6 +182,14 @@ public class Trip implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public String getCityDestination() {
+		return cityDestination;
+	}
+
+	public void setCityDestination(String cityDestination) {
+		this.cityDestination = cityDestination;
 	}
 	
 	

@@ -8,8 +8,8 @@ import com.sdi.business.ApplicationService;
 import com.sdi.business.LoginService;
 import com.sdi.business.SeatService;
 import com.sdi.business.ServicesFactory;
-import com.sdi.business.TripsService;
-import com.sdi.business.UsersService;
+import com.sdi.business.TripService;
+import com.sdi.business.UserService;
 
 public class LocalEjbServicesLocator implements ServicesFactory {
 	private static final String LOGIN_SERVICE_JNDI_KEY = "java:global/"
@@ -44,22 +44,22 @@ public class LocalEjbServicesLocator implements ServicesFactory {
 	}
 
 	@Override
-	public UsersService getUserService() {
+	public UserService getUserService() {
 		System.out.println("Using Local services locator");
 		try {
 			Context ctx = new InitialContext();
-			return (UsersService) ctx.lookup(USER_SERVICE_JNDI_KEY);
+			return (UserService) ctx.lookup(USER_SERVICE_JNDI_KEY);
 		} catch (NamingException e) {
 			throw new RuntimeException("JNDI problem", e);
 		}
 	}
 
 	@Override
-	public TripsService getTripService() {
+	public TripService getTripService() {
 		System.out.println("Using Local services locator");
 		try {
 			Context ctx = new InitialContext();
-			return (TripsService) ctx.lookup(TRIP_SERVICE_JNDI_KEY);
+			return (TripService) ctx.lookup(TRIP_SERVICE_JNDI_KEY);
 		} catch (NamingException e) {
 			throw new RuntimeException("JNDI problem", e);
 		}

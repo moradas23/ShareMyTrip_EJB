@@ -9,8 +9,8 @@ import com.sdi.business.LoginService;
 import com.sdi.business.RatingService;
 import com.sdi.business.SeatService;
 import com.sdi.business.ServicesFactory;
-import com.sdi.business.TripsService;
-import com.sdi.business.UsersService;
+import com.sdi.business.TripService;
+import com.sdi.business.UserService;
 
 public class RemoteEjbServicesLocator implements ServicesFactory {
 
@@ -68,22 +68,22 @@ public class RemoteEjbServicesLocator implements ServicesFactory {
 	}
 
 	@Override
-	public UsersService getUserService() {
+	public UserService getUserService() {
 	//	System.out.println("Using remote services locator");
 		try {
 			Context ctx = new InitialContext();
-			return (UsersService) ctx.lookup(USER_SERVICE_JNDI_KEY);
+			return (UserService) ctx.lookup(USER_SERVICE_JNDI_KEY);
 		} catch (NamingException e) {
 			throw new RuntimeException("JNDI problem", e);
 		}
 	}
 
 	@Override
-	public TripsService getTripService() {
+	public TripService getTripService() {
 	//	System.out.println("Using remote services locator");
 		try {
 			Context ctx = new InitialContext();
-			return (TripsService) ctx.lookup(TRIP_SERVICE_JNDI_KEY);
+			return (TripService) ctx.lookup(TRIP_SERVICE_JNDI_KEY);
 		} catch (NamingException e) {
 			throw new RuntimeException("JNDI problem", e);
 		}

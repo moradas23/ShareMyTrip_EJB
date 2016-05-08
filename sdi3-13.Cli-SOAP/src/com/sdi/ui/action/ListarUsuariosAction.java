@@ -2,13 +2,19 @@ package com.sdi.ui.action;
 
 import java.util.List;
 
-import com.sdi.business.SeatService;
-import com.sdi.business.TripService;
-import com.sdi.business.UserService;
-import com.sdi.business.impl.RemoteEjbServicesLocator;
-import com.sdi.model.Seat;
-import com.sdi.model.Trip;
-import com.sdi.model.User;
+
+
+
+
+
+
+
+import com.sdi.ws.trip.EjbTripServiceService;
+import com.sdi.ws.trip.Trip;
+import com.sdi.ws.trip.TripService;
+import com.sdi.ws.user.EjbUserServiceService;
+import com.sdi.ws.user.User;
+import com.sdi.ws.user.UserService;
 
 import alb.util.menu.Action;
 
@@ -16,10 +22,10 @@ public class ListarUsuariosAction implements Action{
 
 	@Override
 	public void execute() throws Exception {
-		UserService uService = new RemoteEjbServicesLocator().getUserService();
+		UserService uService = new EjbUserServiceService().getUserServicePort();
 		List<User> usuarios = uService.getUsers();
 		
-		TripService tService = new RemoteEjbServicesLocator().getTripService();
+		TripService tService = new EjbTripServiceService().getTripServicePort();
 		
 		
 		for(User usuario:usuarios){

@@ -18,7 +18,7 @@ import com.sdi.model.User;
  * @author alb
  *
  */
-public interface UsersService {
+public interface UserService {
 
 	User findById(Long id) ;
 	void saveUser(User alumno) throws EntityAlreadyExistsException;

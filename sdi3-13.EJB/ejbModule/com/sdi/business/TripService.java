@@ -9,9 +9,9 @@ import com.sdi.model.Trip;
 
 
 
-public interface TripsService {
+public interface TripService {
 
-	List<Trip> findAll();
+	List<Trip> findAllTrip();
 	List<Trip> findAllDisponible();
 	
 	/**
@@ -24,7 +24,7 @@ public interface TripsService {
 	 */
 	List<Trip> findAllDisponibleUser(String login);
 	boolean registrar(RegistrarViajeDto trip);
-	Trip findById(Long tripId);
+	Trip findByIdTrip(Long tripId);
 	List<Trip> findByPromoter(Long id);
 	boolean modificar(ModificarViajeDto beanModificarViaje);
 	
@@ -64,7 +64,7 @@ public interface TripsService {
 	 * 
 	 * @return
 	 */
-	List<Trip> findLastMonth();
+	List<Trip> findLastMonthTrip();
 	
 	/**
 	 * 

@@ -2,9 +2,9 @@ package com.sdi.business.impl.user;
 
 import javax.ejb.Local;
 
-import com.sdi.business.UsersService;
+import com.sdi.business.UserService;
 
 @Local
-public interface LocalUserService extends UsersService{
+public interface LocalUserService extends UserService{
 
 }

@@ -14,7 +14,7 @@ import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 
-import com.sdi.business.TripsService;
+import com.sdi.business.TripService;
 import com.sdi.dto.RegistrarViajeDto;
 import com.sdi.infrastructure.Factories;
 import com.sdi.model.User;
@@ -249,7 +249,7 @@ public class BeanRegisterTrip implements Serializable {
 
 	public String register() {
 
-		TripsService trip = Factories.services.getTripService();
+		TripService trip = Factories.services.getTripService();
 		
 		RegistrarViajeDto tVDto = new RegistrarViajeDto();
 		tVDto.setAdressFrom(this.getAdressFrom());

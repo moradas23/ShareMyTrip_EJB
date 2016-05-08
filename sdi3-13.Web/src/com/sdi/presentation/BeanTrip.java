@@ -10,8 +10,8 @@ import javax.faces.context.FacesContext;
 
 import com.sdi.business.ApplicationService;
 import com.sdi.business.SeatService;
-import com.sdi.business.TripsService;
-import com.sdi.business.UsersService;
+import com.sdi.business.TripService;
+import com.sdi.business.UserService;
 import com.sdi.infrastructure.Factories;
 import com.sdi.model.Application;
 import com.sdi.model.Seat;
@@ -54,7 +54,7 @@ public class BeanTrip implements Serializable {
 	public void obtenerAceptados() {
 		
 			SeatService serviceS;
-			UsersService serviceU;
+			UserService serviceU;
 
 			serviceS = Factories.services.getSeatService();
 			serviceU = Factories.services.getUserService();
@@ -75,7 +75,7 @@ public class BeanTrip implements Serializable {
 	
 	private void obtenerSolicitantes() {
 			ApplicationService serviceA = Factories.services.getApplicationService();
-			UsersService serviceU = Factories.services.getUserService();
+			UserService serviceU = Factories.services.getUserService();
 			
 			List<Application> solicitudes = serviceA.getSolicitudesViaje(viaje.getId());
 	
@@ -91,7 +91,7 @@ public class BeanTrip implements Serializable {
 	
 	public void aceptarSolicitud(User persona){
 		SeatService serviceS = Factories.services.getSeatService();
-		TripsService serviceT = Factories.services.getTripService();
+		TripService serviceT = Factories.services.getTripService();
 	
 		serviceS.insert(persona.getId(),viaje.getId());	
 		serviceT.ocuparPlaza(viaje.getId());
@@ -119,7 +119,7 @@ public class BeanTrip implements Serializable {
 	public void eliminarSolicitudAceptada(User persona){
 		ApplicationService service = Factories.services.getApplicationService();
 		SeatService serviceS = Factories.services.getSeatService();
-		TripsService serviceT = Factories.services.getTripService();
+		TripService serviceT = Factories.services.getTripService();
 		
 		service.delete(persona.getId(),viaje.getId());
 		serviceS.actualizarExcluido(persona.getId(),viaje.getId());	

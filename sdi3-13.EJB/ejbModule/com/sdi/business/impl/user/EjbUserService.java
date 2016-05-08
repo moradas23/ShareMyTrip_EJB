@@ -3,6 +3,7 @@ package com.sdi.business.impl.user;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.jws.WebMethod;
 import javax.jws.WebService;
 
 import com.sdi.business.exception.EntityAlreadyExistsException;
@@ -19,7 +20,7 @@ import com.sdi.model.User;
  * 
  */
 @Stateless
-@WebService(name="UsersService")
+@WebService(name="UserService")
 public class EjbUserService implements LocalUserService,RemoteUserService {
 
 	@Override
@@ -33,6 +34,7 @@ public class EjbUserService implements LocalUserService,RemoteUserService {
 	}
 
 	@Override
+	@WebMethod
 	public User findById(Long id) {
 		return new UsersBuscar().find(id);
 	}

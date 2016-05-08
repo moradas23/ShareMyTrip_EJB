@@ -9,7 +9,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
-import com.sdi.business.UsersService;
+import com.sdi.business.UserService;
 import com.sdi.infrastructure.Factories;
 import com.sdi.model.User;
 import com.sdi.model.UserLogin;
@@ -43,7 +43,7 @@ public class BeanRegistro implements Serializable {
 
 	
 	public String registrar() {
-		UsersService service;
+		UserService service;
 		try {
 
 			service = Factories.services.getUserService();

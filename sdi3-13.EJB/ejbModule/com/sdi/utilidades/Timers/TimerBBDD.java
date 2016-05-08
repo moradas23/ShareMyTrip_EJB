@@ -6,7 +6,7 @@ import java.util.TimerTask;
 
 import com.sdi.business.ApplicationService;
 import com.sdi.business.SeatService;
-import com.sdi.business.TripsService;
+import com.sdi.business.TripService;
 import com.sdi.infrastructure.Factories;
 import com.sdi.model.Application;
 import com.sdi.model.Trip;
@@ -23,7 +23,7 @@ public class TimerBBDD {
 			@Override
 			public void run() {
 
-				TripsService serviceT = Factories.services.getTripService();
+				TripService serviceT = Factories.services.getTripService();
 				ApplicationService serviceA = Factories.services
 						.getApplicationService();
 				SeatService serviceS = Factories.services.getSeatService();

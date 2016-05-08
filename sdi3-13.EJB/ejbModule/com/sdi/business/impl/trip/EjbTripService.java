@@ -16,11 +16,11 @@ import com.sdi.dto.RegistrarViajeDto;
 import com.sdi.model.Trip;
 
 @Stateless
-@WebService(name="TripsService")
+@WebService(name="TripService")
 public class EjbTripService implements LocalTripService,RemoteTripService {
 
 	@Override
-	public List<Trip> findAll() {
+	public List<Trip> findAllTrip() {
 		return new TripsListado().getTrips();
 	}
 
@@ -39,7 +39,7 @@ public class EjbTripService implements LocalTripService,RemoteTripService {
 		return new TripRegistrar().registerTrip(trip);
 	}
 
-	public Trip findById(Long tripId) {
+	public Trip findByIdTrip(Long tripId) {
 		return new TripsBuscar().getTrip(tripId);
 	}
 
@@ -80,7 +80,7 @@ public class EjbTripService implements LocalTripService,RemoteTripService {
 	}
 
 	@Override
-	public List<Trip> findLastMonth() {
+	public List<Trip> findLastMonthTrip() {
 		return new TripsBuscar().findLastMonth();
 	}
 
