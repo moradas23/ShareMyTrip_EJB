@@ -68,4 +68,12 @@ clases que implementan servicios REST en esta aplicación web
 </servlet-mapping>
   
   
+  
+  <login-config> 
+  <auth-method>BASIC</auth-method> 
+  <realm-name>ApplicationRealm</realm-name>
+</login-config>
+
+
+  
 </web-app>

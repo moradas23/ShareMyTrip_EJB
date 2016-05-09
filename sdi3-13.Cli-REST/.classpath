@@ -67,5 +67,9 @@
 	<classpathentry kind="lib" path="lib/spring-web-3.0.3.RELEASE.jar"/>
 	<classpathentry kind="lib" path="lib/spring-webmvc-3.0.3.RELEASE.jar"/>
 	<classpathentry kind="lib" path="lib/stax-api-1.0-2.jar"/>
+	<classpathentry kind="lib" path="S:/wildfly/modules/system/layers/base/javax/ws/rs/api/main/jaxrs-api-3.0.6.Final.jar"/>
+	<classpathentry kind="lib" path="S:/wildfly/modules/system/layers/base/javax/servlet/api/main/jboss-servlet-api_3.1_spec-1.0.0.Final.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/AlbUtil"/>
+	<classpathentry kind="lib" path="S:/wildfly/modules/system/layers/base/org/jboss/resteasy/resteasy-jaxrs/main/resteasy-client-3.0.6.Final.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
