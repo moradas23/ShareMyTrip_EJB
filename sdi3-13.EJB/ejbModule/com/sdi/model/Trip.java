@@ -3,6 +3,9 @@ package com.sdi.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * This class is not an entity, it is a DTO with the same fields as 
  * a row in the table
@@ -11,6 +14,7 @@ import java.util.Date;
  * @author alb
  *
  */
+@XmlRootElement(name = "trip")
 public class Trip implements Serializable {
 	
 	/**
@@ -36,6 +40,7 @@ public class Trip implements Serializable {
 	//Soap
 	private String cityDestination;
 
+	@XmlElement
 	public AddressPoint getDeparture() {
 		return departure;
 	}
@@ -44,6 +49,7 @@ public class Trip implements Serializable {
 		this.departure = departure;
 	}
 
+	@XmlElement
 	public TripStatus getStatus() {
 		return status;
 	}
@@ -52,6 +58,7 @@ public class Trip implements Serializable {
 		this.status = status;
 	}
 
+	@XmlElement
 	public Long getId() {
 		return id;
 	}
@@ -60,6 +67,7 @@ public class Trip implements Serializable {
 		this.id = id;
 	}
 
+	@XmlElement
 	public AddressPoint getDestination() {
 		return destination;
 	}
@@ -69,6 +77,7 @@ public class Trip implements Serializable {
 		this.setCityDestination(destination.getCity());
 	}
 
+	@XmlElement
 	public Date getArrivalDate() {
 		return arrivalDate;
 	}
@@ -77,6 +86,7 @@ public class Trip implements Serializable {
 		this.arrivalDate = arrivalDate;
 	}
 
+	@XmlElement
 	public Date getDepartureDate() {
 		return departureDate;
 	}
@@ -85,6 +95,7 @@ public class Trip implements Serializable {
 		this.departureDate = departureDate;
 	}
 
+	@XmlElement
 	public Date getClosingDate() {
 		return closingDate;
 	}
@@ -93,6 +104,7 @@ public class Trip implements Serializable {
 		this.closingDate = closingDate;
 	}
 
+	@XmlElement
 	public Integer getAvailablePax() {
 		return availablePax;
 	}
@@ -101,6 +113,7 @@ public class Trip implements Serializable {
 		this.availablePax = availablePax;
 	}
 
+	@XmlElement
 	public Integer getMaxPax() {
 		return maxPax;
 	}
@@ -109,6 +122,7 @@ public class Trip implements Serializable {
 		this.maxPax = maxPax;
 	}
 
+	@XmlElement
 	public Double getEstimatedCost() {
 		return estimatedCost;
 	}
@@ -117,6 +131,7 @@ public class Trip implements Serializable {
 		this.estimatedCost = estimatedCost;
 	}
 
+	@XmlElement
 	public String getComments() {
 		return comments;
 	}
@@ -125,6 +140,7 @@ public class Trip implements Serializable {
 		this.comments = comments;
 	}
 
+	@XmlElement
 	public Long getPromoterId() {
 		return promoterId;
 	}

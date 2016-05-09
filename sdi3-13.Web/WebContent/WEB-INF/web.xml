@@ -26,4 +26,46 @@
     <servlet-name>Faces Servlet</servlet-name>
     <url-pattern>*.xhtml</url-pattern>
   </servlet-mapping>
+  
+
+<!-- CONFIGURACION DE RESTEASY  -->
+  
+<!--
+Es necesario incluir esta variable de contexto para que
+Resteasy reconozca el mapeo /rest/ correspondiente a servicios REST.
+Además de incluir el propio <mapping> y el servlet Resteasy
+-->
+
+<context-param>
+    <param-name>resteasy.servlet.mapping.prefix</param-name>
+    <param-value>/rest</param-value>
+  </context-param>
+  
+<!--
+Servlet resteasy que se encarga de procesar las peticiones correspondientes 
+a servicios REST.
+
+Lleva un parámetro de inicialización donde deben estar registradas todas las 
+clases que implementan servicios REST en esta aplicación web
+-->
+
+<servlet>
+    <servlet-name>resteasy</servlet-name>
+    <servlet-class>
+          org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher
+    </servlet-class>
+    <init-param>
+        <param-name>javax.ws.rs.Application</param-name>
+        <param-value>com.sdi.rest.Application</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+</servlet>
+
+<!-- Regla de mapeo para todas las peticiones REST -->
+<servlet-mapping>
+    <servlet-name>resteasy</servlet-name>
+    <url-pattern>/rest/*</url-pattern>
+</servlet-mapping>
+  
+  
 </web-app>
