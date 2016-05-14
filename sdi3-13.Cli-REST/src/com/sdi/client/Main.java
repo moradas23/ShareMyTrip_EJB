@@ -2,21 +2,17 @@ package com.sdi.client;
 
 import java.util.List;
 
-
-
-
-
-
-
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+
+import alb.util.console.Console;
+
 import com.sdi.client.trip.Trip;
 import com.sdi.client.user.User;
 
-import alb.util.console.Console;
 
 public class Main {
 	
