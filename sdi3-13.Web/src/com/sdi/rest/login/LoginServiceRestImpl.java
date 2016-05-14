@@ -4,6 +4,8 @@ import com.sdi.business.LoginService;
 import com.sdi.infrastructure.Factories;
 import com.sdi.model.UserLogin;
 
+
+
 public class LoginServiceRestImpl implements LoginServiceRest {
 
 	LoginService service = Factories.services.getLoginService();

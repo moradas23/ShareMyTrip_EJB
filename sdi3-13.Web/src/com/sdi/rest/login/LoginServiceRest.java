@@ -8,6 +8,10 @@ import javax.ws.rs.core.MediaType;
 
 import com.sdi.model.UserLogin;
 
+
+
+
+
 @Path("/loginServiceRS")
 public interface LoginServiceRest {
 
