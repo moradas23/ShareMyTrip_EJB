@@ -1,11 +1,7 @@
-package com.sdi.model;
+package com.sdi.client;
 
 import java.io.Serializable;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-
-@XmlRootElement(name = "userLogin")
 public class UserLogin implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
@@ -19,25 +15,18 @@ public class UserLogin implements Serializable{
 	private String name;
 	private Long id;
 	
-	public UserLogin(){
-		
-	}
-	
-	@XmlElement
 	public String getLogin() {
 		return login;
 	}
 	public void setLogin(String login) {
 		this.login = login;
 	}
-	@XmlElement
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
-	@XmlElement
 	public Long getId() {
 		return id;
 	}
