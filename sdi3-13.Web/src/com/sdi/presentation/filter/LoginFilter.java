@@ -18,7 +18,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet Filter implementation class LoginFilter
  */
-@WebFilter(dispatcherTypes = { DispatcherType.REQUEST }, urlPatterns = { "/restricted/*" }, initParams = { @WebInitParam(name = "LoginParam", value = "/login.xhtml") })
+@WebFilter(dispatcherTypes = { DispatcherType.REQUEST }, urlPatterns = { "/private/*" }, initParams = { @WebInitParam(name = "LoginParam", value = "/login.xhtml") })
 public class LoginFilter implements Filter {
 	// Necesitamos acceder a los parámetros de inicialización en
 	// el método doFilter por lo que necesitamos la variable

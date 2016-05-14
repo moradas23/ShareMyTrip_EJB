@@ -7,7 +7,7 @@
 		<p:menubar activeIndex="#{param.i}">
 			
 			<p:menuitem value="#{msgs.Principal}" 
-			action="/restricted/principal.xhtml" id="principal">
+			action="/private/principal.xhtml" id="principal">
 				<f:param name="i" value="0" />
 			</p:menuitem>
 			
@@ -19,12 +19,12 @@
 			
 			<p:menuitem value="#{msgs.misViajes}" 
 			actionListener="#{trips.obtenerViajesImplicado}"
-			action="/restricted/misViajes.xhtml" id="misViajes">
+			action="/private/misViajes.xhtml" id="misViajes">
 				<f:param name="i" value="0" />
 			</p:menuitem>
 			
 			<p:menuitem value="#{msgs.registroViaje}"
-			action="/restricted/registrarViaje.xhtml"
+			action="/private/registrarViaje.xhtml"
 			id="registrarViaje">
 				<f:param name="i" value="0" />
 			</p:menuitem>
