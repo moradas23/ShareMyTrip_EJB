@@ -11,6 +11,7 @@ public class LoginServiceRestImpl implements LoginServiceRest {
 	@Override
 	public UserLogin verify(String login, String password) {
 		return service.verify(login, password);
+		
 	}
 
 }
