@@ -69,7 +69,7 @@ public class Main {
 	
 	private User getUserById(User usuario,Authenticator auth) {
 		return (User) ClientBuilder.newClient()
-		.register(auth )
+		.register(auth)
 		.target( REST_USER_SERVICE_URL )
 		.path( usuario.getId().toString() )
 		.request()

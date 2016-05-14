@@ -15,8 +15,6 @@ public class Authenticator implements ClientRequestFilter {
 	private final String user;
 	private final String password;
 
-	private static final String REST_LOGIN_SERVICE_URL = "http://localhost:8280"
-			+ "/sdi3-13.Web/rest/LoginServiceRs";
 
 	public Authenticator(String user, String password) {
 		this.user = user;
@@ -30,7 +28,7 @@ public class Authenticator implements ClientRequestFilter {
 		headers.add("Authorization", basicAuthentication);
 	}
 
-	private String getBasicAuthentication() {
+	private String getBasicAuthentication() {	
 		String token = this.user + ":" + this.password;
 		try {
 			return "Basic "

@@ -16,7 +16,7 @@ import com.sdi.model.UserLogin;
 public interface LoginServiceRest {
 
 	@GET
-	@Path("{login}")
+	@Path("/{login}/{pass}")
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML}) 
 	UserLogin verify(@PathParam("login") String login,@PathParam("pass") String password);
 	
