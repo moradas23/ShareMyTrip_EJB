@@ -15,4 +15,5 @@ public interface UserServiceRest {
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML}) 
 	User getUserById(@PathParam("id") Long id);
 
+	
 }
