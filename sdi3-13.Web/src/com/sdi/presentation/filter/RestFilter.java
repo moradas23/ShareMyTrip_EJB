@@ -32,7 +32,7 @@ import com.sdi.model.UserLogin;
 /**
  * Servlet Filter implementation class LoginFilter
  */
-@WebFilter(dispatcherTypes = { DispatcherType.REQUEST }, urlPatterns = { "/rest/*" }, initParams = { @WebInitParam(name = "LoginParam", value = "/login.xhtml") })
+@WebFilter(dispatcherTypes = { DispatcherType.REQUEST }, urlPatterns = { "/rest/*" })
 public class RestFilter implements Filter  {
 	// Necesitamos acceder a los parámetros de inicialización en
 	// el método doFilter por lo que necesitamos la variable
@@ -77,23 +77,57 @@ public class RestFilter implements Filter  {
 		// En el resto de casos se verifica que se haya hecho login previamente
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
-		HttpSession session = req.getSession();
 		
 		String AuthorizationBase64  = req.getHeader("Authorization");
-		  
-	    byte[] decodedPhraseAsBytes = Base64.decode(AuthorizationBase64);
-
-	    String phraseDecodedToString = new String(decodedPhraseAsBytes, "utf-8");
-	
-	    DatatypeConverter.
 		
-	//	UserLogin user = service.verify(login, password);
+		String[] AuthorizationBase64Aux = AuthorizationBase64.split(" "); 
 		
-		//if(user!=null)
-			chain.doFilter(request, response);
+		String Authorization = decode(AuthorizationBase64Aux[1]);
+		
+		String[] datos = Authorization.split(":");
+		
+		String login = datos[0];
+		
+		String password = datos[1];
+		
+		UserLogin user = service.verify(login, password);
+		
+		if(user==null)
+			return;
+		
+		chain.doFilter(request, res);
 		
 			
 	}
+	
+    private static String radixBase64=
+            "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+          + "abcdefghijklmnopqrstuvwxyz"
+          + "0123456789"
+          + "+/";
+	
+	 private static String decode(String string){
+         String binary_string="";
+         for(char c:string.toCharArray()){
+             if(c=='=')
+                 break;
+             String char_to_binary = Integer.toBinaryString(radixBase64.indexOf(c));
+             while(char_to_binary.length()<6)
+                 char_to_binary="0"+char_to_binary;
+             binary_string+=char_to_binary;
+         }
+         if(string.endsWith("=="))
+             binary_string=binary_string.substring(0, binary_string.length()-4);
+         else if(string.endsWith("="))
+             binary_string=binary_string.substring(0, binary_string.length()-2);
+         string="";
+         for(int i=0;i<binary_string.length();i+=8){
+             String eight_binary_digits = binary_string.substring(i, i+8);
+             string+=(char)Integer.parseInt(eight_binary_digits,2);
+         }
+         return string;
+     }
+
 	
 	
 

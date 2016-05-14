@@ -27,12 +27,6 @@
     <url-pattern>*.xhtml</url-pattern>
   </servlet-mapping>
   
-<login-config> 
-  <auth-method>BASIC</auth-method> 
-  <realm-name>ApplicationRealm</realm-name>
-</login-config>
-
-
 <!-- CONFIGURACION DE RESTEASY  -->
   
 <!--
