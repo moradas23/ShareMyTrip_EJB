@@ -15,14 +15,14 @@ public interface UserServiceRest {
 
 
 	@GET
-	@Path("{id}")
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML}) 
-	User getUserById(@PathParam("id") Long id);
+	List<User> getUsers();
 
 
 	@GET
+	@Path("{login}")
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML}) 
-	List<User> getUsers();
+	User getUserByLogin(@PathParam("login") String login);
 
 
 	

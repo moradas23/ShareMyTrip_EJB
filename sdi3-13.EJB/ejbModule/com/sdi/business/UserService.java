@@ -22,7 +22,7 @@ public interface UserService {
 	User findById(Long id) ;
 	void saveUser(User alumno);
 	List<User> getUsers();
-	User finByLogin(String login);
+	User findByLogin(String login);
 	void unsubscribe(String login);
 
 }

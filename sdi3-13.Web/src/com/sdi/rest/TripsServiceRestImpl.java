@@ -9,10 +9,12 @@ import com.sdi.model.Trip;
 public class TripsServiceRestImpl implements TripsServiceRest {
 
 	TripService service = Factories.services.getTripService();
-	
+
 	@Override
-	public List<Trip> getTrips() {
-		return service.findAllTrip();
+	public List<Trip> getPromotedTrips(Long id) {
+		return service.findByPromoter(id);
 	}
+	
+
 
 }

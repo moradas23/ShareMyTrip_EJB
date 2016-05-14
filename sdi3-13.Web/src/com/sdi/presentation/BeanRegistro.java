@@ -52,7 +52,7 @@ public class BeanRegistro implements Serializable {
 			
 			service.saveUser(user);
 			
-			User usuario = service.finByLogin(user.getLogin());
+			User usuario = service.findByLogin(user.getLogin());
 			UserLogin userLogin = new UserLogin(usuario.getLogin(), usuario.getName(), usuario.getId());
 			
 			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("user");

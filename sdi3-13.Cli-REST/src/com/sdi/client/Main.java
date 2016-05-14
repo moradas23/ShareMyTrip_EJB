@@ -22,26 +22,21 @@ public class Main {
 	private static final String REST_USER_SERVICE_URL = "http://localhost:8280"
 			+ "/sdi3-13.Web/rest/UserServiceRs";
 
+	
+	private String login;
+	private String password;
 
 	public static void main(String[] args) {
 		new Main().run();
 	}
 
 	private void run() {
-		  String user = Console.readString("Login");
-		  String password = Console.readString("password");
+		   login = Console.readString("Login");
+		   password = Console.readString("Password");
 		  
-		  Authenticator auth = new Authenticator(user, password);
-		  
-//		  User usuario = new User();
-//		  usuario.setId(new Long(306));
-//		  
-//		  usuario = getUserById(usuario,auth);
-//		  
-//		  System.out.println(usuario);
-		  
-		  
-		  	List<Trip> viajes = getTripsPromoted(auth);
+		   User usuario = getUserByLogin(); 
+				  
+		  	List<Trip> viajes = getTripsPromoted(usuario.getId());
 		  	
 		  	for(Trip viaje:viajes){
 		  		System.out.println(viaje);
@@ -51,13 +46,14 @@ public class Main {
 	}
 	
 	
-	private List<Trip> getTripsPromoted(Authenticator auth) { 
+	private List<Trip> getTripsPromoted(Long id) { 
 		
 		GenericType<List<Trip>> listm = new GenericType<List<Trip>>() {};
 		
 		List<Trip> lista =  ClientBuilder.newClient()
-			.register( auth ) 
+			.register(new Authenticator(login, password)) 
 			.target( REST_TRIP_SERVICE_URL )
+			.path(id.toString())
 			.request()
 			.get()
 			.readEntity(listm);
@@ -67,11 +63,11 @@ public class Main {
 }
 	
 	
-	private User getUserById(User usuario,Authenticator auth) {
+	private User getUserByLogin() {
 		return (User) ClientBuilder.newClient()
-		.register(auth)
+		.register(new Authenticator(login, password))
 		.target( REST_USER_SERVICE_URL )
-		.path( usuario.getId().toString() )
+		.path(login)
 		.request()
 		.accept( MediaType.APPLICATION_XML )
 		.get()

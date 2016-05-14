@@ -39,7 +39,7 @@ public class EjbUserService implements LocalUserService,RemoteUserService {
 	}
 
 	@Override
-	public User finByLogin(String login) {
+	public User findByLogin(String login) {
 		return new UsersBuscar().findByLogin(login);
 	}
 

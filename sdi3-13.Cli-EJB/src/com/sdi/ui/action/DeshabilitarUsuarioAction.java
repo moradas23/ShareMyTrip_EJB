@@ -16,7 +16,7 @@ public class DeshabilitarUsuarioAction implements Action {
 
 		String login = Console.readString("Login del usuario");
 		UserService service = new RemoteEjbServicesLocator().getUserService();
-		User usuario = service.finByLogin(login);
+		User usuario = service.findByLogin(login);
 
 		if (usuario != null) {
 			if (usuario.getStatus().equals(UserStatus.ACTIVE)) {
