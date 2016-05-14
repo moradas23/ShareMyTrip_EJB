@@ -32,9 +32,9 @@ public class TripRegistrar {
 					Double.parseDouble(trip.getLongZipCodeFrom()));
 		}
 	
-		AddressPoint addresSalida = new AddressPoint(trip.getAdressFrom(),
-				trip.getCityFrom(), trip.getProvinceFrom(), trip.getCountryFrom(),
-				trip.getPostalCodeFrom(), wSalida);
+//		AddressPoint addresSalida = new AddressPoint(trip.getAdressFrom(),
+//				trip.getCityFrom(), trip.getProvinceFrom(), trip.getCountryFrom(),
+//				trip.getPostalCodeFrom(), wSalida);
 		
 		//Creamos AdreesPoint del Destino
 		Waypoint wDestino = new Waypoint(null,null);
@@ -45,11 +45,13 @@ public class TripRegistrar {
 					Double.parseDouble(trip.getLongZipCodeTo()));
 		}
 		
-		AddressPoint addresDestino = new AddressPoint(trip.getAdressTo(),
-				trip.getCityTo(), trip.getProvinceTo(), trip.getCountryTo(),
-				trip.getPostalCodeTo(), wDestino);
+//		AddressPoint addresDestino = new AddressPoint(trip.getAdressTo(),
+//				trip.getCityTo(), trip.getProvinceTo(), trip.getCountryTo(),
+//				trip.getPostalCodeTo(), wDestino);
 
+		AddressPoint addresSalida = null;
 		viaje.setDeparture(addresSalida);
+		AddressPoint addresDestino = null;
 		viaje.setDestination(addresDestino);
 		
 		viaje.setDepartureDate(trip.getDateFrom());

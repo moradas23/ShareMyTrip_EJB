@@ -2,6 +2,9 @@ package com.sdi.client.user;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * This class is not an entity, it is a DTO with the same fields as a row in the
  * table
@@ -10,6 +13,8 @@ import java.io.Serializable;
  * @author alb
  *
  */
+
+@XmlRootElement(name = "user")
 public class User implements Serializable {
 
 	/**
@@ -25,6 +30,7 @@ public class User implements Serializable {
 	
 	private UserStatus status;
 
+	@XmlElement
 	public String getEmail() {
 		return email;
 	}
@@ -41,6 +47,7 @@ public class User implements Serializable {
 		this.status = status;
 	}
 
+	@XmlElement
 	public Long getId() {
 		return id;
 	}
@@ -49,6 +56,7 @@ public class User implements Serializable {
 		this.id = id;
 	}
 
+	@XmlElement
 	public String getLogin() {
 		return login;
 	}
@@ -57,6 +65,7 @@ public class User implements Serializable {
 		this.login = login;
 	}
 
+	@XmlElement
 	public String getPassword() {
 		return password;
 	}
@@ -65,6 +74,7 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
+	@XmlElement
 	public String getName() {
 		return name;
 	}
@@ -73,6 +83,7 @@ public class User implements Serializable {
 		this.name = name;
 	}
 
+	@XmlElement
 	public String getSurname() {
 		return surname;
 	}

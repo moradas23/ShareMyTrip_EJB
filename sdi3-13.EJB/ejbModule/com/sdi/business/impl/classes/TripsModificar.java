@@ -44,6 +44,7 @@ public class TripsModificar {
 					viaje.getCityTo(), viaje.getProvinceTo(), viaje.getCountryTo(),
 					viaje.getPostalCodeTo(), wDestino);
 
+
 			newTrip.setDeparture(addresSalida);
 			newTrip.setDestination(addresDestino);
 			

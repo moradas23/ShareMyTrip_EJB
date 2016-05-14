@@ -11,10 +11,11 @@ public class UserServiceRestImpl implements UserServiceRest {
 	UserService service = Factories.services.getUserService();
 	
 	@Override
-	public User getUserById(String id) {
-		return service.findById(Long.valueOf(id));
+	public User getUserById(Long id) {
+		return service.findById(id);
 	}
 
+	
 	@Override
 	public List<User> getUsers() {
 		return service.getUsers();

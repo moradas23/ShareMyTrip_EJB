@@ -2,11 +2,15 @@ package com.sdi.model;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 
 /**
  * This class represents a value type
  * @author alb
  */
+@XmlRootElement(name = "address")
 public class AddressPoint implements Serializable {
 	
 	/**
@@ -31,27 +35,37 @@ public class AddressPoint implements Serializable {
 		this.zipCode = zipCode;
 		this.waypoint = waypoint;
 	}
+	
+	public AddressPoint(){
+		
+	}
 
+	@XmlElement
 	public String getAddress() {
 		return address;
 	}
 
+	@XmlElement
 	public String getCity() {
 		return city;
 	}
 
+	@XmlElement
 	public String getState() {
 		return state;
 	}
 
+	@XmlElement
 	public String getCountry() {
 		return country;
 	}
 
+	@XmlElement
 	public String getZipCode() {
 		return zipCode;
 	}
 
+	@XmlElement
 	public Waypoint getWaypoint() {
 		return waypoint;
 	}

@@ -6,8 +6,6 @@ import java.util.Date;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.sdi.client.AddressPoint;
-
 /**
  * This class is not an entity, it is a DTO with the same fields as 
  * a row in the table

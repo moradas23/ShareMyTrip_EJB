@@ -32,38 +32,50 @@ public class Main {
 		  String password = Console.readString("password");
 		  
 		  Authenticator auth = new Authenticator(user, password);
-		  List<Trip> viajes = getTripsPromoted(auth);
 		  
-		  for(Trip viaje:viajes){
-			  System.out.println(viaje);
-		  }
+//		  User usuario = new User();
+//		  usuario.setId(new Long(306));
+//		  
+//		  usuario = getUserById(usuario,auth);
+//		  
+//		  System.out.println(usuario);
+		  
+		  
+		  	List<Trip> viajes = getTripsPromoted(auth);
+		  	
+		  	for(Trip viaje:viajes){
+		  		System.out.println(viaje);
+		  	}
+		  
+		  
 	}
 	
 	
 	private List<Trip> getTripsPromoted(Authenticator auth) { 
+		
 		GenericType<List<Trip>> listm = new GenericType<List<Trip>>() {};
 		
-		List<Trip> lista = (List<Trip>) ((Response) ClientBuilder.newClient()
+		List<Trip> lista =  ClientBuilder.newClient()
 			.register( auth ) 
 			.target( REST_TRIP_SERVICE_URL )
 			.request()
-			.get(listm))
-			.getEntity();
+			.get()
+			.readEntity(listm);
 			
 	return lista;
 
 }
 	
 	
-	private User getUserById(User usuario) {
+	private User getUserById(User usuario,Authenticator auth) {
 		return (User) ClientBuilder.newClient()
-		.register( new Authenticator("sdi", "password") )
+		.register(auth )
 		.target( REST_USER_SERVICE_URL )
 		.path( usuario.getId().toString() )
 		.request()
 		.accept( MediaType.APPLICATION_XML )
 		.get()
-		.getEntity();
+		.readEntity(User.class);
 		}
 
 	
