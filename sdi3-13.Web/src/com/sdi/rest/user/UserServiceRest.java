@@ -1,19 +1,18 @@
-package com.sdi.rest;
-
-import java.util.List;
+package com.sdi.rest.user;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.sdi.model.Trip;
+import com.sdi.model.User;
 
-@Path("/TripsServiceRs")
-public interface TripsServiceRest {
-
+@Path("/UserServiceRs")
+public interface UserServiceRest {
+	
 	@GET
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML}) 
-	List<Trip> getTrips();
-	
+	User getUserById(@PathParam("id") Long id);
+
 }

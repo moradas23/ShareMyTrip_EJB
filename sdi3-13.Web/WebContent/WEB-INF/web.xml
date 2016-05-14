@@ -27,6 +27,11 @@
     <url-pattern>*.xhtml</url-pattern>
   </servlet-mapping>
   
+<login-config> 
+  <auth-method>BASIC</auth-method> 
+  <realm-name>ApplicationRealm</realm-name>
+</login-config>
+  
 
 <!-- CONFIGURACION DE RESTEASY  -->
   
@@ -39,7 +44,7 @@ Además de incluir el propio <mapping> y el servlet Resteasy
 <context-param>
     <param-name>resteasy.servlet.mapping.prefix</param-name>
     <param-value>/rest</param-value>
-  </context-param>
+ </context-param>
   
 <!--
 Servlet resteasy que se encarga de procesar las peticiones correspondientes 
@@ -66,14 +71,5 @@ clases que implementan servicios REST en esta aplicación web
     <servlet-name>resteasy</servlet-name>
     <url-pattern>/rest/*</url-pattern>
 </servlet-mapping>
-  
-  
-  
-  <login-config> 
-  <auth-method>BASIC</auth-method> 
-  <realm-name>ApplicationRealm</realm-name>
-</login-config>
-
-
   
 </web-app>

@@ -1,4 +1,4 @@
-package com.sdi.client;
+package com.sdi.client.user;
 
 import java.io.Serializable;
 

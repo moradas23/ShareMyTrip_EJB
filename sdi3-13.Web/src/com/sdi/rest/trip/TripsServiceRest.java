@@ -1,17 +1,19 @@
-package com.sdi.rest;
+package com.sdi.rest.trip;
+
+import java.util.List;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.sdi.model.UserLogin;
+import com.sdi.model.Trip;
 
-@Path("/loginServiceRS")
-public interface LoginServiceRest {
+@Path("/TripsServiceRs")
+public interface TripsServiceRest {
 
 	@GET
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML}) 
-	UserLogin verify(String login, String password);
+	List<Trip> getTrips();
 	
 }
