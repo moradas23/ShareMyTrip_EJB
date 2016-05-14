@@ -1,4 +1,4 @@
-package com.sdi.rest.trip;
+package com.sdi.rest;
 
 import java.util.List;
 

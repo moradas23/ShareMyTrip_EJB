@@ -1,6 +1,5 @@
 package com.sdi.business.impl.classes;
 
-import com.sdi.business.exception.EntityAlreadyExistsException;
 import com.sdi.infrastructure.Factories;
 import com.sdi.model.User;
 import com.sdi.model.UserStatus;
@@ -9,13 +8,13 @@ import com.sdi.persistence.exception.AlreadyPersistedException;
 
 public class UsersManagement {
 
-	public void save(User user) throws EntityAlreadyExistsException {
+	public void save(User user){
 		UserDao dao = Factories.persistence.createUserDao();
 		try {
 			dao.save(user);
 		}
 		catch (AlreadyPersistedException ex) {
-			throw new EntityAlreadyExistsException("Usuario ya existe " + user, ex);
+			System.out.println("Usuario ya existe " + user);
 		}
 	}
 	

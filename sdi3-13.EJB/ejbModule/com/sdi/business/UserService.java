@@ -2,7 +2,6 @@ package com.sdi.business;
 
 import java.util.List;
 
-import com.sdi.business.exception.EntityAlreadyExistsException;
 import com.sdi.model.User;
 
 /**
@@ -21,8 +20,8 @@ import com.sdi.model.User;
 public interface UserService {
 
 	User findById(Long id) ;
-	void saveUser(User alumno) throws EntityAlreadyExistsException;
-	List<User> getUsers() throws Exception;
+	void saveUser(User alumno);
+	List<User> getUsers();
 	User finByLogin(String login);
 	void unsubscribe(String login);
 

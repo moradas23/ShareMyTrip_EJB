@@ -1,4 +1,4 @@
-package com.sdi.rest.login;
+package com.sdi.rest;
 
 import com.sdi.business.LoginService;
 import com.sdi.infrastructure.Factories;
