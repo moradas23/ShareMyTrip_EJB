@@ -22,13 +22,9 @@ namespace sdi3_13.Cli_SOAP
                 Console.WriteLine(datosUsuario(usuario));
             }
 
-          
-
             Console.Write("Pulse un botón para terminar");
             Console.Read();
-            
-
-
+         
         }
 
         public static String datosUsuario(user usuario)
