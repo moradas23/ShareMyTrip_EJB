@@ -21,4 +21,10 @@ public class UserServiceRestImpl implements UserServiceRest {
 		return service.getUsers();
 	}
 
+
+	@Override
+	public User getUserById(Long id) {
+		return service.findById(id);
+	}
+
 }

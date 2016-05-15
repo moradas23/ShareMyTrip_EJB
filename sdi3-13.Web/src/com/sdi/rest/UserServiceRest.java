@@ -20,9 +20,14 @@ public interface UserServiceRest {
 
 
 	@GET
-	@Path("{login}")
+	@Path("login/{login}")
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML}) 
 	User getUserByLogin(@PathParam("login") String login);
+
+	@GET
+	@Path("id/{id}")
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML}) 
+	User getUserById(@PathParam("id") Long id);
 
 
 	
