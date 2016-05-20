@@ -35,6 +35,8 @@ public class Main {
 		password = Console.readString("Password");
 
 		User usuario = getUserByLogin();
+		
+		if(usuario!=null){
 
 		List<Trip> viajes = getTripsPromoted(usuario.getId());
 
@@ -62,6 +64,9 @@ public class Main {
 		
 		Long idConfirmado = Console.readLong("Inserte ID del usuario a confirmar");
 		
+		}else{
+			System.out.println("Usuario y/o contraseña incorrectos");
+		}
 
 	}
 
