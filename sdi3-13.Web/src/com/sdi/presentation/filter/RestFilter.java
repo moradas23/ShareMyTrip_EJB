@@ -3,8 +3,10 @@ package com.sdi.presentation.filter;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.DispatcherType;
@@ -19,7 +21,14 @@ import javax.servlet.annotation.WebInitParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import javax.xml.bind.DatatypeConverter;
+
+
+
+
+
 
 
 
@@ -28,6 +37,7 @@ import org.apache.commons.codec.binary.Base64;
 import com.sdi.business.LoginService;
 import com.sdi.infrastructure.Factories;
 import com.sdi.model.UserLogin;
+import com.sun.corba.se.impl.protocol.RequestCanceledException;
 
 /**
  * Servlet Filter implementation class LoginFilter
@@ -92,8 +102,11 @@ public class RestFilter implements Filter  {
 		
 		UserLogin user = service.verify(login, password);
 		
-		if(user==null)
-			return;
+		if(user==null){
+			res.setStatus(400);
+		}
+		
+	
 		
 		chain.doFilter(request, res);
 		
