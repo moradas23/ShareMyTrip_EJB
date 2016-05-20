@@ -17,12 +17,18 @@ import java.util.List;
 
 
 
+
+
+
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
 import javax.jms.JMSException;
+import javax.jms.MapMessage;
+import javax.jms.Message;
 import javax.jms.MessageProducer;
 import javax.jms.Session;
+import javax.jms.TextMessage;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
@@ -52,7 +58,7 @@ public class ObtenerViajesAction implements Action {
 	private MessageProducer sender;
 	
 	private static final String JMS_CONNECTION_FACTORY = "jms/RemoteConnectionFactory";
-	private static final String MENSAJES_TOPIC = "jms/queue/MensajesTopic";
+	private static final String MENSAJES_TOPIC = "jms/queue/MensajesQueue";
 
 	
 	@Override
@@ -70,6 +76,17 @@ public class ObtenerViajesAction implements Action {
 			int idViaje = Console.readInt("Selecciona ID de un viaje");
 						
 			initialize();
+			
+			System.out.println("Escribe tus mensajes y pulsa enter");
+			System.out.println("Para salir escribe '.' ");
+			
+			String mensaje = null;
+				
+			while(mensaje!="."){		
+				mensaje = Console.readString("-->");
+				Message msg = createMessage(mensaje);
+				sender.send(msg);
+			}
 		
 		
 		}else{
@@ -79,19 +96,7 @@ public class ObtenerViajesAction implements Action {
 	}
 	
 	
-	private void mostrarViajes(List<Trip> viajes) {
-		for (Trip viaje : viajes) {
-			System.out.println("\n---ID del Viaje: " + viaje.getId()
-					+ "-------------");
-			System.out.println("Ciudad Salida: "
-					+ viaje.getDeparture().getCity());
-			System.out.println("Ciudad Destino: "
-					+ viaje.getDestination().getCity());
-			System.out.println("Fecha Salida: " + viaje.getDepartureDate());
-			System.out.println("Fecha llegada: " + viaje.getArrivalDate()
-					+ "\n");
-		}
-	}
+
 
 	
 	
@@ -107,6 +112,25 @@ public class ObtenerViajesAction implements Action {
 	}
 	
 	
+	private TextMessage createMessage(String mensaje) throws JMSException {
+		TextMessage msg = session.createTextMessage();
+		msg.setText(mensaje);
+		return msg;
+	}
+	
+	private void mostrarViajes(List<Trip> viajes) {
+		for (Trip viaje : viajes) {
+			System.out.println("\n---ID del Viaje: " + viaje.getId()
+					+ "-------------");
+			System.out.println("Ciudad Salida: "
+					+ viaje.getDeparture().getCity());
+			System.out.println("Ciudad Destino: "
+					+ viaje.getDestination().getCity());
+			System.out.println("Fecha Salida: " + viaje.getDepartureDate());
+			System.out.println("Fecha llegada: " + viaje.getArrivalDate()
+					+ "\n");
+		}
+	}
 	
 		
 //Accesos REST
