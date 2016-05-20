@@ -15,6 +15,4 @@ public class TripsServiceRestImpl implements TripsServiceRest {
 		return service.findByPromoter(id);
 	}
 	
-
-
 }
