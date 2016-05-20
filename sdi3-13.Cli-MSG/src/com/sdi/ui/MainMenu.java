@@ -8,7 +8,7 @@ public class MainMenu extends BaseMenu {
 	public MainMenu() {
 		menuOptions = new Object[][] {	{ 
 			"Cliente de mensajeria", null },
-				{ "Listado viajes involucrado", ObtenerViajesAction.class }
+				{ "Iniciar Sesión", ObtenerViajesAction.class }
 			,};
 	}
 
