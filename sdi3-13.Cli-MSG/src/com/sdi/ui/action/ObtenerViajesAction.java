@@ -77,6 +77,20 @@ public class ObtenerViajesAction implements Action {
 		
 		idViaje = Console.readLong("Selecciona ID de un viaje");
 		
+		boolean viajeErroneo = true;
+		
+		for(Trip viaje:viajesAceptado){
+			if(viaje.getId().equals(idViaje)){
+				viajeErroneo = false;
+				break;
+			}
+		}
+		
+		if(viajeErroneo){
+			System.out.println("Viaje seleccionado incorrecto");
+			return;
+		}
+		
 		EstadoCliente.setIdUsuario(idUsuario);
 		EstadoCliente.setIdViaje(idViaje);
 		
@@ -89,7 +103,7 @@ public class ObtenerViajesAction implements Action {
 		String mensaje = "";
 			
 		while(!mensaje.equals(".")){		
-			mensaje = Console.readString("-->");
+			mensaje = Console.readString();
 			if(!mensaje.equals(".")){
 				Message msg = createMessage(mensaje);
 				sender.send(msg);
