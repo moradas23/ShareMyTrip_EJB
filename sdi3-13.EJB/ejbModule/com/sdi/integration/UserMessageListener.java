@@ -18,85 +18,65 @@ import javax.naming.NamingException;
 
 import com.sdi.business.exception.BusinessException;
 
-@MessageDriven(
-activationConfig = {
+@MessageDriven(activationConfig = { 
 		@ActivationConfigProperty(
-				propertyName = "destination",
+				propertyName = "destination", 
 				propertyValue = "queue/MensajesQueue")
-
 })
-
 public class UserMessageListener implements MessageListener {
 
 	@Override
 	public void onMessage(Message msg) {
 		System.out.println("UserMessageListener: Msg received");
-		
+
 		try {
-		
+
 			process(msg);
-			
-			sendMessage((MapMessage)msg);
-		
-		//TENEMOS QUE AÑADIR AQUÍ EL MENSAJE AL TOPIC (Invocar método)
-	
+
+			sendMessage((MapMessage) msg);
+
+			// TENEMOS QUE AÑADIR AQUÍ EL MENSAJE AL TOPIC (Invocar método)
+
 		} catch (JMSException | NamingException jex) {
-	
+
 			jex.printStackTrace();
 
 		}
-		
-		
 
-		
 	}
 
 	private void process(Message msg) throws BusinessException, JMSException {
-		if (!messageOfExpectedType(msg)) {
-			System.out.println("Not of expected type " + msg);
-			return;
-			}
-			
-		
-	}
-
-
-	private boolean messageOfExpectedType(Message msg) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	
-	public void sendMessage(MapMessage message) throws JMSException, NamingException{
-
-		            // first configure and retreive initial context:
-		            Context context = new InitialContext();
-
-		            // get the topic factory:
-		            TopicConnectionFactory factory = (TopicConnectionFactory)
-
-		            context.lookup("ConnectionFactory");
-
-		          
-		            // create a topic connection and session:
-		            TopicConnection connection = factory.createTopicConnection();
-		            TopicSession session = connection.createTopicSession(
-		            		false, Session.AUTO_ACKNOWLEDGE);
-
-
-		            // finds the topic and build a publisher:
-		            Topic topic = (Topic) context.lookup("topic/MensajesTopic");
-		            TopicPublisher publisher = session.createPublisher(topic);
-		            
-		            MapMessage msg = session.createMapMessage();
-		            
-		            msg.setString("login", message.getString("login"));
-		            msg.setString("Mensaje", message.getString("mensaje"));
-	            
-
-		            publisher.publish(msg);
+		// Filtrado de mensajes
 
 	}
 
+	public void sendMessage(MapMessage message) throws JMSException,
+			NamingException {
 
+		// first configure and retreive initial context:
+		Context context = new InitialContext();
+
+		// get the topic factory:
+		TopicConnectionFactory factory = (TopicConnectionFactory)
+
+		context.lookup("ConnectionFactory");
+
+		// create a topic connection and session:
+		TopicConnection connection = factory.createTopicConnection();
+		TopicSession session = connection.createTopicSession(false,
+				Session.AUTO_ACKNOWLEDGE);
+
+		// finds the topic and build a publisher:
+		Topic topic = (Topic) context.lookup("topic/MensajesTopic");
+		TopicPublisher publisher = session.createPublisher(topic);
+
+		MapMessage msg = session.createMapMessage();
+
+		msg.setString("login", message.getString("login"));
+		msg.setString("Mensaje", message.getString("mensaje"));
+
+		publisher.publish(msg);
 
 	}
+
+}

@@ -2,25 +2,6 @@ package com.sdi.ui.action;
 
 import java.util.List;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
@@ -29,7 +10,7 @@ import javax.jms.MapMessage;
 import javax.jms.Message;
 import javax.jms.MessageProducer;
 import javax.jms.Session;
-import javax.jms.TextMessage;
+import javax.ws.rs.ProcessingException;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
@@ -150,13 +131,17 @@ public class ObtenerViajesAction implements Action {
 		}
 	}
 		
-//Accesos REST
+	/*Invocaciones a métodos REST. 
+	Antes de procesar la petición esta pasará por 
+	un filtro de servlet en el que se comprobará si las credenciales son correctas.
+	En el caso de aquellas invocaciones que devuelven objetos se producirá una 
+	excepción del tipo 'ProcessingException' que deberemos controlar*/
 		
 private List<Trip> getTripsPromoted(Long id) {
-
 	GenericType<List<Trip>> listm = new GenericType<List<Trip>>() {
 	};
 
+	try{
 	List<Trip> lista = ClientBuilder.newClient()
 			.register(new Authenticator(login, password))
 			.target(REST_TRIP_SERVICE_URL)
@@ -166,11 +151,15 @@ private List<Trip> getTripsPromoted(Long id) {
 			.readEntity(listm);
 
 	return lista;
+	}catch(ProcessingException e){
+		return null;
+	}
 
 }
 
 
 private User getUserByLogin() {
+	try{
 	return (User) ClientBuilder.newClient()
 			.register(new Authenticator(login, password))
 			.target(REST_USER_SERVICE_URL)
@@ -179,6 +168,9 @@ private User getUserByLogin() {
 			.accept(MediaType.APPLICATION_XML)
 			.get()
 			.readEntity(User.class);
+	}catch(ProcessingException e){
+		return null;
+	}
 }
 
 

@@ -2,6 +2,7 @@ package com.sdi.ui.action;
 
 import java.util.List;
 
+import javax.ws.rs.ProcessingException;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.GenericType;
@@ -77,8 +78,15 @@ public class ConfirmarPasajerosAction implements Action {
 		}
 
 		Long idConfirmado = Console.readLong("Inserte ID del usuario a confirmar");
+		
+		for(Application app:solicitantes){
+			if(app.getUserId().equals(idConfirmado)){
+				aceptarSolicitud(idViaje, idConfirmado);
+				return;
+			}
+		}
 
-		aceptarSolicitud(idViaje, idConfirmado);
+		System.out.println("ID no valido");
 	}
 	
 	
@@ -168,7 +176,11 @@ public class ConfirmarPasajerosAction implements Action {
 	}
 
 	
-	// Invocaciones a métodos REST
+	/*Invocaciones a métodos REST. 
+	Antes de procesar la petición esta pasará por 
+	un filtro de servlet en el que se comprobará si las credenciales son correctas.
+	En el caso de aquellas invocaciones que devuelven objetos se producirá una 
+	excepción del tipo 'ProcessingException' que deberemos controlar*/
 
 	private List<Trip> getTripsPromoted(Long id) {
 
@@ -188,6 +200,7 @@ public class ConfirmarPasajerosAction implements Action {
 	}
 
 	private User getUserByLogin() {
+		try{
 		return (User) ClientBuilder.newClient()
 				.register(new Authenticator(login, password))
 				.target(REST_USER_SERVICE_URL)
@@ -196,9 +209,17 @@ public class ConfirmarPasajerosAction implements Action {
 				.accept(MediaType.APPLICATION_XML)
 				.get()
 				.readEntity(User.class);
+		}catch(ProcessingException e){
+			return null;
+		}
 	}
+	
+	
+
+
 
 	private User getUserById(Long id) {
+		try{
 		return (User) ClientBuilder.newClient()
 				.register(new Authenticator(login, password))
 				.target(REST_USER_SERVICE_URL)
@@ -207,10 +228,14 @@ public class ConfirmarPasajerosAction implements Action {
 				.accept(MediaType.APPLICATION_XML)
 				.get()
 				.readEntity(User.class);
+		}catch(ProcessingException e){
+			return null;
+		}
 	}
 
 	private List<Application> getSolicitantesViaje(int idViaje) {
 
+		try{
 		GenericType<List<Application>> listm = new GenericType<List<Application>>() {
 		};
 
@@ -223,6 +248,10 @@ public class ConfirmarPasajerosAction implements Action {
 				.readEntity(listm);
 
 		return lista;
+		
+		}catch(ProcessingException e){
+			return null;
+		}
 
 	}
 
@@ -232,6 +261,7 @@ public class ConfirmarPasajerosAction implements Action {
 				.request()
 				.accept(MediaType.APPLICATION_JSON)
 				.put(Entity.json(seat));
+	
 	}
 
 
@@ -255,6 +285,7 @@ public class ConfirmarPasajerosAction implements Action {
 	}
 
 	private Trip obtenerViaje(Long idViaje) {
+		try{
 		return (Trip) ClientBuilder.newClient()
 				.register(new Authenticator(login, password))
 				.target(REST_TRIP_SERVICE_URL)
@@ -263,6 +294,9 @@ public class ConfirmarPasajerosAction implements Action {
 				.accept(MediaType.APPLICATION_JSON)
 				.get()
 				.readEntity(Trip.class);
+		}catch(ProcessingException e){
+			return null;
+			}		
 	}
 
 }

@@ -17,7 +17,6 @@ import org.primefaces.event.SelectEvent;
 import com.sdi.business.TripService;
 import com.sdi.dto.RegistrarViajeDto;
 import com.sdi.infrastructure.Factories;
-import com.sdi.model.User;
 import com.sdi.model.UserLogin;
 
 @ManagedBean(name = "registerTrip")
