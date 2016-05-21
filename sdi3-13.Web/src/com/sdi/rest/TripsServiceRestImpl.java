@@ -14,5 +14,15 @@ public class TripsServiceRestImpl implements TripsServiceRest {
 	public List<Trip> getPromotedTrips(Long id) {
 		return service.findByPromoter(id);
 	}
+
+	@Override
+	public Trip getTrip(Long id) {
+		return service.findByIdTrip(id);
+	}
+
+	@Override
+	public void actualizarViaje(Trip trip) {
+		service.actualizar(trip);
+	}
 	
 }

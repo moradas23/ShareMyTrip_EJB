@@ -67,6 +67,11 @@ public class EjbSeatService implements LocalSeatService,RemoteSeatService {
 		
 	}
 
+	@Override
+	public void insertSeat(Seat seat) {
+		 new SeatInsertar().insert(seat);
+	}
+
 
 	
 }

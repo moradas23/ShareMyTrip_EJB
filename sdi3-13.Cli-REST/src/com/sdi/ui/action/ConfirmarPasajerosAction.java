@@ -3,11 +3,14 @@ package com.sdi.ui.action;
 import java.util.List;
 
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 
 import com.sdi.client.Authenticator;
 import com.sdi.client.application.Application;
+import com.sdi.client.seat.Seat;
+import com.sdi.client.seat.SeatStatus;
 import com.sdi.client.trip.Trip;
 import com.sdi.client.user.User;
 
@@ -24,6 +27,9 @@ public class ConfirmarPasajerosAction implements Action {
 
 	private static final String REST_APPLICATION_SERVICE_URL = "http://localhost:8280"
 			+ "/sdi3-13.Web/rest/ApplicationServiceRs";
+	
+	private static final String REST_SEAT_SERVICE_URL = "http://localhost:8280"
+			+ "/sdi3-13.Web/rest/SeatServiceRs";
 
 	private String login;
 	private String password;
@@ -37,7 +43,7 @@ public class ConfirmarPasajerosAction implements Action {
 
 		List<Trip> viajes = getTripsPromoted(usuario.getId());
 
-		if (viajes.size() > 0) {
+		if (viajes!= null && viajes.size() > 0) {
 			System.out.println("\nViajes abiertos como promotor:");
 			mostrarViajes(viajes);
 		} else {
@@ -61,7 +67,27 @@ public class ConfirmarPasajerosAction implements Action {
 
 		Long idConfirmado = Console.readLong("Inserte ID del usuario a confirmar");
 
+		
+		//Borrar solicitud
+		borrarSolicitud(idConfirmado,(long) idViaje);
+		
+		//Insertamos el asiento
+		Seat seat = new Seat();
+		seat.setUserId(idConfirmado);
+		seat.setTripId((long) idViaje);
+		seat.setStatus(SeatStatus.ACCEPTED);
+
+		insertarAsiento(seat);
+		
+		//Actualizamos viajes
+		Trip viaje = obtenerViaje((long) idViaje);
+		viaje.setAvailablePax(viaje.getAvailablePax()-1);
+		disminuirPlaza(viaje);
+		
+		System.out.println("");
+		System.out.println("El pasajero  ha sido confirmado satisfactoriamente");
 	}
+
 
 	private void mostrarSolicitantes(List<Application> solicitantes) {
 		for (Application app : solicitantes) {
@@ -137,4 +163,45 @@ public class ConfirmarPasajerosAction implements Action {
 		return lista;
 
 	}
+	
+	private void insertarAsiento(Seat seat) {
+		 ClientBuilder.newClient()
+				.register(new Authenticator(login, password))
+				.target(REST_SEAT_SERVICE_URL)
+				.request()
+				.accept(MediaType.APPLICATION_JSON)
+				.put(Entity.json(seat));
+	}
+	
+	private void borrarSolicitud(Long idSolicitante,Long idViaje) {
+		 ClientBuilder.newClient()
+			.register(new Authenticator(login, password))
+			.target(REST_APPLICATION_SERVICE_URL)
+			.path("/" + idSolicitante.toString()+"/"+idViaje.toString())
+			.request()
+			.accept(MediaType.APPLICATION_JSON)
+			.delete();
+	}
+	
+	private void disminuirPlaza(Trip viaje) {
+		 ClientBuilder.newClient()
+			.register(new Authenticator(login, password))
+			.target(REST_TRIP_SERVICE_URL)
+			.request()
+			.accept(MediaType.APPLICATION_JSON)
+			.post(Entity.json(viaje));
+	}
+	
+
+	private Trip obtenerViaje(Long idViaje) {
+		return (Trip) ClientBuilder.newClient()
+				.register(new Authenticator(login, password))
+				.target(REST_TRIP_SERVICE_URL)
+				.path("/viaje/" + idViaje.toString())
+				.request()
+				.accept(MediaType.APPLICATION_JSON)
+				.get()
+				.readEntity(Trip.class);
+	}
+
 }

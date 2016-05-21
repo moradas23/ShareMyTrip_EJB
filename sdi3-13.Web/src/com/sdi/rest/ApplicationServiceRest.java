@@ -1,7 +1,7 @@
 package com.sdi.rest;
 
 import java.util.List;
-
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -16,4 +16,7 @@ public interface ApplicationServiceRest {
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML}) 
 	public List<com.sdi.model.Application> getSolicitudes(@PathParam("idViaje") Long idViaje);
 	
+	@DELETE
+	@Path("/{idSolicitante}/{idViaje}")
+	void borrarSolicitud(@PathParam("idSolicitante") Long idSolicitante,@PathParam("idViaje") Long idViaje);
 }

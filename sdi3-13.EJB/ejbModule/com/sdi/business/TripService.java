@@ -83,6 +83,8 @@ public interface TripService {
 	 */
 	List<Trip> findViajesHaParticipado(Long id);
 	
+	void actualizar(Trip trip);
+	
 
 
 

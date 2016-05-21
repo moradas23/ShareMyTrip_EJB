@@ -12,6 +12,7 @@ public class Application extends javax.ws.rs.core.Application {
 		res.add(LoginServiceRestImpl.class);
 		res.add(UserServiceRestImpl.class);
 		res.add(ApplicationServiceRestImpl.class);
+		res.add(SeatServiceRestImpl.class);
 		return res;
 	}
 	

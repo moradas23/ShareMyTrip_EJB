@@ -31,4 +31,5 @@ public interface ApplicationService {
 	 * @param idViaje
 	 */
 	public void delete(Long idUsuario,Long idViaje);
+
 }

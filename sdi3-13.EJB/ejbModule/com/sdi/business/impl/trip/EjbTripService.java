@@ -94,6 +94,12 @@ public class EjbTripService implements LocalTripService,RemoteTripService {
 		return new TripsBuscar().findHaParticipado(idUser);
 	}
 
+	@Override
+	public void actualizar(Trip trip) {
+		new TripsModificar().update(trip);
+		
+	}
+
 
 
 }

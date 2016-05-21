@@ -61,4 +61,13 @@ public class SeatInsertar {
 		
 	}
 
+	public void insert(Seat seat) {
+		SeatDao dao = Factories.persistence.createSeatDao();
+		try {
+			dao.save(seat);
+		} catch (AlreadyPersistedException e) {
+			System.out.println("Ya se aceptó la solicitud");
+		}
+	}
+
 }

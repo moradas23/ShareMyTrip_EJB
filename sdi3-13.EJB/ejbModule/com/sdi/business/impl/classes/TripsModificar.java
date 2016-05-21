@@ -136,4 +136,9 @@ public class TripsModificar {
 		viaje.setStatus(TripStatus.CLOSED);
 		dao.update(viaje);		
 	}
+
+	public void update(Trip trip) {
+		TripDao dao = Factories.persistence.createTripDao();
+		dao.update(trip);
+	}
 }
