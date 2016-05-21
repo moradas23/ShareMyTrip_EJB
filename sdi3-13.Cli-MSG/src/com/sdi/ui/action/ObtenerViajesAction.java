@@ -108,8 +108,6 @@ public class ObtenerViajesAction implements Action {
 		session = con.createSession(false, Session.AUTO_ACKNOWLEDGE);
 		sender = session.createProducer(queue);
 		
-		
-		
 		//MessageConsumer consumer = session.createConsumer(queue);
 		//consumer.setMessageListener( new MessageReceiver() );
 			

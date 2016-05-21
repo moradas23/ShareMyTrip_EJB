@@ -1,10 +1,17 @@
 package com.sdi.integration;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.EJB;
 import javax.ejb.MessageDriven;
+import javax.jms.Connection;
+import javax.jms.ConnectionFactory;
+import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.MapMessage;
 import javax.jms.Message;
@@ -43,7 +50,8 @@ public class UserMessageListener implements MessageListener {
 //	@EJB(mappedName = "sdi3-13/sdi3-13.EJB/EjbSeatService!com.sdi.business.impl.seat.LocalSeatService") 
 	public SeatService service;
 	
-	private TopicSession session;
+	private Connection con;
+	private Session session;
 	MessageProducer sender;
 	
 	@Override
@@ -76,7 +84,7 @@ public class UserMessageListener implements MessageListener {
 		boolean aux = false;
 		
 		for(Seat seat:implicados){
-			if(seat.getTripId().equals(Long.valueOf(msg.getString("idUsuario")))){
+			if(seat.getUserId().equals(Long.valueOf(msg.getString("idUsuario")))){
 				aux=true;
 				break;
 			}
@@ -88,47 +96,41 @@ public class UserMessageListener implements MessageListener {
 			//Meter en cola de inválidos
 		}
 		
-
+		con.close();
 	}
 
 	public void sendMessage(MapMessage message,List<Seat> implicados) throws JMSException,
 			NamingException {
 
 		MapMessage msg = session.createMapMessage();
-
-		msg.setString("login", message.getString(message.getString("login")));
-		msg.setString("idUsuario", message.getString(message.getString("idUsuario")));
-		msg.setString("idViaje", message.getString(message.getString("idViaje")));
-		msg.setString("Mensaje", message.getString(message.getString("mensaje")));
-		msg.setObject("implicados", implicados);
+		
+		StringBuilder sb = new StringBuilder();
+		for(Seat s:implicados){
+			sb.append(s.getUserId()+":");
+		}
+		
+		msg.setString("login", message.getString("login"));
+		msg.setString("idUsuario",message.getString("idUsuario"));
+		msg.setString("idViaje", message.getString("idViaje"));
+		msg.setString("mensaje", message.getString("mensaje"));
+		msg.setString("implicados", sb.toString());
 
 		sender.send(msg);
 	}
 	
 	public void initialize() throws NamingException, JMSException{
 		
-
 		Context context = new InitialContext();
-
-		TopicConnectionFactory factory = (TopicConnectionFactory) 
-				context.lookup("java:/ConnectionFactory");
-		
-		Topic topic = (Topic) context.lookup("java:/topic/MensajesTopic");
-		
-		TopicConnection con = factory.createTopicConnection("sdi", "password");
-		
-		
-		 session = con.createTopicSession(false,
-				Session.AUTO_ACKNOWLEDGE);
-
-		 sender = session.createPublisher(topic);
-		
+		 
+		 ConnectionFactory factory =
+				 (ConnectionFactory) context.lookup("java:/ConnectionFactory");
+		Destination queue = (Destination) context.lookup("java:/topic/MensajesTopic");
+		con = factory.createConnection("sdi", "password");
+		session = con.createSession(false, Session.AUTO_ACKNOWLEDGE);
+		sender = session.createProducer(queue);
+		 
 		con.start();
-		
-		
 		
 	}
 	
-	
-
 }
