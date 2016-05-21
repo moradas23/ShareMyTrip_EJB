@@ -137,15 +137,22 @@ public class ConfirmarPasajerosAction implements Action {
 	private User getUserByLogin() {
 		return (User) ClientBuilder.newClient()
 				.register(new Authenticator(login, password))
-				.target(REST_USER_SERVICE_URL).path("login/" + login).request()
-				.accept(MediaType.APPLICATION_XML).get().readEntity(User.class);
+				.target(REST_USER_SERVICE_URL)
+				.path("login/" + login)
+				.request()
+				.accept(MediaType.APPLICATION_XML)
+				.get()
+				.readEntity(User.class);
 	}
 
 	private User getUserById(Long id) {
 		return (User) ClientBuilder.newClient()
 				.register(new Authenticator(login, password))
-				.target(REST_USER_SERVICE_URL).path("id/" + id.toString())
-				.request().accept(MediaType.APPLICATION_XML).get()
+				.target(REST_USER_SERVICE_URL)
+				.path("id/" + id.toString())
+				.request()
+				.accept(MediaType.APPLICATION_XML)
+				.get()
 				.readEntity(User.class);
 	}
 
@@ -157,7 +164,9 @@ public class ConfirmarPasajerosAction implements Action {
 		List<Application> lista = ClientBuilder.newClient()
 				.register(new Authenticator(login, password))
 				.target(REST_APPLICATION_SERVICE_URL)
-				.path(String.valueOf(idViaje)).request().get()
+				.path(String.valueOf(idViaje))
+				.request()
+				.get()
 				.readEntity(listm);
 
 		return lista;
