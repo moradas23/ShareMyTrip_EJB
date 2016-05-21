@@ -11,8 +11,6 @@ import javax.jms.MessageListener;
 		activationConfig = {
 		@ActivationConfigProperty(
 				propertyName = "destination",
-				propertyValue = "topic/MensajesTopic"), 
-		@ActivationConfigProperty(propertyName="subscriptionDurability",propertyValue="Durable")  
 })
 public class MessageReceiver implements MessageListener {
 

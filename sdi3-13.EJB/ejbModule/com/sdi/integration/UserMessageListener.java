@@ -6,11 +6,11 @@ import javax.jms.JMSException;
 import javax.jms.MapMessage;
 import javax.jms.Message;
 import javax.jms.MessageListener;
+import javax.jms.MessageProducer;
 import javax.jms.Session;
 import javax.jms.Topic;
 import javax.jms.TopicConnection;
 import javax.jms.TopicConnectionFactory;
-import javax.jms.TopicPublisher;
 import javax.jms.TopicSession;
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -25,13 +25,20 @@ import com.sdi.business.exception.BusinessException;
 })
 public class UserMessageListener implements MessageListener {
 
+	
+	private TopicSession session;
+	
+	MessageProducer sender;
+	
 	@Override
 	public void onMessage(Message msg) {
 		System.out.println("UserMessageListener: Msg received");
 
 		try {
 
+			initialize();
 			process(msg);
+			
 
 			sendMessage((MapMessage) msg);
 
@@ -53,8 +60,9 @@ public class UserMessageListener implements MessageListener {
 	public void sendMessage(MapMessage message) throws JMSException,
 			NamingException {
 
-		// first configure and retreive initial context:
+		/*// first configure and retreive initial context:
 		Context context = new InitialContext();
+		
 
 		// get the topic factory:
 		TopicConnectionFactory factory = (TopicConnectionFactory)
@@ -63,20 +71,52 @@ public class UserMessageListener implements MessageListener {
 
 		// create a topic connection and session:
 		TopicConnection connection = factory.createTopicConnection();
+		
+		connection.start();
+		
 		TopicSession session = connection.createTopicSession(false,
 				Session.AUTO_ACKNOWLEDGE);
 
 		// finds the topic and build a publisher:
 		Topic topic = (Topic) context.lookup("topic/MensajesTopic");
-		TopicPublisher publisher = session.createPublisher(topic);
-
+		MessageProducer publisher = session.createPublisher(topic);
+*/
 		MapMessage msg = session.createMapMessage();
 
 		msg.setString("login", message.getString("login"));
 		msg.setString("Mensaje", message.getString("mensaje"));
 
-		publisher.publish(msg);
+		
+		sender.send(msg);
+
+
 
 	}
+	
+	public void initialize() throws NamingException, JMSException{
+		
+
+		Context context = new InitialContext();
+
+		TopicConnectionFactory factory = (TopicConnectionFactory) 
+				context.lookup("java:/ConnectionFactory");
+		
+		Topic topic = (Topic) context.lookup("java:/topic/MensajesTopic");
+		
+		TopicConnection con = factory.createTopicConnection("sdi", "password");
+		
+		
+		 session = con.createTopicSession(false,
+				Session.AUTO_ACKNOWLEDGE);
+
+		 sender = session.createPublisher(topic);
+		
+		con.start();
+		
+		
+		
+	}
+	
+	
 
 }

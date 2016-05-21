@@ -41,9 +41,9 @@ public class ObtenerViajesAction implements Action {
 	private MessageProducer sender;
 	
 	private static final String JMS_CONNECTION_FACTORY = "jms/RemoteConnectionFactory";
-	private static final String MENSAJES_TOPIC = "jms/queue/MensajesQueue";
+	private static final String MENSAJES_QUEUE = "jms/queue/MensajesQueue";
 
-	
+
 	@Override
 	public void execute() throws Exception {
 		
@@ -96,7 +96,7 @@ public class ObtenerViajesAction implements Action {
 	private void initialize() throws JMSException {
 		ConnectionFactory factory =
 		 (ConnectionFactory) Jndi.find( JMS_CONNECTION_FACTORY );
-		Destination queue = (Destination) Jndi.find( MENSAJES_TOPIC );
+		Destination queue = (Destination) Jndi.find( MENSAJES_QUEUE );
 		con = factory.createConnection("sdi", "password");
 		session = con.createSession(false, Session.AUTO_ACKNOWLEDGE);
 		sender = session.createProducer(queue);
