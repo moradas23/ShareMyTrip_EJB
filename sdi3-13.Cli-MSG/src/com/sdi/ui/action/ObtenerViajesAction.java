@@ -8,6 +8,7 @@ import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.MapMessage;
 import javax.jms.Message;
+import javax.jms.MessageConsumer;
 import javax.jms.MessageProducer;
 import javax.jms.Session;
 import javax.ws.rs.ProcessingException;
@@ -19,6 +20,7 @@ import alb.util.console.Console;
 import alb.util.menu.Action;
 
 import com.sdi.client.Authenticator;
+import com.sdi.integration.MessageReceiver;
 import com.sdi.trip.Trip;
 import com.sdi.user.User;
 import com.sdi.util.Jndi;
@@ -35,6 +37,7 @@ public class ObtenerViajesAction implements Action {
 	private String login;
 	private String password;
 	private int idViaje;
+	private Long idUsuario;
 
 	private Connection con;
 	private Session session;
@@ -50,32 +53,34 @@ public class ObtenerViajesAction implements Action {
 		obtenerCredenciales();
 
 		User usuario = getUserByLogin();
-
+		
 		if(usuario==null){
 			System.out.println("Usuario y/o contraseña incorrectos");
 			return;
 			
 		}
 		
-			List<Trip> viajesPromotor = getTripsPromoted(usuario.getId());
-			mostrarViajes(viajesPromotor);
+		idUsuario = usuario.getId();
+		
+		List<Trip> viajesPromotor = getTripsPromoted(usuario.getId());
+		mostrarViajes(viajesPromotor);
+		
+		idViaje = Console.readInt("Selecciona ID de un viaje");
+					
+		initialize();
+		
+		System.out.println("Escribe tus mensajes y pulsa enter");
+		System.out.println("Para salir escribe '.' ");
+		
+		String mensaje = "";
 			
-			idViaje = Console.readInt("Selecciona ID de un viaje");
-						
-			initialize();
-			
-			System.out.println("Escribe tus mensajes y pulsa enter");
-			System.out.println("Para salir escribe '.' ");
-			
-			String mensaje = "";
-				
-			while(!mensaje.equals(".")){		
-				mensaje = Console.readString("-->");
-				if(!mensaje.equals(".")){
-					Message msg = createMessage(mensaje);
-					sender.send(msg);
-				}
+		while(!mensaje.equals(".")){		
+			mensaje = Console.readString("-->");
+			if(!mensaje.equals(".")){
+				Message msg = createMessage(mensaje);
+				sender.send(msg);
 			}
+		}
 		
 		
 		}
@@ -96,17 +101,24 @@ public class ObtenerViajesAction implements Action {
 	private void initialize() throws JMSException {
 		ConnectionFactory factory =
 		 (ConnectionFactory) Jndi.find( JMS_CONNECTION_FACTORY );
-		Destination queue = (Destination) Jndi.find( MENSAJES_QUEUE );
+		Destination queue = (Destination) Jndi.find( "jms/topic/MensajesTopic" );
 		con = factory.createConnection("sdi", "password");
 		session = con.createSession(false, Session.AUTO_ACKNOWLEDGE);
 		sender = session.createProducer(queue);
+		
+		
+		
+		MessageConsumer consumer = session.createConsumer(queue);
+		consumer.setMessageListener( new MessageReceiver() );
+		
 		con.start();
 	}
 	
 	
 	private MapMessage createMessage(String mensaje) throws JMSException {
 		MapMessage msg = session.createMapMessage();
-		msg.setString("usuario", login);
+		msg.setString("login", login);
+		msg.setString("idUsuario", String.valueOf(idUsuario));
 		msg.setString("idViaje", String.valueOf(idViaje));
 		msg.setString("mensaje",mensaje);
 		return msg;
