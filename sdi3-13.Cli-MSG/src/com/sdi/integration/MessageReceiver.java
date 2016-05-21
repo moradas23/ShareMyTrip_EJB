@@ -11,6 +11,7 @@ import javax.jms.MessageListener;
 		activationConfig = {
 		@ActivationConfigProperty(
 				propertyName = "destination",
+				propertyValue = "queue/MensajesQueue")
 })
 public class MessageReceiver implements MessageListener {
 
