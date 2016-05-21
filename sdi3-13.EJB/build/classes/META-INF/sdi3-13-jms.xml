@@ -17,7 +17,6 @@
 				<entry name="java:jboss/exported/jms/topic/MensajesTopic" />
 
 			</jms-topic>
-						
 		</jms-destinations>
 	</hornetq-server>
 </messaging-deployment>

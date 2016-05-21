@@ -1,4 +1,4 @@
-package com.sdi.user;
+package com.sdi.model.user;
 
 import java.io.Serializable;
 

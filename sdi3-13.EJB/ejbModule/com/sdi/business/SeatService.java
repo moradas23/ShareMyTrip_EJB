@@ -61,4 +61,13 @@ public interface SeatService {
 	 * @return 
 	 */
 	public List<Seat> findPlazasAceptadasUser(Long id);
+
+	/**
+	 * Devuelve una lista de Seat con los implicados a un viaje
+	 * cuyo id es pasado como parámetro
+	 * 
+	 * @param idViaje
+	 * @return
+	 */
+	public List<Seat> findByTrip(Long idViaje);
 }

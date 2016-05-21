@@ -33,4 +33,10 @@ public class SeatBuscar {
 		return seats;
 	}
 
+	public List<Seat> findByTrip(Long idViaje) {
+		SeatDao dao = Factories.persistence.createSeatDao();
+		List<Seat> seats = dao.findByTrip(idViaje);
+		return seats;
+	}
+
 }
