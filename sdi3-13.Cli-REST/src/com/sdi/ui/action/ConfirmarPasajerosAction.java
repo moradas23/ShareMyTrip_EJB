@@ -190,7 +190,7 @@ public class ConfirmarPasajerosAction implements Action {
 		List<Trip> lista = ClientBuilder.newClient()
 				.register(new Authenticator(login, password))
 				.target(REST_TRIP_SERVICE_URL)
-				.path(id.toString())
+				.path("promotor/"+id.toString())
 				.request()
 				.get()
 				.readEntity(listm);
@@ -215,9 +215,6 @@ public class ConfirmarPasajerosAction implements Action {
 	}
 	
 	
-
-
-
 	private User getUserById(Long id) {
 		try{
 		return (User) ClientBuilder.newClient()

@@ -235,5 +235,13 @@ public class TripJdbcDAO implements TripDao {
 				id);
 	}
 
+	@Override
+	public List<Trip> findParticipa(Long idUsuario) {
+		return jdbcTemplate.queryForList(
+				"TRIP_FIND_BY_PARTICIPA", 
+				new TripMapper(),
+				idUsuario);
+	}
+
 
 }

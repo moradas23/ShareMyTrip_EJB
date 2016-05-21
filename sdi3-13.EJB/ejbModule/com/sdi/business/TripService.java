@@ -105,6 +105,15 @@ public interface TripService {
 	 */
 	List<Trip> findByPromoterAndAvailablePax(Long id);
 	
+	/**
+	 * Busca los viajes en los que el usuario con id pasado como 
+	 * parámetro fue aceptado
+	 * 
+	 * @param id
+	 * @return 
+	 */
+	List<Trip> findByAceptado(Long id);
+	
 
 
 

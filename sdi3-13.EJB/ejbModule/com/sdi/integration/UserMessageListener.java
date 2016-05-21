@@ -1,13 +1,8 @@
 package com.sdi.integration;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import javax.ejb.ActivationConfigProperty;
-import javax.ejb.EJB;
 import javax.ejb.MessageDriven;
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
@@ -18,16 +13,11 @@ import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.MessageProducer;
 import javax.jms.Session;
-import javax.jms.Topic;
-import javax.jms.TopicConnection;
-import javax.jms.TopicConnectionFactory;
-import javax.jms.TopicSession;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import com.sdi.business.SeatService;
-import com.sdi.business.impl.seat.EjbSeatService;
 import com.sdi.infrastructure.Factories;
 import com.sdi.model.Seat;
 
@@ -37,17 +27,7 @@ import com.sdi.model.Seat;
 				propertyValue = "queue/MensajesQueue")
 })
 public class UserMessageListener implements MessageListener {
-
-
 	
-	private static final String SEAT_SERVICE_JNDI_KEY =
-			"java:global/" + 
-			"sdi3-13/"
-			+ "sdi3-13.EJB/" 
-			+ "EjbSeatService!"
-			+ "com.sdi.business.impl.seat.RemoteSeatService";
-	
-//	@EJB(mappedName = "sdi3-13/sdi3-13.EJB/EjbSeatService!com.sdi.business.impl.seat.LocalSeatService") 
 	public SeatService service;
 	
 	private Connection con;
@@ -58,7 +38,6 @@ public class UserMessageListener implements MessageListener {
 	public void onMessage(Message msg) {
 		System.out.println("UserMessageListener: Msg received");
 	
-
 		MapMessage message = (MapMessage) msg;
 		
 		try {
@@ -74,6 +53,13 @@ public class UserMessageListener implements MessageListener {
 
 	}
 
+	/**
+	 * Procesa los mensajes recibidos
+	 * 
+	 * @param msg
+	 * @throws JMSException
+	 * @throws NamingException
+	 */
 	private void process(MapMessage msg) throws JMSException, NamingException {
 		
 		
@@ -93,24 +79,37 @@ public class UserMessageListener implements MessageListener {
 		if(aux){
 			sendMessage(msg,implicados);		
 		}else{
-			//Meter en cola de inválidos
+			
+			//Meter en cola de inválidos!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		
 		}
 		
 		con.close();
 	}
 
+	/**
+	 * Envía el mensaje generado a el canal Publish-Subscribe 
+	 * 
+	 * @param message
+	 * @param implicados
+	 * @throws JMSException
+	 * @throws NamingException
+	 */
 	public void sendMessage(MapMessage message,List<Seat> implicados) throws JMSException,
 			NamingException {
 
 		MapMessage msg = session.createMapMessage();
 		
+		Long idUsuario = Long.valueOf(message.getString("idUsuario"));
+		
 		StringBuilder sb = new StringBuilder();
 		for(Seat s:implicados){
-			sb.append(s.getUserId()+":");
+			if(!s.getUserId().equals(idUsuario))
+				sb.append(s.getUserId()+":");
 		}
 		
 		msg.setString("login", message.getString("login"));
-		msg.setString("idUsuario",message.getString("idUsuario"));
+		msg.setString("idUsuario",idUsuario.toString());
 		msg.setString("idViaje", message.getString("idViaje"));
 		msg.setString("mensaje", message.getString("mensaje"));
 		msg.setString("implicados", sb.toString());
@@ -118,6 +117,12 @@ public class UserMessageListener implements MessageListener {
 		sender.send(msg);
 	}
 	
+	/**
+	 * Inicializa los elementos JMS
+	 * 
+	 * @throws NamingException
+	 * @throws JMSException
+	 */
 	public void initialize() throws NamingException, JMSException{
 		
 		Context context = new InitialContext();

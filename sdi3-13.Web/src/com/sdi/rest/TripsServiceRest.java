@@ -16,10 +16,15 @@ import com.sdi.model.Trip;
 public interface TripsServiceRest {
 
 	@GET
-	@Path("{id}")
+	@Path("/promotor/{id}")
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML}) 
 	List<Trip> getPromotedTrips(@PathParam("id") Long id);
 	
+	@GET
+	@Path("/aceptado/{id}")
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML}) 
+	List<Trip> getAceptadoTrips(@PathParam("id") Long id);
+		
 	@GET
 	@Path("/viaje/{idViaje}")
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML}) 

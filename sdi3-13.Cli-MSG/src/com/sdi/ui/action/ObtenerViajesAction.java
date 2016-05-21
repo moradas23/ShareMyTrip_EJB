@@ -23,6 +23,7 @@ import com.sdi.client.Authenticator;
 import com.sdi.integration.MessageReceiver;
 import com.sdi.model.trip.Trip;
 import com.sdi.model.user.User;
+import com.sdi.util.EstadoCliente;
 import com.sdi.util.Jndi;
 
 
@@ -36,7 +37,7 @@ public class ObtenerViajesAction implements Action {
 
 	private String login;
 	private String password;
-	private int idViaje;
+	private Long idViaje;
 	private Long idUsuario;
 
 	private Connection con;
@@ -63,11 +64,22 @@ public class ObtenerViajesAction implements Action {
 		}
 		
 		idUsuario = usuario.getId();
+		EstadoCliente.setIdUsuario(idUsuario);
 		
-		List<Trip> viajesPromotor = getTripsPromoted(usuario.getId());
-		mostrarViajes(viajesPromotor);
+		List<Trip> viajesAceptado = getTripsAceptado(usuario.getId());
 		
-		idViaje = Console.readInt("Selecciona ID de un viaje");
+		if(viajesAceptado==null){
+			System.out.println("No esta implicado en ningún viaje abierto");
+			return;
+		}
+		
+		mostrarViajes(viajesAceptado);
+		
+		idViaje = Console.readLong("Selecciona ID de un viaje");
+		
+		EstadoCliente.setIdUsuario(idUsuario);
+		EstadoCliente.setIdViaje(idViaje);
+		
 					
 		initialize();
 		
@@ -84,10 +96,14 @@ public class ObtenerViajesAction implements Action {
 			}
 		}
 		
+		EstadoCliente.setIdUsuario(null);
+		
 		
 		}
 	
 	
+
+
 
 	/**
 	 * Pide por pantalla las credenciales del usuario
@@ -108,9 +124,7 @@ public class ObtenerViajesAction implements Action {
 		session = con.createSession(false, Session.AUTO_ACKNOWLEDGE);
 		sender = session.createProducer(queue);
 		
-		//MessageConsumer consumer = session.createConsumer(queue);
-		//consumer.setMessageListener( new MessageReceiver() );
-			
+
 		Destination topic = (Destination) Jndi.find(MENSAJES_TOPIC);
 		MessageConsumer consumer = session.createConsumer(topic);
 		consumer.setMessageListener( new MessageReceiver() );
@@ -153,27 +167,6 @@ public class ObtenerViajesAction implements Action {
 	En el caso de aquellas invocaciones que devuelven objetos se producirá una 
 	excepción del tipo 'ProcessingException' que deberemos controlar*/
 		
-private List<Trip> getTripsPromoted(Long id) {
-	GenericType<List<Trip>> listm = new GenericType<List<Trip>>() {
-	};
-
-	try{
-	List<Trip> lista = ClientBuilder.newClient()
-			.register(new Authenticator(login, password))
-			.target(REST_TRIP_SERVICE_URL)
-			.path(id.toString())
-			.request()
-			.get()
-			.readEntity(listm);
-
-	return lista;
-	}catch(ProcessingException e){
-		return null;
-	}
-
-}
-
-
 private User getUserByLogin() {
 	try{
 	return (User) ClientBuilder.newClient()
@@ -188,6 +181,27 @@ private User getUserByLogin() {
 		return null;
 	}
 }
+
+
+private List<Trip> getTripsAceptado(Long id) {
+	GenericType<List<Trip>> listm = new GenericType<List<Trip>>() {
+	};
+
+	try{
+	List<Trip> lista = ClientBuilder.newClient()
+			.register(new Authenticator(login, password))
+			.target(REST_TRIP_SERVICE_URL)
+			.path("aceptado/"+id.toString())
+			.request()
+			.get()
+			.readEntity(listm);
+
+	return lista;
+	}catch(ProcessingException e){
+		return null;
+	}
+}
+
 
 
 }

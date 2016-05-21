@@ -51,5 +51,11 @@ public class TripsBuscar {
 	}
 
 
+	public List<Trip> findByAceptado(Long idUsuario) {
+		TripDao dao = Factories.persistence.createTripDao();
+		return dao.findParticipa(idUsuario);
+	}
+
+
 
 }

@@ -24,5 +24,10 @@ public class TripsServiceRestImpl implements TripsServiceRest {
 	public void actualizarViaje(Trip trip) {
 		service.actualizar(trip);
 	}
+
+	@Override
+	public List<Trip> getAceptadoTrips(Long id) {
+		return service.findByAceptado(id);		
+	}
 	
 }

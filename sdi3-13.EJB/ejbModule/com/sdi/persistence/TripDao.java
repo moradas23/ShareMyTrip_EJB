@@ -49,5 +49,13 @@ public interface TripDao extends GenericDao<Trip, Long> {
 	 */
 	List<Trip> findByPromoterIdAndAvailablePax(Long id);
 
+	/**
+	 * Devuelve los 
+	 * 
+	 * @param idUsuario
+	 * @return
+	 */
+	List<Trip> findParticipa(Long idUsuario);
+
 
 }

@@ -1,11 +1,16 @@
 package com.sdi.integration;
 
+import java.util.Arrays;
+import java.util.List;
+
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
 import javax.jms.JMSException;
 import javax.jms.MapMessage;
 import javax.jms.Message;
 import javax.jms.MessageListener;
+
+import com.sdi.util.EstadoCliente;
 
 
 @MessageDriven(activationConfig = { @ActivationConfigProperty(propertyName = "destination", 
@@ -17,17 +22,17 @@ public class MessageReceiver implements MessageListener {
 
 		MapMessage message = (MapMessage) msg;
 		try {
-			boolean esMismo=false;
-			String[] implicados = message.getString("implicados").split(":");
-			for(String i :implicados){
-				if(i.compareTo(message.getString("idUsuario"))==0){
-					esMismo=true;
-					break;
-				}
-			}
+						
+			List<String> implicados = Arrays.asList(message.getString("implicados").split(":"));
 			
-			if(!esMismo)
+			if(EstadoCliente.getIdUsuario()!=null
+					&& EstadoCliente.getIdViaje().equals(Long.valueOf(message.getString("idViaje"))) 
+					&& implicados.contains(EstadoCliente.getIdUsuario().toString())){
+				
 				System.out.println(message.getString("login") + ": "+ message.getString("mensaje"));
+			}
+
+				
 		} catch (JMSException e) {
 			e.printStackTrace();
 		}
