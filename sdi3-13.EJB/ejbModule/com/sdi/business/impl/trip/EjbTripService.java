@@ -100,6 +100,11 @@ public class EjbTripService implements LocalTripService,RemoteTripService {
 		
 	}
 
+	@Override
+	public List<Trip> findByPromoterAndAvailablePax(Long id) {
+		return new TripsBuscar().getByPromoterAndAvailablePax(id);
+	}
+
 
 
 }

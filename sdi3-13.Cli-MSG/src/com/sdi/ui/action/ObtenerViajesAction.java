@@ -20,6 +20,7 @@ import java.util.List;
 
 
 
+
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
@@ -52,6 +53,7 @@ public class ObtenerViajesAction implements Action {
 
 	private String login;
 	private String password;
+	private int idViaje;
 
 	private Connection con;
 	private Session session;
@@ -63,41 +65,50 @@ public class ObtenerViajesAction implements Action {
 	
 	@Override
 	public void execute() throws Exception {
-		login = Console.readString("Login");
-		password = Console.readString("Password");
+		
+		obtenerCredenciales();
 
 		User usuario = getUserByLogin();
 
-		if(usuario!=null){
+		if(usuario==null){
+			System.out.println("Usuario y/o contraseña incorrectos");
+			return;
+			
+		}
 		
 			List<Trip> viajesPromotor = getTripsPromoted(usuario.getId());
 			mostrarViajes(viajesPromotor);
 			
-			int idViaje = Console.readInt("Selecciona ID de un viaje");
+			idViaje = Console.readInt("Selecciona ID de un viaje");
 						
 			initialize();
 			
 			System.out.println("Escribe tus mensajes y pulsa enter");
 			System.out.println("Para salir escribe '.' ");
 			
-			String mensaje = null;
+			String mensaje = "";
 				
-			while(mensaje!="."){		
+			while(!mensaje.equals(".")){		
 				mensaje = Console.readString("-->");
-				Message msg = createMessage(mensaje);
-				sender.send(msg);
+				if(!mensaje.equals(".")){
+					Message msg = createMessage(mensaje);
+					sender.send(msg);
+				}
 			}
 		
 		
-		}else{
-			System.out.println("Usuario y/o contraseña incorrectos");
 		}
-		
+	
+	
+
+	/**
+	 * Pide por pantalla las credenciales del usuario
+	 * 
+	 */
+	private void obtenerCredenciales() {
+		login = Console.readString("Login");
+		password = Console.readString("Password");
 	}
-	
-	
-
-
 	
 	
 	
@@ -112,12 +123,19 @@ public class ObtenerViajesAction implements Action {
 	}
 	
 	
-	private TextMessage createMessage(String mensaje) throws JMSException {
-		TextMessage msg = session.createTextMessage();
-		msg.setText(mensaje);
+	private MapMessage createMessage(String mensaje) throws JMSException {
+		MapMessage msg = session.createMapMessage();
+		msg.setString("usuario", login);
+		msg.setString("idViaje", String.valueOf(idViaje));
+		msg.setString("mensaje",mensaje);
 		return msg;
 	}
 	
+	/**
+	 * Muestra por pantalla los viajes pasados como parámetro
+	 * 
+	 * @param viajes
+	 */
 	private void mostrarViajes(List<Trip> viajes) {
 		for (Trip viaje : viajes) {
 			System.out.println("\n---ID del Viaje: " + viaje.getId()
@@ -131,7 +149,6 @@ public class ObtenerViajesAction implements Action {
 					+ "\n");
 		}
 	}
-	
 		
 //Accesos REST
 		

@@ -12,7 +12,7 @@ public class TripsServiceRestImpl implements TripsServiceRest {
 
 	@Override
 	public List<Trip> getPromotedTrips(Long id) {
-		return service.findByPromoter(id);
+		return service.findByPromoterAndAvailablePax(id);
 	}
 
 	@Override

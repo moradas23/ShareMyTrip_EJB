@@ -27,27 +27,39 @@ public class ConfirmarPasajerosAction implements Action {
 
 	private static final String REST_APPLICATION_SERVICE_URL = "http://localhost:8280"
 			+ "/sdi3-13.Web/rest/ApplicationServiceRs";
-	
+
 	private static final String REST_SEAT_SERVICE_URL = "http://localhost:8280"
 			+ "/sdi3-13.Web/rest/SeatServiceRs";
 
 	private String login;
 	private String password;
 
+	
+	
 	@Override
 	public void execute() throws Exception {
-		login = Console.readString("Login");
-		password = Console.readString("Password");
+		
+		//Obtenemos el login y contraseña
+		obtenerCredenciales();
 
+		//Obtenemos usuario
 		User usuario = getUserByLogin();
-
+		
+		//Si el usuario es null las credenciales son erroneas
+		if(usuario==null){
+			System.out.println("Usuario y/o contraseña erroneos");
+			return;
+		}
+		
 		List<Trip> viajes = getTripsPromoted(usuario.getId());
 
-		if (viajes!= null && viajes.size() > 0) {
+		if (viajes != null && viajes.size() > 0) {
 			System.out.println("\nViajes abiertos como promotor:");
 			mostrarViajes(viajes);
+			
 		} else {
-			System.out.println("No tiene ningún viaje abierto como promotor");
+			System.out.println("No tiene ningún viaje abierto como promotor"
+					+ " con plazas disponibles");
 			return;
 		}
 
@@ -60,35 +72,59 @@ public class ConfirmarPasajerosAction implements Action {
 			mostrarSolicitantes(solicitantes);
 
 		} else {
-			System.out
-					.println("Este viaje no tiene ninguna solicitud de participación");
+			System.out.println("Este viaje no tiene ninguna solicitud de participación");
 			return;
 		}
 
 		Long idConfirmado = Console.readLong("Inserte ID del usuario a confirmar");
 
-		
-		//Borrar solicitud
-		borrarSolicitud(idConfirmado,(long) idViaje);
-		
-		//Insertamos el asiento
+		aceptarSolicitud(idViaje, idConfirmado);
+	}
+	
+	
+
+
+	/**
+	 * Borra la solicitud de un pasajero, lo inserta en una plaza y disminuye
+	 * una plaza disponible en el viaje
+	 * 
+	 * @param idViaje
+	 * @param idConfirmado
+	 */
+	private void aceptarSolicitud(int idViaje, Long idConfirmado) {
+		// Borrar solicitud
+		borrarSolicitud(idConfirmado, (long) idViaje);
+
+		// Insertamos el asiento
 		Seat seat = new Seat();
 		seat.setUserId(idConfirmado);
 		seat.setTripId((long) idViaje);
 		seat.setStatus(SeatStatus.ACCEPTED);
 
 		insertarAsiento(seat);
-		
-		//Actualizamos viajes
+
+		// Actualizamos viajes
 		Trip viaje = obtenerViaje((long) idViaje);
-		viaje.setAvailablePax(viaje.getAvailablePax()-1);
+		viaje.setAvailablePax(viaje.getAvailablePax() - 1);
 		disminuirPlaza(viaje);
 		
-		System.out.println("");
-		System.out.println("El pasajero  ha sido confirmado satisfactoriamente");
+		System.out.println("El pasajero ha sido confirmado satisfactoriamente");
+	}
+	
+	/**
+	 * Pide por pantalla las credenciales del usuario
+	 * 
+	 */
+	private void obtenerCredenciales() {
+		login = Console.readString("Login");
+		password = Console.readString("Password");
 	}
 
-
+	/**
+	 * Muestra los solicitantes por pantalla
+	 * 
+	 * @param solicitantes
+	 */
 	private void mostrarSolicitantes(List<Application> solicitantes) {
 		for (Application app : solicitantes) {
 			mostrarUsuario(getUserById(app.getUserId()));
@@ -96,6 +132,11 @@ public class ConfirmarPasajerosAction implements Action {
 		}
 	}
 
+	/**
+	 * Muestra el usuario pasado como parámetro por pantalla
+	 * 
+	 * @param user
+	 */
 	private void mostrarUsuario(User user) {
 		System.out.println("\n---ID del Usuario: " + user.getId()
 				+ "-------------");
@@ -106,6 +147,12 @@ public class ConfirmarPasajerosAction implements Action {
 
 	}
 
+	
+	/**
+	 * Muestra por pantalla los viajes pasados como parámetro
+	 * 
+	 * @param viajes
+	 */
 	private void mostrarViajes(List<Trip> viajes) {
 		for (Trip viaje : viajes) {
 			System.out.println("\n---ID del Viaje: " + viaje.getId()
@@ -120,6 +167,9 @@ public class ConfirmarPasajerosAction implements Action {
 		}
 	}
 
+	
+	// Invocaciones a métodos REST
+
 	private List<Trip> getTripsPromoted(Long id) {
 
 		GenericType<List<Trip>> listm = new GenericType<List<Trip>>() {
@@ -127,8 +177,11 @@ public class ConfirmarPasajerosAction implements Action {
 
 		List<Trip> lista = ClientBuilder.newClient()
 				.register(new Authenticator(login, password))
-				.target(REST_TRIP_SERVICE_URL).path(id.toString()).request()
-				.get().readEntity(listm);
+				.target(REST_TRIP_SERVICE_URL)
+				.path(id.toString())
+				.request()
+				.get()
+				.readEntity(listm);
 
 		return lista;
 
@@ -137,15 +190,22 @@ public class ConfirmarPasajerosAction implements Action {
 	private User getUserByLogin() {
 		return (User) ClientBuilder.newClient()
 				.register(new Authenticator(login, password))
-				.target(REST_USER_SERVICE_URL).path("login/" + login).request()
-				.accept(MediaType.APPLICATION_XML).get().readEntity(User.class);
+				.target(REST_USER_SERVICE_URL)
+				.path("login/" + login)
+				.request()
+				.accept(MediaType.APPLICATION_XML)
+				.get()
+				.readEntity(User.class);
 	}
 
 	private User getUserById(Long id) {
 		return (User) ClientBuilder.newClient()
 				.register(new Authenticator(login, password))
-				.target(REST_USER_SERVICE_URL).path("id/" + id.toString())
-				.request().accept(MediaType.APPLICATION_XML).get()
+				.target(REST_USER_SERVICE_URL)
+				.path("id/" + id.toString())
+				.request()
+				.accept(MediaType.APPLICATION_XML)
+				.get()
 				.readEntity(User.class);
 	}
 
@@ -157,41 +217,42 @@ public class ConfirmarPasajerosAction implements Action {
 		List<Application> lista = ClientBuilder.newClient()
 				.register(new Authenticator(login, password))
 				.target(REST_APPLICATION_SERVICE_URL)
-				.path(String.valueOf(idViaje)).request().get()
+				.path(String.valueOf(idViaje))
+				.request()
+				.get()
 				.readEntity(listm);
 
 		return lista;
 
 	}
-	
+
 	private void insertarAsiento(Seat seat) {
-		 ClientBuilder.newClient()
-				.register(new Authenticator(login, password))
+		ClientBuilder.newClient().register(new Authenticator(login, password))
 				.target(REST_SEAT_SERVICE_URL)
 				.request()
 				.accept(MediaType.APPLICATION_JSON)
 				.put(Entity.json(seat));
 	}
-	
-	private void borrarSolicitud(Long idSolicitante,Long idViaje) {
-		 ClientBuilder.newClient()
-			.register(new Authenticator(login, password))
-			.target(REST_APPLICATION_SERVICE_URL)
-			.path("/" + idSolicitante.toString()+"/"+idViaje.toString())
-			.request()
-			.accept(MediaType.APPLICATION_JSON)
-			.delete();
+
+
+	private void borrarSolicitud(Long idSolicitante, Long idViaje) {
+		ClientBuilder
+				.newClient()
+				.register(new Authenticator(login, password))
+				.target(REST_APPLICATION_SERVICE_URL)
+				.path("/" + idSolicitante.toString() + "/" + idViaje.toString())
+				.request()
+				.accept(MediaType.APPLICATION_JSON)
+				.delete();
 	}
-	
+
 	private void disminuirPlaza(Trip viaje) {
-		 ClientBuilder.newClient()
-			.register(new Authenticator(login, password))
-			.target(REST_TRIP_SERVICE_URL)
-			.request()
-			.accept(MediaType.APPLICATION_JSON)
-			.post(Entity.json(viaje));
+		ClientBuilder.newClient().register(new Authenticator(login, password))
+				.target(REST_TRIP_SERVICE_URL)
+				.request()
+				.accept(MediaType.APPLICATION_JSON)
+				.post(Entity.json(viaje));
 	}
-	
 
 	private Trip obtenerViaje(Long idViaje) {
 		return (Trip) ClientBuilder.newClient()

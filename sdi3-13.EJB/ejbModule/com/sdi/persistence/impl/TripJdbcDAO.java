@@ -227,5 +227,13 @@ public class TripJdbcDAO implements TripDao {
 		return jdbcTemplate.queryForList("TRIP_FIND_HA_PARTICIPADO", new TripMapper(),idUser);
 	}
 
+	@Override
+	public List<Trip> findByPromoterIdAndAvailablePax(Long id) {
+		return jdbcTemplate.queryForList(
+				"TRIP_FIND_BY_PROMOTER_AND_AVAILABLE_PAX", 
+				new TripMapper(),
+				id);
+	}
+
 
 }

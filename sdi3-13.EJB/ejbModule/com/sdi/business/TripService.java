@@ -23,9 +23,20 @@ public interface TripService {
 	 * @return
 	 */
 	List<Trip> findAllDisponibleUser(String login);
+	
 	boolean registrar(RegistrarViajeDto trip);
+	
 	Trip findByIdTrip(Long tripId);
+	
+	
+	/**
+	 * Busca los viajes en los que id es promotor y que todavía estén abiertos
+	 * 
+	 * @param id
+	 * @return
+	 */
 	List<Trip> findByPromoter(Long id);
+	
 	boolean modificar(ModificarViajeDto beanModificarViaje);
 	
 	void cancelarViajes(Map<Long, Trip> viajesCancelar);
@@ -84,6 +95,15 @@ public interface TripService {
 	List<Trip> findViajesHaParticipado(Long id);
 	
 	void actualizar(Trip trip);
+	
+	/**
+	 * Busca los viajes en los que es promotor el id pasado como parámetro
+	 * que estén abiertos y que tengan plazas disponibles
+	 * 
+	 * @param id
+	 * @return
+	 */
+	List<Trip> findByPromoterAndAvailablePax(Long id);
 	
 
 

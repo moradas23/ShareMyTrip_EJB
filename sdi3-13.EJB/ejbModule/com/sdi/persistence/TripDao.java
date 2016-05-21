@@ -40,5 +40,14 @@ public interface TripDao extends GenericDao<Trip, Long> {
 	 */
 	List<Trip> findHaParticipado(Long idUser);
 
+	/**
+	 * Devuelve los viajes abiertos con plazas disponibles
+	 * en los que el id pasado como parámetro es promotor
+	 * 
+	 * @param id
+	 * @return
+	 */
+	List<Trip> findByPromoterIdAndAvailablePax(Long id);
+
 
 }

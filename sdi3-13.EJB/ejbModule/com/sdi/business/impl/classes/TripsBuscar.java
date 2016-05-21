@@ -45,5 +45,11 @@ public class TripsBuscar {
 	}
 
 
+	public List<Trip> getByPromoterAndAvailablePax(Long id) {
+		TripDao dao = Factories.persistence.createTripDao();
+		return dao.findByPromoterIdAndAvailablePax(id);
+	}
+
+
 
 }
