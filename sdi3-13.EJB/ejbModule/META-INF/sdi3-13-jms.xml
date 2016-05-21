@@ -7,14 +7,17 @@
 				<entry name="java:jboss/exported/jms/queue/MensajesQueue" />
 				<durable>true</durable>
 			</jms-queue>
+			<jms-queue name="MensajesInvalidQueue">
+				<entry name="queue/MensajesInvalidQueue" />
+				<entry name="java:jboss/exported/jms/queue/MensajesInvalidQueue" />
+				<durable>true</durable>
+			</jms-queue>
 			<jms-topic name="MensajesTopic">
 				<entry name="topic/MensajesTopic" />
 				<entry name="java:jboss/exported/jms/topic/MensajesTopic" />
 
 			</jms-topic>
-			
-		
-			
+						
 		</jms-destinations>
 	</hornetq-server>
 </messaging-deployment>
