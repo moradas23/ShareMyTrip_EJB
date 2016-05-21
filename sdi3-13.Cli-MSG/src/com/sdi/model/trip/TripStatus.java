@@ -1,4 +1,4 @@
-package com.sdi.trip;
+package com.sdi.model.trip;
 
 public enum TripStatus {
 	OPEN, 

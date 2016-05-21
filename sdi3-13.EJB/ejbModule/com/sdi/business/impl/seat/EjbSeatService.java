@@ -72,6 +72,11 @@ public class EjbSeatService implements LocalSeatService,RemoteSeatService {
 		 new SeatInsertar().insert(seat);
 	}
 
+	@Override
+	public List<Seat> findByTrip(Long idViaje) {
+		return new SeatBuscar().findByTrip(idViaje);
+	}
+
 
 	
 }

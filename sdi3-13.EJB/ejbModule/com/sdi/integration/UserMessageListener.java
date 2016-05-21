@@ -1,6 +1,9 @@
 package com.sdi.integration;
 
+import java.util.List;
+
 import javax.ejb.ActivationConfigProperty;
+import javax.ejb.EJB;
 import javax.ejb.MessageDriven;
 import javax.jms.JMSException;
 import javax.jms.MapMessage;
@@ -16,7 +19,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import com.sdi.business.exception.BusinessException;
+import com.sdi.business.SeatService;
+import com.sdi.model.Seat;
 
 @MessageDriven(activationConfig = { 
 		@ActivationConfigProperty(
@@ -25,6 +29,8 @@ import com.sdi.business.exception.BusinessException;
 })
 public class UserMessageListener implements MessageListener {
 
+
+	@EJB SeatService seatService;
 	
 	private TopicSession session;
 	MessageProducer sender;
@@ -33,39 +39,54 @@ public class UserMessageListener implements MessageListener {
 	public void onMessage(Message msg) {
 		System.out.println("UserMessageListener: Msg received");
 
+		MapMessage message = (MapMessage) msg;
+		
 		try {
 
 			initialize();
-			process(msg);
-			sendMessage((MapMessage) msg);
+			process(message);
+			
 
 		} catch (JMSException | NamingException jex) {
-
 			jex.printStackTrace();
 
 		}
 
 	}
 
-	private void process(Message msg) throws BusinessException, JMSException {
+	private void process(MapMessage msg) throws JMSException, NamingException {
+		List<Seat> implicados = seatService.findByTrip(Long.valueOf(msg.getString("idViaje")));
+		
+		boolean aux = false;
+		
+		for(Seat seat:implicados){
+			if(seat.getTripId().equals(Long.valueOf(msg.getString("idUsuario")))){
+				aux=true;
+				break;
+			}
+		}
+		
+		if(aux){
+			sendMessage(msg,implicados);		
+		}else{
+			//Meter en cola de inválidos
+		}
 		
 
 	}
 
-	public void sendMessage(MapMessage message) throws JMSException,
+	public void sendMessage(MapMessage message,List<Seat> implicados) throws JMSException,
 			NamingException {
 
 		MapMessage msg = session.createMapMessage();
 
 		msg.setString("login", message.getString(message.getString("login")));
-		msg.setString("login", message.getString(message.getString("idViaje")));
+		msg.setString("idUsuario", message.getString(message.getString("idUsuario")));
+		msg.setString("idViaje", message.getString(message.getString("idViaje")));
 		msg.setString("Mensaje", message.getString(message.getString("mensaje")));
+		msg.setObject("implicados", implicados);
 
-		
 		sender.send(msg);
-
-
-
 	}
 	
 	public void initialize() throws NamingException, JMSException{
