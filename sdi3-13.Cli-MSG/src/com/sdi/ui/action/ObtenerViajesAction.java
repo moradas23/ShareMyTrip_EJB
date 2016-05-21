@@ -45,6 +45,8 @@ public class ObtenerViajesAction implements Action {
 	
 	private static final String JMS_CONNECTION_FACTORY = "jms/RemoteConnectionFactory";
 	private static final String MENSAJES_QUEUE = "jms/queue/MensajesQueue";
+	private static final String MENSAJES_TOPIC = "jms/topic/MensajesTopic";
+	
 
 
 	@Override
@@ -108,7 +110,11 @@ public class ObtenerViajesAction implements Action {
 		
 		
 		
-		MessageConsumer consumer = session.createConsumer(queue);
+		//MessageConsumer consumer = session.createConsumer(queue);
+		//consumer.setMessageListener( new MessageReceiver() );
+			
+		Destination topic = (Destination) Jndi.find(MENSAJES_TOPIC);
+		MessageConsumer consumer = session.createConsumer(topic);
 		consumer.setMessageListener( new MessageReceiver() );
 		
 		con.start();
