@@ -28,6 +28,8 @@ public class EliminarComentariosPuntuacionesAction implements Action {
 				System.out.println("Comentario nº" + contador + ": "
 						+ comen.getComment() + " - Puntuación: "
 						+ comen.getValue());
+				
+				contador++;
 			}
 
 				Integer numero = Console

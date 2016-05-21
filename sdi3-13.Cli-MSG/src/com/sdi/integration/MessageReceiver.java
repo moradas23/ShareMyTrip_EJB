@@ -29,7 +29,7 @@ public class MessageReceiver implements MessageListener {
 					&& EstadoCliente.getIdViaje().equals(Long.valueOf(message.getString("idViaje"))) 
 					&& implicados.contains(EstadoCliente.getIdUsuario().toString())){
 				
-				System.out.println("\n\t"+message.getString("login") + ": "+ message.getString("mensaje"));
+				System.out.println("\t"+message.getString("login") + ": "+ message.getString("mensaje"));
 			}
 
 				

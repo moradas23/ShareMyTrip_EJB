@@ -2,15 +2,13 @@ package com.sdi.ui.action;
 
 import java.util.List;
 
-import com.sdi.business.SeatService;
+import alb.util.menu.Action;
+
 import com.sdi.business.TripService;
 import com.sdi.business.UserService;
 import com.sdi.business.impl.RemoteEjbServicesLocator;
-import com.sdi.model.Seat;
 import com.sdi.model.Trip;
 import com.sdi.model.User;
-
-import alb.util.menu.Action;
 
 public class ListarUsuariosAction implements Action{
 
