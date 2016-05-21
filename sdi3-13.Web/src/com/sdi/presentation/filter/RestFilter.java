@@ -40,7 +40,7 @@ import com.sdi.model.UserLogin;
 import com.sun.corba.se.impl.protocol.RequestCanceledException;
 
 /**
- * Servlet Filter implementation class LoginFilter
+ * Servlet Filter implementation class RestFilter
  */
 @WebFilter(dispatcherTypes = { DispatcherType.REQUEST }, urlPatterns = { "/rest/*" })
 public class RestFilter implements Filter  {
@@ -55,21 +55,18 @@ public class RestFilter implements Filter  {
 	 * Default constructor.
 	 */
 	public RestFilter() {
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
 	 * @see Filter#destroy()
 	 */
 	public void destroy() {
-		// TODO Auto-generated method stub
 	}
 
 	/**
 	 * @see Filter#init(FilterConfig)
 	 */
 	public void init(FilterConfig fConfig) throws ServletException {
-		// TODO Auto-generated method stub
 		// Iniciamos la variable de instancia config
 		config = fConfig;
 	}
