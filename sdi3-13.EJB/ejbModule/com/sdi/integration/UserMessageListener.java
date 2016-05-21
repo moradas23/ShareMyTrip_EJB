@@ -20,6 +20,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import com.sdi.business.SeatService;
+import com.sdi.business.impl.seat.EjbSeatService;
+import com.sdi.infrastructure.Factories;
 import com.sdi.model.Seat;
 
 @MessageDriven(activationConfig = { 
@@ -30,7 +32,16 @@ import com.sdi.model.Seat;
 public class UserMessageListener implements MessageListener {
 
 
-	@EJB SeatService seatService;
+	
+	private static final String SEAT_SERVICE_JNDI_KEY =
+			"java:global/" + 
+			"sdi3-13/"
+			+ "sdi3-13.EJB/" 
+			+ "EjbSeatService!"
+			+ "com.sdi.business.impl.seat.RemoteSeatService";
+	
+//	@EJB(mappedName = "sdi3-13/sdi3-13.EJB/EjbSeatService!com.sdi.business.impl.seat.LocalSeatService") 
+	public SeatService service;
 	
 	private TopicSession session;
 	MessageProducer sender;
@@ -38,6 +49,7 @@ public class UserMessageListener implements MessageListener {
 	@Override
 	public void onMessage(Message msg) {
 		System.out.println("UserMessageListener: Msg received");
+	
 
 		MapMessage message = (MapMessage) msg;
 		
@@ -55,7 +67,11 @@ public class UserMessageListener implements MessageListener {
 	}
 
 	private void process(MapMessage msg) throws JMSException, NamingException {
-		List<Seat> implicados = seatService.findByTrip(Long.valueOf(msg.getString("idViaje")));
+		
+		
+		service = Factories.services.getSeatService();
+		
+		List<Seat> implicados = service.findByTrip(Long.valueOf(msg.getString("idViaje")));
 		
 		boolean aux = false;
 		
