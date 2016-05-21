@@ -6,11 +6,13 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 
+
 @MessageDriven( 
 		activationConfig = {
 		@ActivationConfigProperty(
 				propertyName = "destination",
-				propertyValue = "topic/MensajesTopic")
+				propertyValue = "topic/MensajesTopic"), 
+		@ActivationConfigProperty(propertyName="subscriptionDurability",propertyValue="Durable")  
 })
 public class MessageReceiver implements MessageListener {
 
