@@ -1,13 +1,8 @@
 ﻿
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Web.Script.Serialization;
 
@@ -94,10 +89,10 @@ namespace sdi3_13.Cli_REST_CSharp
 
 
         /**
-         * Muestra los solicitantes por pantalla
+        * Muestra los solicitantes por pantalla
         * 
         * @param solicitantes
-         */
+        */
         private static void mostrarSolicitantes(List<Application> solicitantes)
         {
             foreach (Application app in solicitantes)
@@ -109,10 +104,10 @@ namespace sdi3_13.Cli_REST_CSharp
 
 
         /**
- * Muestra el usuario pasado como parámetro por pantalla
- * 
- * @param user
- */
+        * Muestra el usuario pasado como parámetro por pantalla
+        * 
+        * @param user
+        */
         private static void mostrarUsuario(User user)
         {
             Console.WriteLine("\n---ID del Usuario: " + user.getId()
@@ -125,14 +120,13 @@ namespace sdi3_13.Cli_REST_CSharp
         }
 
 
-
         /**
- * Borra la solicitud de un pasajero, lo inserta en una plaza y disminuye
- * una plaza disponible en el viaje
- * 
- * @param idViaje
- * @param idConfirmado
- */
+        * Borra la solicitud de un pasajero, lo inserta en una plaza y disminuye
+        * una plaza disponible en el viaje
+        * 
+        * @param idViaje
+        * @param idConfirmado
+        */
         private static void aceptarSolicitud(int idViaje,long idConfirmado)
         { 
             // Borrar solicitud
@@ -154,9 +148,6 @@ namespace sdi3_13.Cli_REST_CSharp
             Console.WriteLine("El pasajero ha sido confirmado satisfactoriamente");
      }
 
-
-
-
         /**
          * Pide por pantalla las credenciales del usuario
          * 
@@ -171,10 +162,10 @@ namespace sdi3_13.Cli_REST_CSharp
 
 
         /**
- * Muestra por pantalla los viajes pasados como parámetro
- * 
- * @param viajes
- */
+        * Muestra por pantalla los viajes pasados como parámetro
+        *  
+        * @param viajes
+        */
         private static void mostrarViajes(List<Trip> viajes)
         {
             foreach (Trip viaje in viajes)
@@ -193,12 +184,11 @@ namespace sdi3_13.Cli_REST_CSharp
 
 
 
-
         /*Invocaciones a métodos REST. 
         Antes de procesar la petición esta pasará por 
         un filtro de servlet en el que se comprobará si las credenciales son correctas.
-        En el caso de aquellas invocaciones que devuelven objetos se producirá una 
-        excepción del tipo 'ProcessingException' que deberemos controlar*/
+        En el caso de aquellas invocaciones que devuelven objetos si las credenciales son incorrectas
+        se producirá una excepción que deberemos controlar*/
 
         private static List<Trip> getTripsPromoted(long id)
         {
@@ -231,7 +221,7 @@ namespace sdi3_13.Cli_REST_CSharp
             {
                 resp = req.GetResponse() as HttpWebResponse;
 
-            }catch (Exception e)
+            }catch (Exception)
             {
                 Console.WriteLine("Usuario y/o contraseña erroneos o cuenta deshabilitada");
                 return null;
@@ -319,9 +309,6 @@ namespace sdi3_13.Cli_REST_CSharp
             req.ContentType = "application/json";
 
             HttpWebResponse resp = req.GetResponse() as HttpWebResponse;
-
-         //   HttpWebResponse response = (HttpWebResponse)req.GetResponse();
-          //  string returnString = response.StatusCode.ToString();
         }
 
         private static void disminuirPlaza(Trip viaje)
@@ -342,10 +329,6 @@ namespace sdi3_13.Cli_REST_CSharp
             }
 
             HttpWebResponse resp = req.GetResponse() as HttpWebResponse;
-
-
-         //   HttpWebResponse response = (HttpWebResponse)req.GetResponse();
-        //    string returnString = response.StatusCode.ToString();
         }
 
         private static Trip obtenerViaje(long idViaje)
@@ -363,12 +346,8 @@ namespace sdi3_13.Cli_REST_CSharp
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             Trip viaje = serializer.Deserialize<Trip>(json);
 
-            
-
             return viaje;
 	}
-
-   
 
     }
 }
