@@ -2,22 +2,16 @@ package com.sdi.utilidades.Timers;
 
 import java.util.Date;
 import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.annotation.Resource;
-import javax.ejb.LocalBean;
 import javax.ejb.ScheduleExpression;
-import javax.ejb.SessionContext;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.ejb.Timeout;
 import javax.ejb.Timer;
 import javax.ejb.TimerConfig;
 import javax.ejb.TimerService;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-
 import com.sdi.business.ApplicationService;
 import com.sdi.business.SeatService;
 import com.sdi.business.TripService;
@@ -36,7 +30,7 @@ public class TimerBBDD {
 	@PostConstruct
 	private void init() {
 		ScheduleExpression se = new ScheduleExpression();
-        // Set schedule to every 3 seconds (starting at second 0 of every minute).
+        // Set schedule to every 20 seconds (starting at second 0 of every minute).
         se.hour("*").minute("*").second("0/20");
         timerService.createCalendarTimer( se, new TimerConfig("EJB timer service timeout at ", false) );	
         }
