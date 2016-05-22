@@ -48,7 +48,6 @@ public class UserMessageListener implements MessageListener {
 
 		} catch (JMSException | NamingException jex) {
 			jex.printStackTrace();
-
 		}
 
 	}
@@ -79,12 +78,31 @@ public class UserMessageListener implements MessageListener {
 		if(aux){
 			sendMessage(msg,implicados);		
 		}else{
-			
-			//Meter en cola de inválidos!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		
+			sendInvalidateMsg(msg);	
 		}
 		
 		con.close();
+	}
+	/**
+	 * Envia el mensaje al canal de mensajes invalidos
+	 * @param msg
+	 * @throws JMSException
+	 * @throws NamingException
+	 */
+	private void sendInvalidateMsg(MapMessage msg) throws JMSException, NamingException {
+		Context context = new InitialContext();
+		Destination queue = (Destination) 
+				context.lookup("java:/queue/MensajesInvalidQueue");
+		MessageProducer mp = session.createProducer(queue);
+		
+		MapMessage m = session.createMapMessage();
+		
+		m.setString("login", msg.getString("login"));
+		m.setString("idUsuario",msg.getString("idUsuario"));
+		m.setString("idViaje", msg.getString("idViaje"));
+		m.setString("mensaje", msg.getString("mensaje"));
+		
+		mp.send(m);
 	}
 
 	/**

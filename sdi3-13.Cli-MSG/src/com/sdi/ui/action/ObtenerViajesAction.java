@@ -112,7 +112,7 @@ public class ObtenerViajesAction implements Action {
 		
 		EstadoCliente.setIdUsuario(null);
 		
-		
+		con.close();
 		}
 	
 	
