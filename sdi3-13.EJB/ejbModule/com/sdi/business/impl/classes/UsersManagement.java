@@ -5,11 +5,14 @@ import com.sdi.model.User;
 import com.sdi.model.UserStatus;
 import com.sdi.persistence.UserDao;
 import com.sdi.persistence.exception.AlreadyPersistedException;
+import com.sdi.utilidades.Utilidades;
 
 public class UsersManagement {
 
 	public void save(User user){
 		UserDao dao = Factories.persistence.createUserDao();
+		user.setPassword(
+				Utilidades.getStringMessageDigest(user.getPassword(), Utilidades.MD5));
 		try {
 			dao.save(user);
 		}
