@@ -31,6 +31,7 @@ namespace sdi3_13.Cli_REST_CSharp
             if (usuario == null)
             {
                 Console.WriteLine("Usuario y/o contraseña erroneos");
+                pulseTecla();
                 return;
             }
 
@@ -46,6 +47,7 @@ namespace sdi3_13.Cli_REST_CSharp
             {
                 Console.WriteLine("No tiene ningún viaje abierto como promotor"
                         + " con plazas disponibles");
+                pulseTecla();
                 return;
             }
 
@@ -64,7 +66,8 @@ namespace sdi3_13.Cli_REST_CSharp
               else
               {
                 Console.WriteLine("Este viaje no tiene ninguna solicitud de participación");
-                  return;
+                pulseTecla();
+                return;
               }
              
               Console.Write("Inserte ID del usuario a confirmar:");
@@ -76,17 +79,19 @@ namespace sdi3_13.Cli_REST_CSharp
                             {
 
                                 aceptarSolicitud(idViaje, idConfirmado);
+                                pulseTecla();
                                 return;
                             }
                         }
 
                         Console.WriteLine("ID no valido");
+                        pulseTecla();
+        }
 
-
-
+        public static void pulseTecla()
+        {
             Console.WriteLine("Pulse cualquier tecla para salir");
             Console.ReadLine();
-
         }
 
 
@@ -221,7 +226,18 @@ namespace sdi3_13.Cli_REST_CSharp
            WebRequest req = WebRequest.Create(@"http://localhost:8280/sdi3-13.Web/rest/UserServiceRs/login/"+login);
             req.Method = "GET";
             req.Headers["Authorization"] = "Basic " + Convert.ToBase64String(Encoding.Default.GetBytes(login+":"+password));
-            HttpWebResponse resp = req.GetResponse() as HttpWebResponse;
+
+            HttpWebResponse resp = null;
+
+            try
+            {
+                resp = req.GetResponse() as HttpWebResponse;
+
+            }catch (Exception e)
+            {
+                Console.WriteLine("Credenciales erroneas");
+                return null;
+            }
 
             Stream receiveStream = resp.GetResponseStream();
             StreamReader readStream = new StreamReader(receiveStream, Encoding.UTF8);
