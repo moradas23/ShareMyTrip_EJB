@@ -44,6 +44,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actions\DeshabilitarUsuario.cs" />
+    <Compile Include="Actions\EliminarComentarios.cs" />
+    <Compile Include="Actions\ListarComentarios.cs" />
+    <Compile Include="Actions\MostrarUsuarios.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\EjbApplicationServiceService.cs" />

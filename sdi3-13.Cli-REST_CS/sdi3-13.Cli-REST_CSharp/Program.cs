@@ -30,7 +30,6 @@ namespace sdi3_13.Cli_REST_CSharp
             //Si el usuario es null las credenciales son erroneas
             if (usuario == null)
             {
-                Console.WriteLine("Usuario y/o contraseña erroneos");
                 pulseTecla();
                 return;
             }
@@ -235,7 +234,7 @@ namespace sdi3_13.Cli_REST_CSharp
 
             }catch (Exception e)
             {
-                Console.WriteLine("Credenciales erroneas");
+                Console.WriteLine("Usuario y/o contraseña erroneos o cuenta deshabilitada");
                 return null;
             }
 

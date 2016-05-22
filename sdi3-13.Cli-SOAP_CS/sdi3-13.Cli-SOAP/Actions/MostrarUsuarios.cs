@@ -4,30 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace sdi3_13.Cli_SOAP
+namespace sdi3_13.Cli_SOAP.Actions
 {
-    class Program
+    class MostrarUsuarios
     {
-        static void Main(string[] args)
-        {
 
+        public void mostrarUsuario()
+        {
             Console.WriteLine("Usuarios del sistema: ");
 
             EjbUserServiceService userService = new EjbUserServiceService();
+            EjbTripServiceService tripService = new EjbTripServiceService();
 
             user[] usuarios = userService.getUsers();
-
-            mostrarUsuario(usuarios);
-
-            Console.Write("Pulse un botón para terminar");
-            Console.Read();
-         
-        }
-
-        private static void mostrarUsuario(user[] usuarios)
-        {
-
-            EjbTripServiceService tService = new EjbTripServiceService();
 
             foreach (user usuario in usuarios)
             {
@@ -39,14 +28,14 @@ namespace sdi3_13.Cli_SOAP
                 Console.WriteLine("Email: " + usuario.email);
                 Console.WriteLine("Estado de la cuenta: " + usuario.status);
 
-                trip[] viajesPromotor = tService.findByPromoterAndDone(usuario.id,true);
+                trip[] viajesPromotor = tripService.findByPromoterAndDone(usuario.id, true);
 
-                if(viajesPromotor!=null)
+                if (viajesPromotor != null)
                     Console.WriteLine("Viajes como promotor: " + viajesPromotor.Length);
                 else
                     Console.WriteLine("No fue promotor en ningún viaje");
 
-                trip[] viajesParticipo = tService.findViajesHaParticipado(usuario.id,true);
+                trip[] viajesParticipo = tripService.findViajesHaParticipado(usuario.id, true);
 
                 if (viajesParticipo != null)
                     Console.WriteLine("Viajes ha participado: " + viajesParticipo.Length);
