@@ -4,3 +4,6 @@ C:\Users\Carlos\Desktop\ShareMyTrip_EJB\sdi3-13.Cli-SOAP_CS\sdi3-13.Cli-SOAP\obj
 C:\Users\Carlos\Desktop\ShareMyTrip_EJB\sdi3-13.Cli-SOAP_CS\sdi3-13.Cli-SOAP\bin\Debug\sdi3-13.Cli-SOAP.exe
 C:\Users\Carlos\Desktop\ShareMyTrip_EJB\sdi3-13.Cli-SOAP_CS\sdi3-13.Cli-SOAP\bin\Debug\sdi3-13.Cli-SOAP.pdb
 C:\Users\Carlos\Desktop\ShareMyTrip_EJB\sdi3-13.Cli-SOAP_CS\sdi3-13.Cli-SOAP\obj\Debug\sdi3-13.Cli-SOAP_CS.csprojResolveAssemblyReference.cache
+C:\Users\Portatil\Desktop\SDI_EJB\ShareMyTrip_EJB\sdi3-13.Cli-SOAP_CS\sdi3-13.Cli-SOAP\bin\Debug\sdi3-13.Cli-SOAP.exe.config
+C:\Users\Portatil\Desktop\SDI_EJB\ShareMyTrip_EJB\sdi3-13.Cli-SOAP_CS\sdi3-13.Cli-SOAP\obj\Debug\sdi3-13.Cli-SOAP.exe
+C:\Users\Portatil\Desktop\SDI_EJB\ShareMyTrip_EJB\sdi3-13.Cli-SOAP_CS\sdi3-13.Cli-SOAP\obj\Debug\sdi3-13.Cli-SOAP.pdb
