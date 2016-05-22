@@ -29,7 +29,7 @@ public class ListarUsuariosAction implements Action{
 		
 		
 		for(User usuario:usuarios){
-			System.out.println("---- Id: "+usuario.getId()+" -----------------------");
+			System.out.println("\n---- Id: "+usuario.getId()+" -----------------------");
 			System.out.println("Login: "+usuario.getLogin());
 			System.out.println("Contraseña(Encriptada): "+usuario.getPassword());
 			System.out.println("Nombre: "+usuario.getName());
@@ -42,6 +42,8 @@ public class ListarUsuariosAction implements Action{
 			
 			List<Trip> viajesParticipo = tService.findViajesHaParticipado(usuario.getId());
 			System.out.println("Viajes ha participado: "+viajesParticipo.size());
+			
+			System.out.println();
 		}
 	}
 	

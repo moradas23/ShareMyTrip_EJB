@@ -33,9 +33,13 @@ public partial class EjbSeatServiceService : System.Web.Services.Protocols.SoapH
     
     private System.Threading.SendOrPostCallback findPlazasAceptadasOperationCompleted;
     
+    private System.Threading.SendOrPostCallback insertSeatOperationCompleted;
+    
     private System.Threading.SendOrPostCallback findPlazasAceptadasUserOperationCompleted;
     
     private System.Threading.SendOrPostCallback insertOperationCompleted;
+    
+    private System.Threading.SendOrPostCallback findByTripOperationCompleted;
     
     private System.Threading.SendOrPostCallback excluirUsuarioOperationCompleted;
     
@@ -60,10 +64,16 @@ public partial class EjbSeatServiceService : System.Web.Services.Protocols.SoapH
     public event findPlazasAceptadasCompletedEventHandler findPlazasAceptadasCompleted;
     
     /// <remarks/>
+    public event insertSeatCompletedEventHandler insertSeatCompleted;
+    
+    /// <remarks/>
     public event findPlazasAceptadasUserCompletedEventHandler findPlazasAceptadasUserCompleted;
     
     /// <remarks/>
     public event insertCompletedEventHandler insertCompleted;
+    
+    /// <remarks/>
+    public event findByTripCompletedEventHandler findByTripCompleted;
     
     /// <remarks/>
     public event excluirUsuarioCompletedEventHandler excluirUsuarioCompleted;
@@ -220,6 +230,45 @@ public partial class EjbSeatServiceService : System.Web.Services.Protocols.SoapH
     
     /// <remarks/>
     [System.Web.Services.Protocols.SoapDocumentMethodAttribute("", RequestNamespace="http://seat.impl.business.sdi.com/", ResponseNamespace="http://seat.impl.business.sdi.com/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+    public void insertSeat([System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)] seat arg0) {
+        this.Invoke("insertSeat", new object[] {
+                    arg0});
+    }
+    
+    /// <remarks/>
+    public System.IAsyncResult BegininsertSeat(seat arg0, System.AsyncCallback callback, object asyncState) {
+        return this.BeginInvoke("insertSeat", new object[] {
+                    arg0}, callback, asyncState);
+    }
+    
+    /// <remarks/>
+    public void EndinsertSeat(System.IAsyncResult asyncResult) {
+        this.EndInvoke(asyncResult);
+    }
+    
+    /// <remarks/>
+    public void insertSeatAsync(seat arg0) {
+        this.insertSeatAsync(arg0, null);
+    }
+    
+    /// <remarks/>
+    public void insertSeatAsync(seat arg0, object userState) {
+        if ((this.insertSeatOperationCompleted == null)) {
+            this.insertSeatOperationCompleted = new System.Threading.SendOrPostCallback(this.OninsertSeatOperationCompleted);
+        }
+        this.InvokeAsync("insertSeat", new object[] {
+                    arg0}, this.insertSeatOperationCompleted, userState);
+    }
+    
+    private void OninsertSeatOperationCompleted(object arg) {
+        if ((this.insertSeatCompleted != null)) {
+            System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+            this.insertSeatCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+        }
+    }
+    
+    /// <remarks/>
+    [System.Web.Services.Protocols.SoapDocumentMethodAttribute("", RequestNamespace="http://seat.impl.business.sdi.com/", ResponseNamespace="http://seat.impl.business.sdi.com/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
     [return: System.Xml.Serialization.XmlElementAttribute("return", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
     public seat[] findPlazasAceptadasUser([System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)] long arg0, [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)] [System.Xml.Serialization.XmlIgnoreAttribute()] bool arg0Specified) {
         object[] results = this.Invoke("findPlazasAceptadasUser", new object[] {
@@ -308,6 +357,51 @@ public partial class EjbSeatServiceService : System.Web.Services.Protocols.SoapH
         if ((this.insertCompleted != null)) {
             System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
             this.insertCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+        }
+    }
+    
+    /// <remarks/>
+    [System.Web.Services.Protocols.SoapDocumentMethodAttribute("", RequestNamespace="http://seat.impl.business.sdi.com/", ResponseNamespace="http://seat.impl.business.sdi.com/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+    [return: System.Xml.Serialization.XmlElementAttribute("return", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public seat[] findByTrip([System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)] long arg0, [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)] [System.Xml.Serialization.XmlIgnoreAttribute()] bool arg0Specified) {
+        object[] results = this.Invoke("findByTrip", new object[] {
+                    arg0,
+                    arg0Specified});
+        return ((seat[])(results[0]));
+    }
+    
+    /// <remarks/>
+    public System.IAsyncResult BeginfindByTrip(long arg0, bool arg0Specified, System.AsyncCallback callback, object asyncState) {
+        return this.BeginInvoke("findByTrip", new object[] {
+                    arg0,
+                    arg0Specified}, callback, asyncState);
+    }
+    
+    /// <remarks/>
+    public seat[] EndfindByTrip(System.IAsyncResult asyncResult) {
+        object[] results = this.EndInvoke(asyncResult);
+        return ((seat[])(results[0]));
+    }
+    
+    /// <remarks/>
+    public void findByTripAsync(long arg0, bool arg0Specified) {
+        this.findByTripAsync(arg0, arg0Specified, null);
+    }
+    
+    /// <remarks/>
+    public void findByTripAsync(long arg0, bool arg0Specified, object userState) {
+        if ((this.findByTripOperationCompleted == null)) {
+            this.findByTripOperationCompleted = new System.Threading.SendOrPostCallback(this.OnfindByTripOperationCompleted);
+        }
+        this.InvokeAsync("findByTrip", new object[] {
+                    arg0,
+                    arg0Specified}, this.findByTripOperationCompleted, userState);
+    }
+    
+    private void OnfindByTripOperationCompleted(object arg) {
+        if ((this.findByTripCompleted != null)) {
+            System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+            this.findByTripCompleted(this, new findByTripCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
         }
     }
     
@@ -649,6 +743,10 @@ public partial class findPlazasAceptadasCompletedEventArgs : System.ComponentMod
 
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.6.1055.0")]
+public delegate void insertSeatCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.6.1055.0")]
 public delegate void findPlazasAceptadasUserCompletedEventHandler(object sender, findPlazasAceptadasUserCompletedEventArgs e);
 
 /// <remarks/>
@@ -679,11 +777,33 @@ public delegate void insertCompletedEventHandler(object sender, System.Component
 
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.6.1055.0")]
-public delegate void excluirUsuarioCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+public delegate void findByTripCompletedEventHandler(object sender, findByTripCompletedEventArgs e);
 
 /// <remarks/>
-//[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.6.1055.0")]
-//public delegate void deleteCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.6.1055.0")]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+public partial class findByTripCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+    
+    private object[] results;
+    
+    internal findByTripCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+            base(exception, cancelled, userState) {
+        this.results = results;
+    }
+    
+    /// <remarks/>
+    public seat[] Result {
+        get {
+            this.RaiseExceptionIfNecessary();
+            return ((seat[])(this.results[0]));
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.6.1055.0")]
+public delegate void excluirUsuarioCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
 
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.6.1055.0")]

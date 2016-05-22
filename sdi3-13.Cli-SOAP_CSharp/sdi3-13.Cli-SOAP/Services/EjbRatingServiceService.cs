@@ -383,9 +383,6 @@ public partial class findByAboutUserCompletedEventArgs : System.ComponentModel.A
     }
 }
 
-/// <remarks/>
-//[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.6.1055.0")]
-//public delegate void deleteCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
 
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.6.1055.0")]

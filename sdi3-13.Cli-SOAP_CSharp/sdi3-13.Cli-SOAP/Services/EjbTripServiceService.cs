@@ -37,9 +37,15 @@ public partial class EjbTripServiceService : System.Web.Services.Protocols.SoapH
     
     private System.Threading.SendOrPostCallback liberarPlazaOperationCompleted;
     
+    private System.Threading.SendOrPostCallback actualizarOperationCompleted;
+    
     private System.Threading.SendOrPostCallback modificarOperationCompleted;
     
+    private System.Threading.SendOrPostCallback findByPromoterAndAvailablePaxOperationCompleted;
+    
     private System.Threading.SendOrPostCallback findByPromoterAndDoneOperationCompleted;
+    
+    private System.Threading.SendOrPostCallback findByAceptadoOperationCompleted;
     
     private System.Threading.SendOrPostCallback ocuparPlazaOperationCompleted;
     
@@ -78,10 +84,19 @@ public partial class EjbTripServiceService : System.Web.Services.Protocols.SoapH
     public event liberarPlazaCompletedEventHandler liberarPlazaCompleted;
     
     /// <remarks/>
+    public event actualizarCompletedEventHandler actualizarCompleted;
+    
+    /// <remarks/>
     public event modificarCompletedEventHandler modificarCompleted;
     
     /// <remarks/>
+    public event findByPromoterAndAvailablePaxCompletedEventHandler findByPromoterAndAvailablePaxCompleted;
+    
+    /// <remarks/>
     public event findByPromoterAndDoneCompletedEventHandler findByPromoterAndDoneCompleted;
+    
+    /// <remarks/>
+    public event findByAceptadoCompletedEventHandler findByAceptadoCompleted;
     
     /// <remarks/>
     public event ocuparPlazaCompletedEventHandler ocuparPlazaCompleted;
@@ -322,6 +337,45 @@ public partial class EjbTripServiceService : System.Web.Services.Protocols.SoapH
     
     /// <remarks/>
     [System.Web.Services.Protocols.SoapDocumentMethodAttribute("", RequestNamespace="http://trip.impl.business.sdi.com/", ResponseNamespace="http://trip.impl.business.sdi.com/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+    public void actualizar([System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)] trip arg0) {
+        this.Invoke("actualizar", new object[] {
+                    arg0});
+    }
+    
+    /// <remarks/>
+    public System.IAsyncResult Beginactualizar(trip arg0, System.AsyncCallback callback, object asyncState) {
+        return this.BeginInvoke("actualizar", new object[] {
+                    arg0}, callback, asyncState);
+    }
+    
+    /// <remarks/>
+    public void Endactualizar(System.IAsyncResult asyncResult) {
+        this.EndInvoke(asyncResult);
+    }
+    
+    /// <remarks/>
+    public void actualizarAsync(trip arg0) {
+        this.actualizarAsync(arg0, null);
+    }
+    
+    /// <remarks/>
+    public void actualizarAsync(trip arg0, object userState) {
+        if ((this.actualizarOperationCompleted == null)) {
+            this.actualizarOperationCompleted = new System.Threading.SendOrPostCallback(this.OnactualizarOperationCompleted);
+        }
+        this.InvokeAsync("actualizar", new object[] {
+                    arg0}, this.actualizarOperationCompleted, userState);
+    }
+    
+    private void OnactualizarOperationCompleted(object arg) {
+        if ((this.actualizarCompleted != null)) {
+            System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+            this.actualizarCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+        }
+    }
+    
+    /// <remarks/>
+    [System.Web.Services.Protocols.SoapDocumentMethodAttribute("", RequestNamespace="http://trip.impl.business.sdi.com/", ResponseNamespace="http://trip.impl.business.sdi.com/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
     [return: System.Xml.Serialization.XmlElementAttribute("return", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
     public bool modificar([System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)] modificarViajeDto arg0) {
         object[] results = this.Invoke("modificar", new object[] {
@@ -359,6 +413,51 @@ public partial class EjbTripServiceService : System.Web.Services.Protocols.SoapH
         if ((this.modificarCompleted != null)) {
             System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
             this.modificarCompleted(this, new modificarCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+        }
+    }
+    
+    /// <remarks/>
+    [System.Web.Services.Protocols.SoapDocumentMethodAttribute("", RequestNamespace="http://trip.impl.business.sdi.com/", ResponseNamespace="http://trip.impl.business.sdi.com/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+    [return: System.Xml.Serialization.XmlElementAttribute("return", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public trip[] findByPromoterAndAvailablePax([System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)] long arg0, [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)] [System.Xml.Serialization.XmlIgnoreAttribute()] bool arg0Specified) {
+        object[] results = this.Invoke("findByPromoterAndAvailablePax", new object[] {
+                    arg0,
+                    arg0Specified});
+        return ((trip[])(results[0]));
+    }
+    
+    /// <remarks/>
+    public System.IAsyncResult BeginfindByPromoterAndAvailablePax(long arg0, bool arg0Specified, System.AsyncCallback callback, object asyncState) {
+        return this.BeginInvoke("findByPromoterAndAvailablePax", new object[] {
+                    arg0,
+                    arg0Specified}, callback, asyncState);
+    }
+    
+    /// <remarks/>
+    public trip[] EndfindByPromoterAndAvailablePax(System.IAsyncResult asyncResult) {
+        object[] results = this.EndInvoke(asyncResult);
+        return ((trip[])(results[0]));
+    }
+    
+    /// <remarks/>
+    public void findByPromoterAndAvailablePaxAsync(long arg0, bool arg0Specified) {
+        this.findByPromoterAndAvailablePaxAsync(arg0, arg0Specified, null);
+    }
+    
+    /// <remarks/>
+    public void findByPromoterAndAvailablePaxAsync(long arg0, bool arg0Specified, object userState) {
+        if ((this.findByPromoterAndAvailablePaxOperationCompleted == null)) {
+            this.findByPromoterAndAvailablePaxOperationCompleted = new System.Threading.SendOrPostCallback(this.OnfindByPromoterAndAvailablePaxOperationCompleted);
+        }
+        this.InvokeAsync("findByPromoterAndAvailablePax", new object[] {
+                    arg0,
+                    arg0Specified}, this.findByPromoterAndAvailablePaxOperationCompleted, userState);
+    }
+    
+    private void OnfindByPromoterAndAvailablePaxOperationCompleted(object arg) {
+        if ((this.findByPromoterAndAvailablePaxCompleted != null)) {
+            System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+            this.findByPromoterAndAvailablePaxCompleted(this, new findByPromoterAndAvailablePaxCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
         }
     }
     
@@ -404,6 +503,51 @@ public partial class EjbTripServiceService : System.Web.Services.Protocols.SoapH
         if ((this.findByPromoterAndDoneCompleted != null)) {
             System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
             this.findByPromoterAndDoneCompleted(this, new findByPromoterAndDoneCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+        }
+    }
+    
+    /// <remarks/>
+    [System.Web.Services.Protocols.SoapDocumentMethodAttribute("", RequestNamespace="http://trip.impl.business.sdi.com/", ResponseNamespace="http://trip.impl.business.sdi.com/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+    [return: System.Xml.Serialization.XmlElementAttribute("return", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public trip[] findByAceptado([System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)] long arg0, [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)] [System.Xml.Serialization.XmlIgnoreAttribute()] bool arg0Specified) {
+        object[] results = this.Invoke("findByAceptado", new object[] {
+                    arg0,
+                    arg0Specified});
+        return ((trip[])(results[0]));
+    }
+    
+    /// <remarks/>
+    public System.IAsyncResult BeginfindByAceptado(long arg0, bool arg0Specified, System.AsyncCallback callback, object asyncState) {
+        return this.BeginInvoke("findByAceptado", new object[] {
+                    arg0,
+                    arg0Specified}, callback, asyncState);
+    }
+    
+    /// <remarks/>
+    public trip[] EndfindByAceptado(System.IAsyncResult asyncResult) {
+        object[] results = this.EndInvoke(asyncResult);
+        return ((trip[])(results[0]));
+    }
+    
+    /// <remarks/>
+    public void findByAceptadoAsync(long arg0, bool arg0Specified) {
+        this.findByAceptadoAsync(arg0, arg0Specified, null);
+    }
+    
+    /// <remarks/>
+    public void findByAceptadoAsync(long arg0, bool arg0Specified, object userState) {
+        if ((this.findByAceptadoOperationCompleted == null)) {
+            this.findByAceptadoOperationCompleted = new System.Threading.SendOrPostCallback(this.OnfindByAceptadoOperationCompleted);
+        }
+        this.InvokeAsync("findByAceptado", new object[] {
+                    arg0,
+                    arg0Specified}, this.findByAceptadoOperationCompleted, userState);
+    }
+    
+    private void OnfindByAceptadoOperationCompleted(object arg) {
+        if ((this.findByAceptadoCompleted != null)) {
+            System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+            this.findByAceptadoCompleted(this, new findByAceptadoCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
         }
     }
     
@@ -1541,7 +1685,145 @@ public partial class modificarViajeDto {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://trip.impl.business.sdi.com/")]
+public partial class waypoint {
+    
+    private double latField;
+    
+    private bool latFieldSpecified;
+    
+    private double lonField;
+    
+    private bool lonFieldSpecified;
+    
+    /// <comentarios/>
+    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public double lat {
+        get {
+            return this.latField;
+        }
+        set {
+            this.latField = value;
+        }
+    }
+    
+    /// <comentarios/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool latSpecified {
+        get {
+            return this.latFieldSpecified;
+        }
+        set {
+            this.latFieldSpecified = value;
+        }
+    }
+    
+    /// <comentarios/>
+    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public double lon {
+        get {
+            return this.lonField;
+        }
+        set {
+            this.lonField = value;
+        }
+    }
+    
+    /// <comentarios/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool lonSpecified {
+        get {
+            return this.lonFieldSpecified;
+        }
+        set {
+            this.lonFieldSpecified = value;
+        }
+    }
+}
+
+/// <comentarios/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.6.1055.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://trip.impl.business.sdi.com/")]
 public partial class addressPoint {
+    
+    private string addressField;
+    
+    private string cityField;
+    
+    private string countryField;
+    
+    private string stateField;
+    
+    private waypoint waypointField;
+    
+    private string zipCodeField;
+    
+    /// <comentarios/>
+    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public string address {
+        get {
+            return this.addressField;
+        }
+        set {
+            this.addressField = value;
+        }
+    }
+    
+    /// <comentarios/>
+    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public string city {
+        get {
+            return this.cityField;
+        }
+        set {
+            this.cityField = value;
+        }
+    }
+    
+    /// <comentarios/>
+    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public string country {
+        get {
+            return this.countryField;
+        }
+        set {
+            this.countryField = value;
+        }
+    }
+    
+    /// <comentarios/>
+    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public string state {
+        get {
+            return this.stateField;
+        }
+        set {
+            this.stateField = value;
+        }
+    }
+    
+    /// <comentarios/>
+    public waypoint waypoint {
+        get {
+            return this.waypointField;
+        }
+        set {
+            this.waypointField = value;
+        }
+    }
+    
+    /// <comentarios/>
+    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public string zipCode {
+        get {
+            return this.zipCodeField;
+        }
+        set {
+            this.zipCodeField = value;
+        }
+    }
 }
 
 /// <comentarios/>
@@ -1994,6 +2276,10 @@ public delegate void liberarPlazaCompletedEventHandler(object sender, System.Com
 
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.6.1055.0")]
+public delegate void actualizarCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.6.1055.0")]
 public delegate void modificarCompletedEventHandler(object sender, modificarCompletedEventArgs e);
 
 /// <remarks/>
@@ -2020,6 +2306,32 @@ public partial class modificarCompletedEventArgs : System.ComponentModel.AsyncCo
 
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.6.1055.0")]
+public delegate void findByPromoterAndAvailablePaxCompletedEventHandler(object sender, findByPromoterAndAvailablePaxCompletedEventArgs e);
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.6.1055.0")]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+public partial class findByPromoterAndAvailablePaxCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+    
+    private object[] results;
+    
+    internal findByPromoterAndAvailablePaxCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+            base(exception, cancelled, userState) {
+        this.results = results;
+    }
+    
+    /// <remarks/>
+    public trip[] Result {
+        get {
+            this.RaiseExceptionIfNecessary();
+            return ((trip[])(this.results[0]));
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.6.1055.0")]
 public delegate void findByPromoterAndDoneCompletedEventHandler(object sender, findByPromoterAndDoneCompletedEventArgs e);
 
 /// <remarks/>
@@ -2031,6 +2343,32 @@ public partial class findByPromoterAndDoneCompletedEventArgs : System.ComponentM
     private object[] results;
     
     internal findByPromoterAndDoneCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+            base(exception, cancelled, userState) {
+        this.results = results;
+    }
+    
+    /// <remarks/>
+    public trip[] Result {
+        get {
+            this.RaiseExceptionIfNecessary();
+            return ((trip[])(this.results[0]));
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.6.1055.0")]
+public delegate void findByAceptadoCompletedEventHandler(object sender, findByAceptadoCompletedEventArgs e);
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.6.1055.0")]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+public partial class findByAceptadoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+    
+    private object[] results;
+    
+    internal findByAceptadoCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
             base(exception, cancelled, userState) {
         this.results = results;
     }

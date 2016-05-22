@@ -31,11 +31,11 @@ public partial class EjbUserServiceService : System.Web.Services.Protocols.SoapH
     
     private System.Threading.SendOrPostCallback saveUserOperationCompleted;
     
+    private System.Threading.SendOrPostCallback findByLoginOperationCompleted;
+    
     private System.Threading.SendOrPostCallback getUsersOperationCompleted;
     
     private System.Threading.SendOrPostCallback unsubscribeOperationCompleted;
-    
-    private System.Threading.SendOrPostCallback finByLoginOperationCompleted;
     
     /// <remarks/>
     public EjbUserServiceService() {
@@ -49,13 +49,13 @@ public partial class EjbUserServiceService : System.Web.Services.Protocols.SoapH
     public event saveUserCompletedEventHandler saveUserCompleted;
     
     /// <remarks/>
+    public event findByLoginCompletedEventHandler findByLoginCompleted;
+    
+    /// <remarks/>
     public event getUsersCompletedEventHandler getUsersCompleted;
     
     /// <remarks/>
     public event unsubscribeCompletedEventHandler unsubscribeCompleted;
-    
-    /// <remarks/>
-    public event finByLoginCompletedEventHandler finByLoginCompleted;
     
     /// <remarks/>
     [System.Web.Services.Protocols.SoapDocumentMethodAttribute("", RequestNamespace="http://user.impl.business.sdi.com/", ResponseNamespace="http://user.impl.business.sdi.com/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -144,6 +144,48 @@ public partial class EjbUserServiceService : System.Web.Services.Protocols.SoapH
     /// <remarks/>
     [System.Web.Services.Protocols.SoapDocumentMethodAttribute("", RequestNamespace="http://user.impl.business.sdi.com/", ResponseNamespace="http://user.impl.business.sdi.com/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
     [return: System.Xml.Serialization.XmlElementAttribute("return", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public user findByLogin([System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)] string arg0) {
+        object[] results = this.Invoke("findByLogin", new object[] {
+                    arg0});
+        return ((user)(results[0]));
+    }
+    
+    /// <remarks/>
+    public System.IAsyncResult BeginfindByLogin(string arg0, System.AsyncCallback callback, object asyncState) {
+        return this.BeginInvoke("findByLogin", new object[] {
+                    arg0}, callback, asyncState);
+    }
+    
+    /// <remarks/>
+    public user EndfindByLogin(System.IAsyncResult asyncResult) {
+        object[] results = this.EndInvoke(asyncResult);
+        return ((user)(results[0]));
+    }
+    
+    /// <remarks/>
+    public void findByLoginAsync(string arg0) {
+        this.findByLoginAsync(arg0, null);
+    }
+    
+    /// <remarks/>
+    public void findByLoginAsync(string arg0, object userState) {
+        if ((this.findByLoginOperationCompleted == null)) {
+            this.findByLoginOperationCompleted = new System.Threading.SendOrPostCallback(this.OnfindByLoginOperationCompleted);
+        }
+        this.InvokeAsync("findByLogin", new object[] {
+                    arg0}, this.findByLoginOperationCompleted, userState);
+    }
+    
+    private void OnfindByLoginOperationCompleted(object arg) {
+        if ((this.findByLoginCompleted != null)) {
+            System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+            this.findByLoginCompleted(this, new findByLoginCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+        }
+    }
+    
+    /// <remarks/>
+    [System.Web.Services.Protocols.SoapDocumentMethodAttribute("", RequestNamespace="http://user.impl.business.sdi.com/", ResponseNamespace="http://user.impl.business.sdi.com/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+    [return: System.Xml.Serialization.XmlElementAttribute("return", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
     public user[] getUsers() {
         object[] results = this.Invoke("getUsers", new object[0]);
         return ((user[])(results[0]));
@@ -216,48 +258,6 @@ public partial class EjbUserServiceService : System.Web.Services.Protocols.SoapH
         if ((this.unsubscribeCompleted != null)) {
             System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
             this.unsubscribeCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-        }
-    }
-    
-    /// <remarks/>
-    [System.Web.Services.Protocols.SoapDocumentMethodAttribute("", RequestNamespace="http://user.impl.business.sdi.com/", ResponseNamespace="http://user.impl.business.sdi.com/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-    [return: System.Xml.Serialization.XmlElementAttribute("return", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
-    public user finByLogin([System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)] string arg0) {
-        object[] results = this.Invoke("finByLogin", new object[] {
-                    arg0});
-        return ((user)(results[0]));
-    }
-    
-    /// <remarks/>
-    public System.IAsyncResult BeginfinByLogin(string arg0, System.AsyncCallback callback, object asyncState) {
-        return this.BeginInvoke("finByLogin", new object[] {
-                    arg0}, callback, asyncState);
-    }
-    
-    /// <remarks/>
-    public user EndfinByLogin(System.IAsyncResult asyncResult) {
-        object[] results = this.EndInvoke(asyncResult);
-        return ((user)(results[0]));
-    }
-    
-    /// <remarks/>
-    public void finByLoginAsync(string arg0) {
-        this.finByLoginAsync(arg0, null);
-    }
-    
-    /// <remarks/>
-    public void finByLoginAsync(string arg0, object userState) {
-        if ((this.finByLoginOperationCompleted == null)) {
-            this.finByLoginOperationCompleted = new System.Threading.SendOrPostCallback(this.OnfinByLoginOperationCompleted);
-        }
-        this.InvokeAsync("finByLogin", new object[] {
-                    arg0}, this.finByLoginOperationCompleted, userState);
-    }
-    
-    private void OnfinByLoginOperationCompleted(object arg) {
-        if ((this.finByLoginCompleted != null)) {
-            System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-            this.finByLoginCompleted(this, new finByLoginCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
         }
     }
     
@@ -438,6 +438,32 @@ public delegate void saveUserCompletedEventHandler(object sender, System.Compone
 
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.6.1055.0")]
+public delegate void findByLoginCompletedEventHandler(object sender, findByLoginCompletedEventArgs e);
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.6.1055.0")]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+public partial class findByLoginCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+    
+    private object[] results;
+    
+    internal findByLoginCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+            base(exception, cancelled, userState) {
+        this.results = results;
+    }
+    
+    /// <remarks/>
+    public user Result {
+        get {
+            this.RaiseExceptionIfNecessary();
+            return ((user)(this.results[0]));
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.6.1055.0")]
 public delegate void getUsersCompletedEventHandler(object sender, getUsersCompletedEventArgs e);
 
 /// <remarks/>
@@ -465,29 +491,3 @@ public partial class getUsersCompletedEventArgs : System.ComponentModel.AsyncCom
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.6.1055.0")]
 public delegate void unsubscribeCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.6.1055.0")]
-public delegate void finByLoginCompletedEventHandler(object sender, finByLoginCompletedEventArgs e);
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.6.1055.0")]
-[System.Diagnostics.DebuggerStepThroughAttribute()]
-[System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class finByLoginCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-    
-    private object[] results;
-    
-    internal finByLoginCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-            base(exception, cancelled, userState) {
-        this.results = results;
-    }
-    
-    /// <remarks/>
-    public user Result {
-        get {
-            this.RaiseExceptionIfNecessary();
-            return ((user)(this.results[0]));
-        }
-    }
-}
