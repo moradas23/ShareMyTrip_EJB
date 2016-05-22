@@ -58,7 +58,7 @@ public class ObtenerViajesAction implements Action {
 		User usuario = getUserByLogin();
 		
 		if(usuario==null){
-			System.out.println("Usuario y/o contraseña incorrectos");
+			System.out.println("Usuario y/o contraseña incorrectos o cuenta deshabilitada");
 			return;
 			
 		}

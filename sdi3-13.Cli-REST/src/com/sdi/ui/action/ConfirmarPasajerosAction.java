@@ -48,7 +48,7 @@ public class ConfirmarPasajerosAction implements Action {
 		
 		//Si el usuario es null las credenciales son erroneas
 		if(usuario==null){
-			System.out.println("Usuario y/o contraseña erroneos");
+			System.out.println("Usuario y/o contraseña erroneos o cuenta deshabilitada");
 			return;
 		}
 		
