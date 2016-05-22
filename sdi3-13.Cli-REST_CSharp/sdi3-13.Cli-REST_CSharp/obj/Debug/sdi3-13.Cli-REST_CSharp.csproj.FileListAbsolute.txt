@@ -1,0 +1,10 @@
+C:\Users\Carlos\Desktop\SDI_13_EJB\sdi3-13.Cli-REST_CSharp\sdi3-13.Cli-REST_CSharp\bin\Debug\sdi3-13.Cli-REST_CSharp.exe.config
+C:\Users\Carlos\Desktop\SDI_13_EJB\sdi3-13.Cli-REST_CSharp\sdi3-13.Cli-REST_CSharp\obj\Debug\sdi3-13.Cli-REST_CSharp.csprojResolveAssemblyReference.cache
+C:\Users\Carlos\Desktop\SDI_13_EJB\sdi3-13.Cli-REST_CSharp\sdi3-13.Cli-REST_CSharp\bin\Debug\sdi3-13.Cli-REST_CSharp.exe
+C:\Users\Carlos\Desktop\SDI_13_EJB\sdi3-13.Cli-REST_CSharp\sdi3-13.Cli-REST_CSharp\bin\Debug\sdi3-13.Cli-REST_CSharp.pdb
+C:\Users\Carlos\Desktop\SDI_13_EJB\sdi3-13.Cli-REST_CSharp\sdi3-13.Cli-REST_CSharp\obj\Debug\sdi3-13.Cli-REST_CSharp.exe
+C:\Users\Carlos\Desktop\SDI_13_EJB\sdi3-13.Cli-REST_CSharp\sdi3-13.Cli-REST_CSharp\obj\Debug\sdi3-13.Cli-REST_CSharp.pdb
+C:\Users\Carlos\Desktop\SDI_13_EJB\sdi3-13.Cli-REST_CSharp\sdi3-13.Cli-REST_CSharp\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Carlos\Desktop\SDI_13_EJB\sdi3-13.Cli-REST_CSharp\sdi3-13.Cli-REST_CSharp\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Carlos\Desktop\SDI_13_EJB\sdi3-13.Cli-REST_CSharp\sdi3-13.Cli-REST_CSharp\bin\Debug\Json.dll
+C:\Users\Carlos\Desktop\SDI_13_EJB\sdi3-13.Cli-REST_CSharp\sdi3-13.Cli-REST_CSharp\bin\Debug\Json.pdb
