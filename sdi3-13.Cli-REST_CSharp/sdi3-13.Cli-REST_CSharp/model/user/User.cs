@@ -1,11 +1,4 @@
-
-
-
-
-
-using Newtonsoft.Json.Linq;
 using System;
-using System.Runtime.Serialization;
 /**
 * This class is not an entity, it is a DTO with the same fields as a row in the
 * table
@@ -16,29 +9,17 @@ using System.Runtime.Serialization;
 */
 public class User {
 
-	/**
-	 * 
-	 */
-	private static readonly long serialVersionUID = 1L;
-	private long id;
-	private String login;
-	private String password;
-	private String name;
-	private String surname;
-	private String email;
+
+    public long id { get; set; }
+    public string login { get; set; }
+    public string password { get; set; }
+    public string name { get; set; }
+    public string surname { get; set; }
+    public string email { get; set; }
+
 	
 	private UserStatus status;
 
-    public User(string json)
-    {
-        JObject jObject = JObject.Parse(json);
-        JToken jUser = jObject["user"];
-        id = (long)jUser["id"];
-        login = (string)jUser["login"];
-        name = (string)jUser["name"];
-        surname = (string)jUser["surname"];
-        email = (string)jUser["email"];
-    }
 
     public String getEmail() {
 		return email;

@@ -1,10 +1,11 @@
 ﻿
 using Json;
 using Newtonsoft.Json;
-using sdi3_13.Cli_REST_CSharp.HttpUtils;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -126,14 +127,14 @@ namespace sdi3_13.Cli_REST_CSharp
         private static List<Trip> getTripsPromoted(long id)
         {
 
-
+/*
               var client = new RestClient(REST_TRIP_SERVICE_URL);
               var json = client.MakeRequest("/promotor/" + id.ToString());
 
               JavaScriptSerializer json_serializer = new JavaScriptSerializer();
               List<Trip> viajes =
                      (List<Trip>)json_serializer.DeserializeObject(json);
-
+*/
              
 /*
             WebRequest req = WebRequest.Create(@REST_TRIP_SERVICE_URL);
@@ -143,7 +144,7 @@ namespace sdi3_13.Cli_REST_CSharp
             HttpWebResponse resp = req.GetResponse() as HttpWebResponse;
            */
 
-            return viajes;
+            return null;
 
             /*
                         List<Trip> lista = null;
@@ -186,14 +187,25 @@ namespace sdi3_13.Cli_REST_CSharp
             StreamReader readStream = new StreamReader(receiveStream, Encoding.UTF8);
             var json = readStream.ReadToEnd();
 
-             var usuario = JsonConvert.DeserializeObject<User>(json);
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            User usuario = serializer.Deserialize<User>(json);
+
+            /*
+         var jObj = (JObject)JsonConvert.DeserializeObject(json);
+        var usuario = jObj.Children()
+.Cast<User>()
+.Select(j => new
+{
+    name = (string)j.Value["name"],
+
+}).ToList();
+*/
+
+            // IDictionary<string,object> dic = JsonParser.FromJson(json);
 
 
-           // IDictionary<string,object> dic = JsonParser.FromJson(json);
 
-
-
-           // User usuario = new User(json);
+            // User usuario = new User(json);
 
             return usuario;
 
