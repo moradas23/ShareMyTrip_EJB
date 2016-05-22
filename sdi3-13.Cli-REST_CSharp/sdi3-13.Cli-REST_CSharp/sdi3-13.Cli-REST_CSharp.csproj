@@ -61,9 +61,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Authenticator.java" />
-    <Content Include="model\application\Application.java" />
-    <Content Include="model\seat\Seat.java" />
-    <Content Include="model\seat\SeatStatus.java" />
+    <Compile Include="model\application\Application.cs" />
+    <Compile Include="model\seat\Seat.cs" />
+    <Compile Include="model\seat\SeatStatus.cs" />
     <Compile Include="model\trip\AddressPoint.cs" />
     <Compile Include="model\trip\Trip.cs" />
     <Compile Include="model\trip\TripStatus.cs" />

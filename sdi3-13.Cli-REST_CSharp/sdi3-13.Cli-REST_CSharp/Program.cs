@@ -16,20 +16,6 @@ namespace sdi3_13.Cli_REST_CSharp
 {
     class Program
     {
-
-
-        private static readonly String REST_TRIP_SERVICE_URL = "http://localhost:8280"
-            + "/sdi3-13.Web/rest/TripsServiceRs";
-
-        private static readonly String REST_USER_SERVICE_URL = "http://localhost:8280"
-            + "/sdi3-13.Web/rest/UserServiceRs";
-
-        private static readonly String REST_APPLICATION_SERVICE_URL = "http://localhost:8280"
-            + "/sdi3-13.Web/rest/ApplicationServiceRs";
-
-        private static readonly String REST_SEAT_SERVICE_URL = "http://localhost:8280"
-            + "/sdi3-13.Web/rest/SeatServiceRs";
-
         private static String login;
         private static String password;
 
@@ -63,40 +49,107 @@ namespace sdi3_13.Cli_REST_CSharp
                 return;
             }
 
-            Console.WriteLine("ID del viaje");
+            Console.Write("ID del viaje:");
             int idViaje = int.Parse(Console.ReadLine());
 
-            /*  List<Application> solicitantes = getSolicitantesViaje(idViaje);
+          List<Application> solicitantes = getSolicitantesViaje(idViaje);
             
-              if (solicitantes.size() > 0)
+              if (solicitantes.Count > 0)
               {
-                  System.out.println("\nSolicitantes del viaje:");
+                Console.WriteLine("\nSolicitantes del viaje:");
 
                   mostrarSolicitantes(solicitantes);
 
               }
               else
               {
-                  System.out.println("Este viaje no tiene ninguna solicitud de participación");
+                Console.WriteLine("Este viaje no tiene ninguna solicitud de participación");
                   return;
               }
+             
+              Console.Write("Inserte ID del usuario a confirmar:");
+                        long idConfirmado = long.Parse(Console.ReadLine());
 
-              Long idConfirmado = Console.readLong("Inserte ID del usuario a confirmar");
+                        foreach (Application app in solicitantes)
+                        {
+                            if (app.getUserId().Equals(idConfirmado))
+                            {
 
-              for (Application app:solicitantes)
-              {
-                  if (app.getUserId().equals(idConfirmado))
-                  {
+                                aceptarSolicitud(idViaje, idConfirmado);
+                                return;
+                            }
+                        }
 
-                      aceptarSolicitud(idViaje, idConfirmado);
-                      return;
-                  }
-              }
+                        Console.WriteLine("ID no valido");
 
-              System.out.println("ID no valido");
-              */
+
+
+            Console.WriteLine("Pulse cualquier tecla para salir");
+            Console.ReadLine();
+
         }
 
+
+        /**
+         * Muestra los solicitantes por pantalla
+        * 
+        * @param solicitantes
+         */
+        private static void mostrarSolicitantes(List<Application> solicitantes)
+        {
+            foreach (Application app in solicitantes)
+            {
+                mostrarUsuario(getUserById(app.getUserId()));
+
+            }
+        }
+
+
+        /**
+ * Muestra el usuario pasado como parámetro por pantalla
+ * 
+ * @param user
+ */
+        private static void mostrarUsuario(User user)
+        {
+            Console.WriteLine("\n---ID del Usuario: " + user.getId()
+                    + "-------------");
+            Console.WriteLine("Login: " + user.getLogin());
+            Console.WriteLine("Nombre: " + user.getName());
+            Console.WriteLine("Apellidos: " + user.getSurname());
+            Console.WriteLine("Email: " + user.getEmail() + "\n");
+
+        }
+
+
+
+        /**
+ * Borra la solicitud de un pasajero, lo inserta en una plaza y disminuye
+ * una plaza disponible en el viaje
+ * 
+ * @param idViaje
+ * @param idConfirmado
+ */
+        private static void aceptarSolicitud(int idViaje,long idConfirmado)
+        { 
+            // Borrar solicitud
+            borrarSolicitud(idConfirmado, Convert.ToInt64(idViaje));
+
+            // Insertamos el asiento
+            Seat seat = new Seat();
+            seat.setUserId(idConfirmado);
+            seat.setTripId((long)idViaje);
+            seat.setStatus(SeatStatus.ACCEPTED);
+
+            insertarAsiento(seat);
+
+            // Actualizamos viajes
+            Trip viaje = obtenerViaje(Convert.ToInt64(idViaje));
+            viaje.setAvailablePax(viaje.getAvailablePax() - 1);
+            disminuirPlaza(viaje);
+
+            Console.WriteLine("El pasajero ha sido confirmado satisfactoriamente");
+     }
 
 
 
@@ -182,6 +235,126 @@ namespace sdi3_13.Cli_REST_CSharp
         }
 
 
+        private static User getUserById(long id)
+        {
+            WebRequest req = WebRequest.Create(@"http://localhost:8280/sdi3-13.Web/rest/UserServiceRs/id/" + id);
+            req.Method = "GET";
+            req.Headers["Authorization"] = "Basic " + Convert.ToBase64String(Encoding.Default.GetBytes(login + ":" + password));
+            HttpWebResponse resp = req.GetResponse() as HttpWebResponse;
+
+            Stream receiveStream = resp.GetResponseStream();
+            StreamReader readStream = new StreamReader(receiveStream, Encoding.UTF8);
+            var json = readStream.ReadToEnd();
+
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            User usuario = serializer.Deserialize<User>(json);
+
+            return usuario;
+	}
+
+
+        private static List<Application> getSolicitantesViaje(int idViaje)
+        {
+
+            WebRequest req = WebRequest.Create(@"http://localhost:8280/sdi3-13.Web/rest/ApplicationServiceRs/" + idViaje.ToString());
+            req.Method = "GET";
+            req.Headers["Authorization"] = "Basic " + Convert.ToBase64String(Encoding.Default.GetBytes(login + ":" + password));
+            HttpWebResponse resp = req.GetResponse() as HttpWebResponse;
+
+            Stream receiveStream = resp.GetResponseStream();
+            StreamReader readStream = new StreamReader(receiveStream, Encoding.UTF8);
+            var json = readStream.ReadToEnd();
+
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            List<Application> solicitudes = serializer.Deserialize<List<Application>>(json);
+
+            return solicitudes;
+        }
+
+    
+        private static void insertarAsiento(Seat seat)
+        {
+
+            WebRequest req = WebRequest.Create(@"http://localhost:8280/sdi3-13.Web/rest/SeatServiceRs/");
+            req.Method = "PUT";
+            req.Headers["Authorization"] = "Basic " + Convert.ToBase64String(Encoding.Default.GetBytes(login + ":" + password));
+           
+            req.ContentType = "application/json";
+
+            using (var streamWriter = new StreamWriter(req.GetRequestStream()))
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                streamWriter.Write(serializer.Serialize(seat));
+                streamWriter.Flush();
+                streamWriter.Close();
+            }
+
+            HttpWebResponse resp = req.GetResponse() as HttpWebResponse;
+
+
+            HttpWebResponse response = (HttpWebResponse)req.GetResponse();
+            string returnString = response.StatusCode.ToString();
+        }
+
+
+        private static void borrarSolicitud(long idSolicitante, long idViaje)
+        {
+            WebRequest req = WebRequest.Create(@"http://localhost:8280/sdi3-13.Web/rest/ApplicationServiceRs/"+idSolicitante.ToString()+"/"+idViaje.ToString());
+            req.Method = "DELETE";
+            req.Headers["Authorization"] = "Basic " + Convert.ToBase64String(Encoding.Default.GetBytes(login + ":" + password));
+            req.ContentType = "application/json";
+
+            HttpWebResponse resp = req.GetResponse() as HttpWebResponse;
+
+         //   HttpWebResponse response = (HttpWebResponse)req.GetResponse();
+          //  string returnString = response.StatusCode.ToString();
+        }
+
+        private static void disminuirPlaza(Trip viaje)
+        {
+
+            WebRequest req = WebRequest.Create(@"http://localhost:8280/sdi3-13.Web/rest/TripsServiceRs/");
+            req.Method = "POST";
+            req.Headers["Authorization"] = "Basic " + Convert.ToBase64String(Encoding.Default.GetBytes(login + ":" + password));
+
+            req.ContentType = "application/json";
+
+            using (var streamWriter = new StreamWriter(req.GetRequestStream()))
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                streamWriter.Write(serializer.Serialize(viaje));
+                streamWriter.Flush();
+                streamWriter.Close();
+            }
+
+            HttpWebResponse resp = req.GetResponse() as HttpWebResponse;
+
+
+         //   HttpWebResponse response = (HttpWebResponse)req.GetResponse();
+        //    string returnString = response.StatusCode.ToString();
+        }
+
+        private static Trip obtenerViaje(long idViaje)
+        {
+            WebRequest req = WebRequest.Create(@"http://localhost:8280/sdi3-13.Web/rest/TripsServiceRs/viaje/" + idViaje.ToString());
+            req.Method = "GET";
+            req.Headers["Authorization"] = "Basic " + Convert.ToBase64String(Encoding.Default.GetBytes(login + ":" + password));
+
+            HttpWebResponse resp = req.GetResponse() as HttpWebResponse;
+
+            Stream receiveStream = resp.GetResponseStream();
+            StreamReader readStream = new StreamReader(receiveStream, Encoding.UTF8);
+            var json = readStream.ReadToEnd();
+
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            Trip viaje = serializer.Deserialize<Trip>(json);
+
+            
+
+            return viaje;
+	}
+
+   
 
     }
 }
