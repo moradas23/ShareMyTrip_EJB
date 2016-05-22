@@ -24,8 +24,19 @@ public interface TripService {
 	 */
 	List<Trip> findAllDisponibleUser(String login);
 	
+	/**
+	 * Registra el viaje pasado como parametro
+	 * @param trip
+	 * @return
+	 */
 	boolean registrar(RegistrarViajeDto trip);
 	
+	
+	/**
+	 * Busca un viaje por su id
+	 * @param tripId
+	 * @return
+	 */
 	Trip findByIdTrip(Long tripId);
 	
 	
@@ -37,8 +48,17 @@ public interface TripService {
 	 */
 	List<Trip> findByPromoter(Long id);
 	
+	/**
+	 * Actualiza los datos del viaje pasado como parametro
+	 * @param beanModificarViaje
+	 * @return
+	 */
 	boolean modificar(ModificarViajeDto beanModificarViaje);
 	
+	/**
+	 * Para a estado cancelo los viajes pasados como parametro
+	 * @param viajesCancelar
+	 */
 	void cancelarViajes(Map<Long, Trip> viajesCancelar);
 
 	/**
@@ -94,6 +114,10 @@ public interface TripService {
 	 */
 	List<Trip> findViajesHaParticipado(Long id);
 	
+	/**
+	 * Actualiza los datos del viaje pasado como parametro
+	 * @param trip
+	 */
 	void actualizar(Trip trip);
 	
 	/**

@@ -27,7 +27,6 @@ public class ListarUsuariosAction implements Action{
 		
 		TripService tService = new EjbTripServiceService().getTripServicePort();
 		
-		
 		for(User usuario:usuarios){
 			System.out.println("\n---- Id: "+usuario.getId()+" -----------------------");
 			System.out.println("Login: "+usuario.getLogin());
