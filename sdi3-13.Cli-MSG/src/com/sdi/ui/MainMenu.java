@@ -10,7 +10,7 @@ public class MainMenu extends BaseMenu {
 		menuOptions = new Object[][] {	{ 
 			"Cliente de mensajeria", null },
 				{ "Iniciar Sesión", ObtenerViajesAction.class },
-				{ "Admistra Mensajes Invalidos", AdministrarInvalidosAction.class }
+				{ "Administrar Mensajes Invalidos", AdministrarInvalidosAction.class }
 			,};
 	}
 

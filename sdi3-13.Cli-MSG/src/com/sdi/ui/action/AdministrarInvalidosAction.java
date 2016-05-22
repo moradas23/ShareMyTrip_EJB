@@ -25,13 +25,8 @@ public class AdministrarInvalidosAction implements Action{
 	public void execute() throws Exception {
 		initialize();	
 		
-		boolean fin = false;
-		do{
-			int num = Console.readInt("Introduce un 0 para salir:\n");
-			if(num == 0)
-				fin=true;
-		}while(!fin);
-		
+		Console.readInt("Pulsa una tecla para salir");
+
 		con.close();
 	}
 
