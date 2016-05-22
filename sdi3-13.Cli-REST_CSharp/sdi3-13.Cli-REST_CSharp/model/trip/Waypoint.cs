@@ -5,12 +5,8 @@
 
 public class Waypoint { 
 
-	/**
-	 * 
-	 */
-	private static readonly long serialVersionUID = 1L;
-	private double lat;
-	private double lon;
+	public double lat { get; set; }
+    public double lon { get; set; }
 	
 	public Waypoint(double lat, double lon) {
 		this.lat = lat;

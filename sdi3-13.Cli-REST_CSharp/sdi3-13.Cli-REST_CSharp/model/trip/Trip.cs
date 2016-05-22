@@ -1,5 +1,5 @@
-
-
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System;
 /**
 * This class is not an entity, it is a DTO with the same fields as 
@@ -10,28 +10,48 @@ using System;
 *
 */
 public class Trip  {
-	
-	/**
-	 * 
-	 */
-	private static readonly long serialVersionUID = 1L;
 
-	private long id;
-	
-	private AddressPoint departure;
-	private AddressPoint destination;
-	private DateTime arrivalDate;
-	private DateTime departureDate;
-	private DateTime closingDate;
-	private int availablePax = 0; 
-	private int maxPax = 0;
-	private Double estimatedCost = 0.0;
-	private String comments;
-	private TripStatus status;
-	
-	private long promoterId;
-	
-	public AddressPoint getDeparture() {
+	public long id;
+	public AddressPoint departure { get; set; }
+	public AddressPoint destination { get; set; }
+    public long arrivalDate { get; set; }
+    public long departureDate { get; set; }
+    public long closingDate { get; set; }
+    public int availablePax = 0;
+    public int maxPax = 0;
+    public Double estimatedCost = 0.0;
+    public String comments { get; set; }
+    public TripStatus status { get; set; }
+
+    public long promoterId;
+
+    public DateTime getArrivalDate()
+    {
+        DateTime start = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+        DateTime date = start.AddMilliseconds(arrivalDate).ToLocalTime();
+
+        return date;
+    }
+
+
+    public DateTime getDepartureDate()
+    {
+        DateTime start = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+        DateTime date = start.AddMilliseconds(departureDate).ToLocalTime();
+
+        return date;
+    }
+
+
+    public DateTime getClosingDate()
+    {
+        DateTime start = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+        DateTime date = start.AddMilliseconds(closingDate).ToLocalTime();
+
+        return date;
+    }
+
+    public AddressPoint getDeparture() {
 		return departure;
 	}
 
@@ -64,33 +84,6 @@ public class Trip  {
 		this.destination = destination;
 	}
 
-	public DateTime getArrivalDate() {
-		return arrivalDate;
-	}
-
-	public void setArrivalDate(DateTime arrivalDate) {
-		this.arrivalDate = arrivalDate;
-	}
-
-
-	public DateTime getDepartureDate() {
-		return departureDate;
-	}
-
-	public void setDepartureDate(DateTime departureDate) {
-		this.departureDate = departureDate;
-	}
-
-
-	public DateTime getClosingDate() {
-		return closingDate;
-	}
-
-	public void setClosingDate(DateTime closingDate) {
-		this.closingDate = closingDate;
-	}
-
-	
 	public int getAvailablePax() {
 		return availablePax;
 	}

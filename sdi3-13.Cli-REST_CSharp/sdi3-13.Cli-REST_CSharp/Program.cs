@@ -53,7 +53,7 @@ namespace sdi3_13.Cli_REST_CSharp
             if (viajes != null && viajes.Count > 0)
             {
                 Console.WriteLine("\nViajes abiertos como promotor:");
-          //      mostrarViajes(viajes);
+                mostrarViajes(viajes);
 
             }
             else
@@ -67,7 +67,7 @@ namespace sdi3_13.Cli_REST_CSharp
             int idViaje = int.Parse(Console.ReadLine());
 
             /*  List<Application> solicitantes = getSolicitantesViaje(idViaje);
-
+            
               if (solicitantes.size() > 0)
               {
                   System.out.println("\nSolicitantes del viaje:");
@@ -107,13 +107,33 @@ namespace sdi3_13.Cli_REST_CSharp
          */
         private static void obtenerCredenciales()
         {
-            Console.WriteLine("Login:");
+            Console.Write("Login:");
             login = Console.ReadLine();
-            Console.WriteLine("Password:");
+            Console.Write("Password:");
             password = Console.ReadLine();
         }
 
 
+        /**
+ * Muestra por pantalla los viajes pasados como parámetro
+ * 
+ * @param viajes
+ */
+        private static void mostrarViajes(List<Trip> viajes)
+        {
+            foreach (Trip viaje in viajes)
+            {
+                Console.WriteLine("\n---ID del Viaje: " + viaje.getId()
+                        + "-------------");
+                Console.WriteLine("Ciudad Salida: "
+                        + viaje.getDeparture().getCity());
+                Console.WriteLine("Ciudad Destino: "
+                        + viaje.getDestination().getCity());
+                Console.WriteLine("Fecha Salida: " + viaje.getDepartureDate());
+                Console.WriteLine("Fecha llegada: " + viaje.getArrivalDate()
+                        + "\n");
+            }
+        }
 
 
 
@@ -127,60 +147,27 @@ namespace sdi3_13.Cli_REST_CSharp
         private static List<Trip> getTripsPromoted(long id)
         {
 
-/*
-              var client = new RestClient(REST_TRIP_SERVICE_URL);
-              var json = client.MakeRequest("/promotor/" + id.ToString());
-
-              JavaScriptSerializer json_serializer = new JavaScriptSerializer();
-              List<Trip> viajes =
-                     (List<Trip>)json_serializer.DeserializeObject(json);
-*/
-             
-/*
-            WebRequest req = WebRequest.Create(@REST_TRIP_SERVICE_URL);
+            WebRequest req = WebRequest.Create(@"http://localhost:8280/sdi3-13.Web/rest/TripsServiceRs/promotor/" + id.ToString());
             req.Method = "GET";
-            req.Headers["Authorization"] = "Basic " + Convert.ToBase64String(Encoding.Default.GetBytes("user1:user1"));
-            //req.Credentials = new NetworkCredential("username", "password");
+            req.Headers["Authorization"] = "Basic " + Convert.ToBase64String(Encoding.Default.GetBytes(login + ":" + password));
             HttpWebResponse resp = req.GetResponse() as HttpWebResponse;
-           */
 
-            return null;
+            Stream receiveStream = resp.GetResponseStream();
+            StreamReader readStream = new StreamReader(receiveStream, Encoding.UTF8);
+            var json = readStream.ReadToEnd();
 
-            /*
-                        List<Trip> lista = null;
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            List<Trip> viajes = serializer.Deserialize<List<Trip>>(json);
 
-                        HttpClient client = new HttpClient();
-                        client.BaseAddress = new Uri(REST_TRIP_SERVICE_URL);
-
-                        // Add an Accept header for JSON format.
-                        client.DefaultRequestHeaders.Accept.Add(
-                        new MediaTypeWithQualityHeaderValue("application/json"));
-
-                        // List data response.
-                        HttpResponseMessage response = client.GetAsync("/promotor/" + id.ToString()).Result;  
-                        if (response.IsSuccessStatusCode)
-                        {
-                            List<Trip> lista = await response.Content.ReadAsAsync > List<Trip> > ();
-                        }
-
-                        return lista;*/
+            return viajes;
         }
 
         private static User getUserByLogin()
         {
-            /*
-            var client = new RestClient(@"http://localhost:8280/sdi3-13.Web/rest/UserServiceRs");
-            var json = client.MakeRequest("/login/" + login);
-
-            JavaScriptSerializer json_serializer = new JavaScriptSerializer();
-            User usuario =
-                   (User)json_serializer.DeserializeObject(json);
-             */      
 
            WebRequest req = WebRequest.Create(@"http://localhost:8280/sdi3-13.Web/rest/UserServiceRs/login/"+login);
             req.Method = "GET";
-            req.Headers["Authorization"] = "Basic " + Convert.ToBase64String(Encoding.Default.GetBytes("user1:user1"));
-            //req.Credentials = new NetworkCredential("username", "password");
+            req.Headers["Authorization"] = "Basic " + Convert.ToBase64String(Encoding.Default.GetBytes(login+":"+password));
             HttpWebResponse resp = req.GetResponse() as HttpWebResponse;
 
             Stream receiveStream = resp.GetResponseStream();
@@ -189,23 +176,6 @@ namespace sdi3_13.Cli_REST_CSharp
 
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             User usuario = serializer.Deserialize<User>(json);
-
-            /*
-         var jObj = (JObject)JsonConvert.DeserializeObject(json);
-        var usuario = jObj.Children()
-.Cast<User>()
-.Select(j => new
-{
-    name = (string)j.Value["name"],
-
-}).ToList();
-*/
-
-            // IDictionary<string,object> dic = JsonParser.FromJson(json);
-
-
-
-            // User usuario = new User(json);
 
             return usuario;
 

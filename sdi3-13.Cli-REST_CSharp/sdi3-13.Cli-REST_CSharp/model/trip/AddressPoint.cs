@@ -7,18 +7,16 @@
  */
 
 public class AddressPoint {
-	/**
-	 * 
-	 */
-	private static readonly long serialVersionUID = 1L;
-	private string address;
-	private string city;
-	private string state;
-	private string country;
-	private string zipCode;
-	private Waypoint waypoint;
-	
-	public AddressPoint(string address, string city, string state, 
+
+
+	public string address { get; set; }
+    public string city { get; set; }
+    public string state { get; set; }
+    public string country { get; set; }
+    public string zipCode { get; set; }
+    public Waypoint waypoint { get; set; }
+
+    public AddressPoint(string address, string city, string state, 
 			string country, string zipCode, Waypoint waypoint) {
 		
 
