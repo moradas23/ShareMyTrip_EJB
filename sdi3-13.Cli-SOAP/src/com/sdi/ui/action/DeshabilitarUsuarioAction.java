@@ -22,7 +22,7 @@ public class DeshabilitarUsuarioAction implements Action {
 		UserService service = new EjbUserServiceService().getUserServicePort();
 		SeatService seatService = new EjbSeatServiceService().getSeatServicePort();
 		
-		User usuario = service.finByLogin(login);
+		User usuario = service.findByLogin(login);
 
 		if (usuario != null) {
 			if (usuario.getStatus().equals(UserStatus.ACTIVE)) {
