@@ -1,10 +1,6 @@
 package com.sdi.business.impl.classes;
 
 import java.util.Date;
-import java.util.Map;
-
-import javax.faces.context.FacesContext;
-
 import com.sdi.dto.RegistrarViajeDto;
 import com.sdi.infrastructure.Factories;
 import com.sdi.model.AddressPoint;
@@ -12,13 +8,13 @@ import com.sdi.model.Seat;
 import com.sdi.model.SeatStatus;
 import com.sdi.model.Trip;
 import com.sdi.model.TripStatus;
-import com.sdi.model.UserLogin;
 import com.sdi.model.Waypoint;
 import com.sdi.persistence.SeatDao;
 import com.sdi.persistence.TripDao;
 import com.sdi.persistence.exception.AlreadyPersistedException;
 
 public class TripRegistrar {
+	
 	public boolean registerTrip(RegistrarViajeDto trip) {
 		TripDao dao = Factories.persistence.createTripDao();
 		
@@ -32,9 +28,9 @@ public class TripRegistrar {
 					Double.parseDouble(trip.getLongZipCodeFrom()));
 		}
 	
-//		AddressPoint addresSalida = new AddressPoint(trip.getAdressFrom(),
-//				trip.getCityFrom(), trip.getProvinceFrom(), trip.getCountryFrom(),
-//				trip.getPostalCodeFrom(), wSalida);
+		AddressPoint addresSalida = new AddressPoint(trip.getAdressFrom(),
+				trip.getCityFrom(), trip.getProvinceFrom(), trip.getCountryFrom(),
+				trip.getPostalCodeFrom(), wSalida);
 		
 		//Creamos AdreesPoint del Destino
 		Waypoint wDestino = new Waypoint(null,null);
@@ -45,13 +41,11 @@ public class TripRegistrar {
 					Double.parseDouble(trip.getLongZipCodeTo()));
 		}
 		
-//		AddressPoint addresDestino = new AddressPoint(trip.getAdressTo(),
-//				trip.getCityTo(), trip.getProvinceTo(), trip.getCountryTo(),
-//				trip.getPostalCodeTo(), wDestino);
+		AddressPoint addresDestino = new AddressPoint(trip.getAdressTo(),
+				trip.getCityTo(), trip.getProvinceTo(), trip.getCountryTo(),
+				trip.getPostalCodeTo(), wDestino);
 
-		AddressPoint addresSalida = null;
 		viaje.setDeparture(addresSalida);
-		AddressPoint addresDestino = null;
 		viaje.setDestination(addresDestino);
 		
 		viaje.setDepartureDate(trip.getDateFrom());
@@ -93,10 +87,6 @@ public class TripRegistrar {
 		}
 		
 		//Obtenemos el id del promotor 
-		/*
-		UserLogin usuario = (UserLogin) getObjectFromSession("LOGGEDIN_USER");
-		viaje.setPromoterId(usuario.getId());
-		*/
 		viaje.setPromoterId(trip.getIdUsuario());
 		
 		Trip tripMismaFecha = dao
@@ -131,8 +121,4 @@ public class TripRegistrar {
 		return true;
 	} 
 
-	private Object getObjectFromSession(String key) {
-		return FacesContext.getCurrentInstance().getExternalContext()
-				.getSessionMap().get(key);
-	}
 }

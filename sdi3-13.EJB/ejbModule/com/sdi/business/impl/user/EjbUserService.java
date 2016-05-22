@@ -15,8 +15,6 @@ import com.sdi.model.User;
  * Clase de implementación (una de las posibles) del interfaz de la fachada de
  * servicios
  * 
- * @author Enrique
- * 
  */
 @Stateless
 @WebService(name="UserService")
