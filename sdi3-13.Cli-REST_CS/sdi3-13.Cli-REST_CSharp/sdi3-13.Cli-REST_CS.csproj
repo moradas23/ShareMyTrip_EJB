@@ -63,7 +63,6 @@
     <Compile Include="model\trip\TripStatus.cs" />
     <Compile Include="model\trip\Waypoint.cs" />
     <Compile Include="model\user\User.cs" />
-    <Compile Include="model\user\UserLogin.cs" />
     <Compile Include="model\user\UserStatus.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

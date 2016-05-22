@@ -35,8 +35,6 @@ public class ConfirmarPasajerosAction implements Action {
 	private String login;
 	private String password;
 
-	
-	
 	@Override
 	public void execute() throws Exception {
 		
