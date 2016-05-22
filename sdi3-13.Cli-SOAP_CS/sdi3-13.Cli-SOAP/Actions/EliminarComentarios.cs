@@ -29,6 +29,8 @@ namespace sdi3_13.Cli_SOAP.Actions
                     Console.WriteLine("Comentario nº" + contador + ": "
                             + comen.comment + " - Puntuación: "
                             + comen.value);
+
+                    contador++;
                 }
 
                 Console.Write("Seleccione el número del comentario a borrar: ");
