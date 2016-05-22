@@ -31,7 +31,7 @@ public partial class EjbLoginServiceService : System.Web.Services.Protocols.Soap
     
     /// <remarks/>
     public EjbLoginServiceService() {
-        this.Url = "http://DESKTOP-MFFUMQQ:8280/sdi3-13.EJB/LoginService";
+        this.Url = "http://localhost:8280/sdi3-13.EJB/LoginService";
     }
     
     /// <remarks/>

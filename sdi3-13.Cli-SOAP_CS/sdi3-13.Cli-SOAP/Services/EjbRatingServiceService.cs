@@ -35,7 +35,7 @@ public partial class EjbRatingServiceService : System.Web.Services.Protocols.Soa
     
     /// <remarks/>
     public EjbRatingServiceService() {
-        this.Url = "http://DESKTOP-MFFUMQQ:8280/sdi3-13.EJB/RatingService";
+        this.Url = "http://localhost:8280/sdi3-13.EJB/RatingService";
     }
     
     /// <remarks/>

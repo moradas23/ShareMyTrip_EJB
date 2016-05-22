@@ -51,7 +51,7 @@ public partial class EjbSeatServiceService : System.Web.Services.Protocols.SoapH
     
     /// <remarks/>
     public EjbSeatServiceService() {
-        this.Url = "http://DESKTOP-MFFUMQQ:8280/sdi3-13.EJB/SeatService";
+        this.Url = "http://localhost:8280/sdi3-13.EJB/SeatService";
     }
     
     /// <remarks/>

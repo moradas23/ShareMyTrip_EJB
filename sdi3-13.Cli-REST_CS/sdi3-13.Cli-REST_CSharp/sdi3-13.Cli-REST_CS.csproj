@@ -60,7 +60,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Authenticator.java" />
     <Compile Include="model\application\Application.cs" />
     <Compile Include="model\seat\Seat.cs" />
     <Compile Include="model\seat\SeatStatus.cs" />

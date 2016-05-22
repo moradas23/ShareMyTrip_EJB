@@ -65,7 +65,7 @@ public partial class EjbTripServiceService : System.Web.Services.Protocols.SoapH
     
     /// <remarks/>
     public EjbTripServiceService() {
-        this.Url = "http://DESKTOP-MFFUMQQ:8280/sdi3-13.EJB/TripService";
+        this.Url = "http://localhost:8280/sdi3-13.EJB/TripService";
     }
     
     /// <remarks/>
