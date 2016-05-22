@@ -39,7 +39,7 @@ public partial class EjbUserServiceService : System.Web.Services.Protocols.SoapH
     
     /// <remarks/>
     public EjbUserServiceService() {
-        this.Url = "http://DESKTOP-MFFUMQQ:8280/sdi3-13.EJB/UserService";
+        this.Url = "http://localhost:8280/sdi3-13.EJB/UserService";
     }
     
     /// <remarks/>
